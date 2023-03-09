@@ -2,6 +2,9 @@
     <string name="app_name">APM</string>
     <string name="generos">Géneros</string>
     <string name="urbano_latino">#Urbano latino</string>
+    <string name="mis_entradas">Mis entradas</string>
+    <string name="artista_1">Artista 1</string>
+    <string name="lugar">Lugar</string>
     <string name="title_home">Home</string>
     <string name="title_map">Map</string>
     <string name="title_user">User</string>
