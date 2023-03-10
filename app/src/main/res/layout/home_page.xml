@@ -250,7 +250,8 @@
                 android:text="Nombre Artista"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView36"
-                tools:layout_editor_absoluteX="34dp" />
+                app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                app:layout_constraintStart_toStartOf="@+id/imageView9" />
 
             <TextView
                 android:id="@+id/textView31"
@@ -280,8 +281,9 @@
                 android:layout_marginTop="8dp"
                 android:text="Concert Musical Festival"
                 android:textSize="11sp"
-                app:layout_constraintTop_toBottomOf="@+id/textView36"
-                tools:layout_editor_absoluteX="23dp" />
+                app:layout_constraintEnd_toEndOf="@+id/textView36"
+                app:layout_constraintStart_toStartOf="@+id/textView36"
+                app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
             <TextView
                 android:id="@+id/textView33"
@@ -301,8 +303,9 @@
                 android:layout_marginTop="8dp"
                 android:text="15 - Agosto - 2023"
                 android:textSize="11sp"
-                app:layout_constraintTop_toBottomOf="@+id/textView30"
-                tools:layout_editor_absoluteX="38dp" />
+                app:layout_constraintEnd_toEndOf="@+id/textView30"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
