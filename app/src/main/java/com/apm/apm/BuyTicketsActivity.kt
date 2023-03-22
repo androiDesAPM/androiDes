@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BuyTicketsActivity : AppCompatActivity() {
+class BuyTicketsActivity : GetNavigationBarActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buy_ticket)
 
-        val concertDetailsView = findViewById<>(R.id.arti)
+        //Creamos la barra inferior
+        this.getNavigationView()
     }
 }

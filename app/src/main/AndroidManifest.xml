@@ -28,7 +28,8 @@
         <activity android:name=".MyProfile" />
         <activity android:name=".MyTicketsActivity" />
         <activity android:name=".MyCoinsActivity" />
-
+        <activity android:name=".BuyTicketsActivity" />
+        <activity android:name=".ConcertDetailsActivity" />
     </application>
 
 </manifest>

@@ -12,5 +12,7 @@ class MainActivity : GetNavigationBarActivity() {
         //Creamos la barra inferior
         this.getNavigationView()
 
+
+
     }
 }

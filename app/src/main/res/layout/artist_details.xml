@@ -236,7 +236,7 @@
                     android:textStyle="bold" />
 
                 <ImageButton
-                    android:id="@+id/imageButton6"
+                    android:id="@+id/chatButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="280dp"
@@ -246,7 +246,7 @@
                     app:tint="#5B1EC6" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/VerMas1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="270dp"
@@ -306,7 +306,7 @@
                     android:textStyle="bold" />
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/chatButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="280dp"
@@ -316,7 +316,7 @@
                     app:tint="#5B1EC6" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/VerMas2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="270dp"
