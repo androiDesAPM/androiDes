@@ -19,6 +19,12 @@ class MyProfile : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val walletButton = findViewById<Button>(R.id.walletButton)
+        walletButton.setOnClickListener {
+            val intent = Intent(this, MyCoinsActivity::class.java)
+            startActivity(intent)
+        }
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

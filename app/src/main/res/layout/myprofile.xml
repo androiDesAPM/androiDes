@@ -294,7 +294,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/walletButton"
         android:layout_width="158dp"
         android:layout_height="55dp"
         android:layout_marginStart="59dp"

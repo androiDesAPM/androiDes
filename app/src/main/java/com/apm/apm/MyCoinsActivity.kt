@@ -2,18 +2,14 @@ package com.apm.apm
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MyTicketsActivity : AppCompatActivity() {
+class MyCoinsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.user_tickets)
+        setContentView(R.layout.mywallet)
 
 //        val ticketBox1 = findViewById<ConstraintLayout>(R.id.ticketBox1)
 //        ticketBox1.setOnClickListener {
@@ -40,4 +36,5 @@ class MyTicketsActivity : AppCompatActivity() {
         }
 
     }
+
 }

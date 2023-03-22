@@ -26,6 +26,7 @@
         <activity android:name=".SearchArtistActivity" />
         <activity android:name=".MyProfile" />
         <activity android:name=".MyTicketsActivity" />
+        <activity android:name=".MyCoinsActivity" />
 
     </application>
 
