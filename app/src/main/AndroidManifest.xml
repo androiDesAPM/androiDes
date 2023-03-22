@@ -21,10 +21,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".GetNavigationBarActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".ArtistDetailsActivity" />
         <activity android:name=".SearchArtistActivity" />
         <activity android:name=".MyProfile" />
+        <activity android:name=".MyTicketsActivity" />
+        <activity android:name=".MyCoinsActivity" />
 
     </application>
 

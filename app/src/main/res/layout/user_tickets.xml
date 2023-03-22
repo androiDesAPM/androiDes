@@ -56,7 +56,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+        android:id="@+id/ticketBox1"
         android:layout_width="331dp"
         android:layout_height="152dp"
         android:layout_marginTop="32dp"
@@ -154,10 +154,10 @@
         android:layout_height="152dp"
         android:background="@drawable/layout_bg"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/ticketBox1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+        app:layout_constraintStart_toStartOf="@+id/ticketBox1"
+        app:layout_constraintTop_toBottomOf="@+id/ticketBox1"
         app:layout_constraintVertical_bias="0.060000002"
         tools:showIn="@layout/user_tickets">
 
