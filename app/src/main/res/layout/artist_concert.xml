@@ -11,6 +11,7 @@
         android:layout_height="75dp"
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
+        app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
