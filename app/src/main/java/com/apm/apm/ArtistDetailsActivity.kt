@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabItem
 
 internal class ArtistDetailsActivity : GetNavigationBarActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,8 @@
 package com.apm.apm
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
 
@@ -28,6 +30,12 @@ class MainActivity : GetNavigationBarActivity() {
                 return false
             }
         })
+
+        val favourite_artist = findViewById<Button>(R.id.ArtistasFavoritosConcertIcon1)
+        favourite_artist.setOnClickListener {
+            val intent = Intent(this, ArtistDetailsActivity::class.java)
+            startActivity(intent)
+        }
 
         //Creamos la barra inferior
         this.getNavigationView()
