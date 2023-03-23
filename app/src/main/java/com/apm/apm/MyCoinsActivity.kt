@@ -2,6 +2,8 @@ package com.apm.apm
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -11,10 +13,10 @@ class MyCoinsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mywallet)
 
-//        val ticketBox1 = findViewById<ConstraintLayout>(R.id.ticketBox1)
-//        ticketBox1.setOnClickListener {
-//            Toast.makeText(this, "No hay tickets disponibles", Toast.LENGTH_SHORT).show()
-//        }
+        val ticketBox1 = findViewById<Button>(R.id.donarButton)
+        ticketBox1.setOnClickListener {
+            Toast.makeText(this, "Donación realizada con éxito", Toast.LENGTH_LONG).show()
+        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->

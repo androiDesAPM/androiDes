@@ -17,14 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" >
+        app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="412dp"
-        android:layout_height="177dp"
+        android:layout_height="140dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -33,27 +33,28 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="115dp"
+            android:layout_height="107dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.098"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/usericon" />
 
         <TextView
             android:id="@+id/textView17"
-            android:layout_width="135dp"
-            android:layout_height="23dp"
+            android:layout_width="196dp"
+            android:layout_height="29dp"
             android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
             android:text="Nombre de usuario"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            tools:layout_editor_absoluteY="52dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView18"
@@ -61,18 +62,18 @@
             android:layout_height="27dp"
             android:layout_marginTop="16dp"
             android:text="email@example.com"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="287dp"
-        android:layout_height="355dp"
+        android:layout_width="314dp"
+        android:layout_height="385dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintHorizontal_bias="0.350"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
         app:layout_constraintVertical_bias="0.0">
@@ -83,20 +84,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Nombre y Apellidos"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
             android:id="@+id/editTextTextPersonName"
-            android:layout_width="186dp"
+            android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:background="#E1E4E6"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="  María Pombo García"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView19"
             app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -106,21 +108,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Fecha de nacimiento"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
         <EditText
             android:id="@+id/editTextTextPersonName3"
-            android:layout_width="186dp"
+            android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:background="#E1E4E6"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="   29/12/1999"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView20"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -130,21 +132,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Dirección predeterminada"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
 
         <EditText
             android:id="@+id/editTextTextPersonName2"
-            android:layout_width="186dp"
+            android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:background="#E1E4E6"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="   A Coruña, A Coruña"
-            android:textSize="14sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -154,15 +156,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Tus preferencias"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout7"
-            android:layout_width="251dp"
-            android:layout_height="34dp"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:background="#E0E3E5"
             android:backgroundTint="#E0E3E5"
@@ -171,68 +173,66 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName5"
-                android:layout_width="54dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="65dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="7dp"
                 android:background="#C1C7CC"
-                android:ems="10"
+                android:gravity="center"
                 android:inputType="textPersonName"
-                android:shadowColor="#020202"
-                android:text=" Bad Gyal"
+                android:text="Bad Gyal"
                 android:textColorLink="#000000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName7"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName7"
-                android:layout_width="27dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="35dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="7dp"
                 android:background="#C1C7CC"
-                android:ems="10"
+                android:gravity="center"
                 android:inputType="textPersonName"
-                android:shadowColor="#020202"
                 android:text="BTS"
                 android:textColorLink="#000000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName5"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName6"
-                android:layout_width="98dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="36dp"
+                android:layout_width="126dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="7dp"
                 android:background="#C1C7CC"
-                android:ems="10"
+                android:gravity="center"
                 android:inputType="textPersonName"
-                android:shadowColor="#020202"
                 android:text="Imagine Dragons"
-                android:textColorLink="#000000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.555" />
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName5"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
+                android:layout_marginEnd="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.461"
                 app:srcCompat="@drawable/pencil" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="251dp"
-            android:layout_height="34dp"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:background="#E0E3E5"
             android:backgroundTint="#E0E3E5"
@@ -241,44 +241,41 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName10"
-                android:layout_width="28dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:background="#C1C7CC"
-                android:ems="10"
+                android:gravity="center"
                 android:inputType="textPersonName"
-                android:shadowColor="#020202"
-                android:text=" Pop"
-                android:textColorLink="#000000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9"
-                app:layout_constraintHorizontal_bias="0.842"
+                android:text="Pop"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTextPersonName9"
-                android:layout_width="48dp"
-                android:layout_height="17dp"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="67dp"
+                android:layout_marginTop="8dp"
                 android:background="#C1C7CC"
+                android:gravity="center"
                 android:inputType="textPersonName"
-                android:shadowColor="#020202"
-                android:text=" Urbano"
-                android:textColorLink="#000000"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.47"
-                tools:layout_editor_absoluteX="67dp" />
+                android:text="Urbano"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
+                android:layout_marginEnd="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.461"
                 app:srcCompat="@drawable/pencil" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -294,43 +291,43 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/walletButton"
-        android:layout_width="158dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#4DDAEC"
-        android:text="Mis monedas"
-        android:textAllCaps="false"
-        android:textColor="#0E0D0D"
-        android:textSize="14sp"
-        app:icon="@drawable/coins"
-        app:iconGravity="textStart"
-        app:iconSize="30dp"
-        app:iconTint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/ticketsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/ticketsButton"
-        app:layout_constraintTop_toTopOf="@+id/ticketsButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
         android:id="@+id/ticketsButton"
-        android:layout_width="149dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="151dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="85dp"
         android:backgroundTint="#4DDAEC"
         android:text="Mis entradas"
         android:textAllCaps="false"
         android:textColor="#0E0D0D"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:icon="@drawable/tickets"
-        app:iconPadding="5dp"
-        app:iconSize="30dp"
+        app:iconGravity="start"
+        app:iconPadding="0dp"
+        app:iconSize="25dp"
         app:iconTint="#090909"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/walletButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/walletButton"
+        android:layout_width="151dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="85dp"
+        android:backgroundTint="#4DDAEC"
+        android:text="Mis monedas"
+        android:textAllCaps="false"
+        android:textColor="#0E0D0D"
+        android:textSize="18sp"
+        app:icon="@drawable/coins"
+        app:iconGravity="start"
+        app:iconPadding="0dp"
+        app:iconSize="28dp"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ticketsButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
