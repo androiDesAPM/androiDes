@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class ConcertDetailsActivity : AppCompatActivity() {
+class ConcertDetailsActivity : GetNavigationBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_concert)
@@ -15,6 +15,9 @@ class ConcertDetailsActivity : AppCompatActivity() {
             val intent = Intent(this, BuyTicketsActivity::class.java)
             startActivity(intent)
         }
+
+        //Creamos la barra inferior
+        this.getNavigationView()
 
     }
 }
