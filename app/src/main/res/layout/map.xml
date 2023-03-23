@@ -34,13 +34,14 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <SearchView
-        android:id="@+id/searchView2"
+        android:id="@+id/searchViewOnMap"
         android:layout_width="356dp"
         android:layout_height="62dp"
         android:layout_marginTop="16dp"
         android:background="#E6E4E4"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="18dp" />
+        tools:layout_editor_absoluteX="18dp"
+        app:queryHint="Busca tu concierto aquí..."/>
 
     <TextView
         android:id="@+id/textView22"
