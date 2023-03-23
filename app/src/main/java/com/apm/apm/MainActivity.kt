@@ -18,8 +18,8 @@ class MainActivity : GetNavigationBarActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@MainActivity, "Busqueda del artista $query", Toast.LENGTH_LONG)
-                    .show()
+                val intent = Intent(this@MainActivity, SearchArtistActivity::class.java)
+                startActivity(intent)
                 return true
             }
 
@@ -33,14 +33,23 @@ class MainActivity : GetNavigationBarActivity() {
 
         val favourite_artist = findViewById<Button>(R.id.ArtistasFavoritosConcertIcon1)
         favourite_artist.setOnClickListener {
-            val intent = Intent(this, ArtistDetailsActivity::class.java)
+            val intent = Intent(this, ConcertDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val favourite_genre = findViewById<Button>(R.id.GenerosFavoritosConcertIcon1)
+        favourite_genre.setOnClickListener {
+            val intent = Intent(this, ConcertDetailsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val near_you = findViewById<Button>(R.id.GenerosCercaDeTi)
+        near_you.setOnClickListener {
+            val intent = Intent(this, ConcertDetailsActivity::class.java)
             startActivity(intent)
         }
 
         //Creamos la barra inferior
         this.getNavigationView()
-
-
-
     }
 }
