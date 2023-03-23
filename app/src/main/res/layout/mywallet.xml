@@ -22,7 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="412dp"
-        android:layout_height="177dp"
+        android:layout_height="140dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,21 +31,21 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="147dp"
-            android:layout_height="114dp"
-            android:layout_marginTop="36dp"
+            android:layout_width="115dp"
+            android:layout_height="107dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintHorizontal_bias="0.098"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/usericon" />
+            android:background="@drawable/usericon" />
 
         <TextView
             android:id="@+id/textView17"
-            android:layout_width="182dp"
-            android:layout_height="32dp"
+            android:layout_width="196dp"
+            android:layout_height="29dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:text="Nombre de usuario"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -58,11 +58,11 @@
             android:id="@+id/textView18"
             android:layout_width="144dp"
             android:layout_height="27dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="16dp"
             android:text="email@example.com"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,8 +180,9 @@
             android:layout_height="4dp"
             android:background="?android:attr/listDivider"
             android:backgroundTint="#252222"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="236dp" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -198,7 +199,7 @@
         app:layout_constraintVertical_bias="0.296">
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/misMonedasLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
