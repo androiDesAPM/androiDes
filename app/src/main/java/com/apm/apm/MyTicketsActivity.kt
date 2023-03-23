@@ -14,17 +14,15 @@ class MyTicketsActivity : GetNavigationBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_tickets)
 
-//        val ticketBox1 = findViewById<ConstraintLayout>(R.id.ticketBox1)
-//        ticketBox1.setOnClickListener {
-//            Toast.makeText(this, "No hay tickets disponibles", Toast.LENGTH_SHORT).show()
-//        }
+        val three_points_button_1 = findViewById<ImageButton>(R.id.three_points_1)
+        three_points_button_1.setOnClickListener {
+            Toast.makeText(this, "No hay opciones disponibles", Toast.LENGTH_SHORT).show()
+        }
 
-//        val button = findViewById<ImageButton>(R.id.imageButton8_2)
-//        button.setOnClickListener {
-//            val intent = Intent(this, MapActivity::class.java)
-//            startActivity(intent)
-//        }
-
+        val three_points_button_2 = findViewById<ImageButton>(R.id.three_points_2)
+        three_points_button_2.setOnClickListener {
+            Toast.makeText(this, "No hay opciones disponibles", Toast.LENGTH_SHORT).show()
+        }
 
         //Creamos la barra inferior
         this.getNavigationView()
