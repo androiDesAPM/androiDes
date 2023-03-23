@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,36 +14,36 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="366dp"
+                android:id="@+id/searchArtistHomeView"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginTop="28dp"
                 android:iconifiedByDefault="false"
                 android:isScrollContainer="false"
                 android:queryHint="Buscar artista"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout5"
+                android:id="@+id/constraintLayoutArtistasFavoritos"
                 android:layout_width="400dp"
                 android:layout_height="250dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="124dp"
                 android:layout_marginEnd="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:id="@+id/view5"
+                    android:id="@+id/viewArtistasFavoritos"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
@@ -52,7 +52,7 @@
                     tools:layout_editor_absoluteX="0dp" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textViewArtistasFavoritos"
                     android:layout_width="160dp"
                     android:layout_height="25dp"
                     android:layout_marginStart="120dp"
@@ -66,210 +66,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="29dp"
-                    android:text="Nombre Artista"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView25"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="29dp"
-                    android:text="20 - Agosto - 2023"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView17"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Concert Music Festival"
-                    android:textSize="12sp"
+                <Button
+                    android:id="@+id/ArtistasFavoritosConcertIcon1"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginBottom="52dp"
+                    android:backgroundTint="@color/material_dynamic_neutral80"
+                    android:text="Rosalia 15-Agost-2023 Concert Music Festival"
+                    android:textAllCaps="false"
+                    android:textColor="#0E0D0D"
+                    android:textSize="15sp"
+                    app:icon="@drawable/usericon"
+                    app:iconGravity="top"
+                    app:iconPadding="0dp"
+                    app:iconSize="60dp"
+                    app:iconTint="#090909"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView23"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="parent"
                     tools:srcCompat="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="52dp"
-                    android:text="Nombre Artista"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView4"
-                    app:layout_constraintStart_toEndOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="52dp"
-                    android:text="15 - Agosto - 2023"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView26"
-                    app:layout_constraintStart_toEndOf="@+id/textView25"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:text="Concert Music Festival"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView17"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView5"-->
-<!--                android:layout_width="164dp"-->
-<!--                android:layout_height="28dp"-->
-<!--                android:layout_marginStart="129dp"-->
-<!--                android:layout_marginEnd="129dp"-->
-<!--                android:text="Mis Géneros Favoritos"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.545"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                tools:layout_editor_absoluteY="322dp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView38"-->
-<!--                android:layout_width="78dp"-->
-<!--                android:layout_height="28dp"-->
-<!--                android:layout_marginStart="129dp"-->
-<!--                android:layout_marginEnd="129dp"-->
-<!--                android:text="Cerca de ti"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.493"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                tools:layout_editor_absoluteY="605dp" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView9"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginTop="17dp"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/textView30"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView5"-->
-<!--                app:layout_constraintVertical_bias="0.0"-->
-<!--                tools:srcCompat="@tools:sample/avatars" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView10"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView5"-->
-<!--                tools:layout_editor_absoluteX="186dp"-->
-<!--                tools:srcCompat="@tools:sample/avatars" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView30"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:text="Nombre Artista"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toTopOf="@+id/textView36"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView9"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView9" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView31"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Nombre Artista"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView10"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView10"-->
-<!--                tools:layout_editor_absoluteY="503dp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView35"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Concert Musical Festival"-->
-<!--                android:textSize="11sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView10"-->
-<!--                app:layout_constraintHorizontal_bias="0.0"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView10"-->
-<!--                tools:layout_editor_absoluteY="554dp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView37"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="Concert Musical Festival"-->
-<!--                android:textSize="11sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView36"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView36"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView36" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView33"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="20 - Agosto - 2023"-->
-<!--                android:textSize="11sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/imageView10"-->
-<!--                app:layout_constraintHorizontal_bias="0.384"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/imageView10"-->
-<!--                tools:layout_editor_absoluteY="531dp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView36"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:text="15 - Agosto - 2023"-->
-<!--                android:textSize="11sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textView30"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView30"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView30" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -277,11 +95,65 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="76dp"
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
         app:layout_anchor="@+id/nestedScrollView"
         app:layout_anchorGravity="bottom|center"
         app:menu="@menu/bottom_nav_menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutGenerosFavoritos"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="6dp">
+
+        <View
+            android:id="@+id/viewGenerosFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/textViewGenerosFavoritos"
+            android:layout_width="160dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="120dp"
+            android:gravity="center"
+            android:text="Mis Generos Favoritos"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/GenerosFavoritosConcertIcon1"
+            android:layout_width="155dp"
+            android:layout_height="146dp"
+            android:layout_marginBottom="52dp"
+            android:backgroundTint="@color/material_dynamic_neutral80"
+            android:text="Rosalia 15-Agost-2023 Concert Music Festival"
+            android:textAllCaps="false"
+            android:textColor="#0E0D0D"
+            android:textSize="15sp"
+            app:icon="@drawable/usericon"
+            app:iconGravity="top"
+            app:iconPadding="0dp"
+            app:iconSize="60dp"
+            app:iconTint="#090909"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
