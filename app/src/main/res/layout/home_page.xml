@@ -88,9 +88,119 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutGenerosFavoritos"
+                android:layout_width="400dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="420dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:id="@+id/viewGenerosFavoritos"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/textViewGenerosFavoritos"
+                    android:layout_width="160dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="120dp"
+                    android:gravity="center"
+                    android:text="Mis Generos Favoritos"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <Button
+                    android:id="@+id/GenerosFavoritosConcertIcon1"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginBottom="52dp"
+                    android:backgroundTint="@color/material_dynamic_neutral80"
+                    android:text="Rosalia 15-Agost-2023 Concert Music Festival"
+                    android:textAllCaps="false"
+                    android:textColor="#0E0D0D"
+                    android:textSize="15sp"
+                    app:icon="@drawable/usericon"
+                    app:iconGravity="top"
+                    app:iconPadding="0dp"
+                    app:iconSize="60dp"
+                    app:iconTint="#090909"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutCercaDeTi"
+                    android:layout_width="400dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="650dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <View
+                        android:id="@+id/viewCercaDeTi"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="0dp" />
+
+                    <TextView
+                        android:id="@+id/textViewCercaDeTi"
+                        android:layout_width="160dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="120dp"
+                        android:gravity="center"
+                        android:text="Cerca de ti"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <Button
+                        android:id="@+id/GenerosCercaDeTi"
+                        android:layout_width="155dp"
+                        android:layout_height="146dp"
+                        android:layout_marginBottom="52dp"
+                        android:backgroundTint="@color/material_dynamic_neutral80"
+                        android:text="Rosalia 15-Agost-2023 Concert Music Festival"
+                        android:textAllCaps="false"
+                        android:textColor="#0E0D0D"
+                        android:textSize="15sp"
+                        app:icon="@drawable/usericon"
+                        app:iconGravity="top"
+                        app:iconPadding="0dp"
+                        app:iconSize="60dp"
+                        app:iconTint="#090909"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -101,59 +211,5 @@
         app:layout_anchor="@+id/nestedScrollView"
         app:layout_anchorGravity="bottom|center"
         app:menu="@menu/bottom_nav_menu" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayoutGenerosFavoritos"
-        android:layout_width="400dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="6dp">
-
-        <View
-            android:id="@+id/viewGenerosFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <TextView
-            android:id="@+id/textViewGenerosFavoritos"
-            android:layout_width="160dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="120dp"
-            android:gravity="center"
-            android:text="Mis Generos Favoritos"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <Button
-            android:id="@+id/GenerosFavoritosConcertIcon1"
-            android:layout_width="155dp"
-            android:layout_height="146dp"
-            android:layout_marginBottom="52dp"
-            android:backgroundTint="@color/material_dynamic_neutral80"
-            android:text="Rosalia 15-Agost-2023 Concert Music Festival"
-            android:textAllCaps="false"
-            android:textColor="#0E0D0D"
-            android:textSize="15sp"
-            app:icon="@drawable/usericon"
-            app:iconGravity="top"
-            app:iconPadding="0dp"
-            app:iconSize="60dp"
-            app:iconTint="#090909"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
