@@ -6,6 +6,379 @@
     android:layout_height="match_parent"
     android:backgroundTint="#00BCD4">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="115dp"
+            android:layout_height="107dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/usericon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.098"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="1dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="#252222"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="196dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="36dp"
+            android:text="Nombre de usuario"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="144dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="12dp"
+            android:text="email@example.com"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        app:layout_constraintVertical_bias="0.579"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+            app:layout_constraintVertical_bias="0.928">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Nombre y Apellidos"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="36dp"
+                android:background="#E1E4E6"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  María Pombo García"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Fecha de nacimiento"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName3"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="#E1E4E6"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="   29/12/1999"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Dirección predeterminada"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="12dp"
+                android:background="#E1E4E6"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="   A Coruña, A Coruña"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Tus preferencias"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="#E0E3E5"
+                android:backgroundTint="#E0E3E5"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="#C1C7CC"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="Bad Gyal"
+                    android:textColorLink="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName7"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName7"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="#C1C7CC"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="BTS"
+                    android:textColorLink="#000000"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#C1C7CC"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="Imagine Dragons"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.461"
+                    app:srcCompat="@drawable/pencil" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout9"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="#E0E3E5"
+                android:backgroundTint="#E0E3E5"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName10"
+                    android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#C1C7CC"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="Pop"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName9"
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="67dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="#C1C7CC"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:text="Urbano"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.461"
+                    app:srcCompat="@drawable/pencil" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
+                app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+                app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2"
+                app:srcCompat="@drawable/pencil" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="#252222"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
+
+            <Button
+                android:id="@+id/ticketsButton"
+                android:layout_width="151dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="#4DDAEC"
+                android:text="Mis entradas"
+                android:textAllCaps="false"
+                android:textColor="#0E0D0D"
+                android:textSize="18sp"
+                app:icon="@drawable/tickets"
+                app:iconGravity="start"
+                app:iconPadding="0dp"
+                app:iconSize="25dp"
+                app:iconTint="#090909"
+                app:layout_constraintEnd_toStartOf="@+id/walletButton"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+            <Button
+                android:id="@+id/walletButton"
+                android:layout_width="151dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="33dp"
+                android:backgroundTint="#4DDAEC"
+                android:text="Mis monedas"
+                android:textAllCaps="false"
+                android:textColor="#0E0D0D"
+                android:textSize="18sp"
+                app:icon="@drawable/coins"
+                app:iconGravity="start"
+                app:iconPadding="0dp"
+                app:iconSize="28dp"
+                app:iconTint="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ticketsButton"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="64dp"
+                android:backgroundTint="#00252222"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ticketsButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -21,341 +394,6 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
-        android:layout_width="412dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="115dp"
-            android:layout_height="107dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/usericon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.098"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="196dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:text="Nombre de usuario"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="144dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="16dp"
-            android:text="email@example.com"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="409dp"
-            android:layout_height="4dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="4dp"
-            android:background="?android:attr/listDivider"
-            android:backgroundTint="#252222"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout6"
-        android:layout_width="314dp"
-        android:layout_height="385dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.350"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:text="Nombre y Apellidos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="12dp"
-            android:background="#E1E4E6"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="  María Pombo García"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView19"
-            app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Fecha de nacimiento"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="#E1E4E6"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="   29/12/1999"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView20"
-            app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Dirección predeterminada"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
-            android:layout_width="250dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="12dp"
-            android:background="#E1E4E6"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="   A Coruña, A Coruña"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView21"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Tus preferencias"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout7"
-            android:layout_width="300dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="#E0E3E5"
-            android:backgroundTint="#E0E3E5"
-            app:layout_constraintStart_toStartOf="@+id/textView22"
-            app:layout_constraintTop_toBottomOf="@+id/textView22">
-
-            <EditText
-                android:id="@+id/editTextTextPersonName5"
-                android:layout_width="65dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="7dp"
-                android:background="#C1C7CC"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:text="Bad Gyal"
-                android:textColorLink="#000000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName6"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName7"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName7"
-                android:layout_width="35dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="7dp"
-                android:background="#C1C7CC"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:text="BTS"
-                android:textColorLink="#000000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName5"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName6"
-                android:layout_width="126dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="7dp"
-                android:background="#C1C7CC"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:text="Imagine Dragons"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView7"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName5"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.461"
-                app:srcCompat="@drawable/pencil" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="300dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="#E0E3E5"
-            android:backgroundTint="#E0E3E5"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
-
-            <EditText
-                android:id="@+id/editTextTextPersonName10"
-                android:layout_width="40dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="#C1C7CC"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:text="Pop"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName9"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="67dp"
-                android:layout_marginTop="8dp"
-                android:background="#C1C7CC"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:text="Urbano"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.461"
-                app:srcCompat="@drawable/pencil" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2"
-            app:srcCompat="@drawable/pencil" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/ticketsButton"
-        android:layout_width="151dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="85dp"
-        android:backgroundTint="#4DDAEC"
-        android:text="Mis entradas"
-        android:textAllCaps="false"
-        android:textColor="#0E0D0D"
-        android:textSize="18sp"
-        app:icon="@drawable/tickets"
-        app:iconGravity="start"
-        app:iconPadding="0dp"
-        app:iconSize="25dp"
-        app:iconTint="#090909"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/walletButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/walletButton"
-        android:layout_width="151dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="85dp"
-        android:backgroundTint="#4DDAEC"
-        android:text="Mis monedas"
-        android:textAllCaps="false"
-        android:textColor="#0E0D0D"
-        android:textSize="18sp"
-        app:icon="@drawable/coins"
-        app:iconGravity="start"
-        app:iconPadding="0dp"
-        app:iconSize="28dp"
-        app:iconTint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ticketsButton" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="409dp"
-        android:layout_height="4dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="10dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="#252222"
-        app:layout_constraintBottom_toTopOf="@+id/ticketsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
