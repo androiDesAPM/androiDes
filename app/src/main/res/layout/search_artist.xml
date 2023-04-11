@@ -21,30 +21,34 @@
 
     <SearchView
         android:id="@+id/searchViewa"
-        android:layout_width="409dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="361dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:iconifiedByDefault="false"
         android:isScrollContainer="false"
         android:queryHint="Buscar artista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="319dp"
-        android:layout_height="154dp"
+        android:layout_width="342dp"
+        android:layout_height="379dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="500dp"
         android:background="#45939393"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/searchViewa">
 
         <ListView
+            android:id="@+id/listViewArtists"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:choiceMode="singleChoice"

@@ -20,6 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".GetNavigationBarActivity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".ArtistDetailsActivity" />
+        <activity android:name=".ArtistDetailsPastActivity" />
+        <activity android:name=".SearchArtistActivity" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".MyTicketsActivity" />
+        <activity android:name=".MyCoinsActivity" />
+        <activity android:name=".BuyTicketsActivity" />
+        <activity android:name=".ConcertDetailsActivity" />
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
@@ -55,7 +56,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+        android:id="@+id/ticketBox1"
         android:layout_width="331dp"
         android:layout_height="152dp"
         android:layout_marginTop="32dp"
@@ -133,7 +134,7 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout_2" />
 
         <ImageButton
-            android:id="@+id/imageButton8_2"
+            android:id="@+id/three_points_1"
             android:layout_width="62dp"
             android:layout_height="73dp"
             android:background="#00FFFFFF"
@@ -153,10 +154,10 @@
         android:layout_height="152dp"
         android:background="@drawable/layout_bg"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/ticketBox1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+        app:layout_constraintStart_toStartOf="@+id/ticketBox1"
+        app:layout_constraintTop_toBottomOf="@+id/ticketBox1"
         app:layout_constraintVertical_bias="0.060000002"
         tools:showIn="@layout/user_tickets">
 
@@ -228,16 +229,16 @@
             app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
         <ImageButton
-            android:id="@+id/imageButton8"
-            android:layout_width="32dp"
-            android:layout_height="42dp"
+            android:id="@+id/three_points_2"
+            android:layout_width="63dp"
+            android:layout_height="70dp"
             android:background="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.946"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.209"
+            app:layout_constraintVertical_bias="0.235"
             app:srcCompat="@drawable/baseline_more_vert_24"
             app:tint="#575757" />
 
