@@ -21,7 +21,9 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="40dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -157,7 +159,6 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="95dp"
                 android:layout_marginLeft="95dp"
                 android:layout_marginTop="4dp"
@@ -171,6 +172,7 @@
                 app:tabMode="scrollable">
 
                 <com.google.android.material.tabs.TabItem
+                    android:id="@+id/proximos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Próximos" />
@@ -182,18 +184,22 @@
                     android:text="Pasados"
                     tools:layout_editor_absoluteX="271dp"
                     tools:layout_editor_absoluteY="337dp" />
+
+
             </com.google.android.material.tabs.TabLayout>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/list"
-                android:name="com.apm.apm.FutureConcertsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabs"
-                tools:layout="@layout/fragment_future_concerts_list"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
