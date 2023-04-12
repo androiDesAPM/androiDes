@@ -1,12 +1,19 @@
 package com.apm.apm
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.SearchView
 import android.widget.Toast
 
 class MainActivity : GetNavigationBarActivity() {
+
+    private lateinit var searchView: SearchView
+    private lateinit var fragmentContainer: FrameLayout
+    private lateinit var searchArtistFragment: SearchArtistFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -14,22 +21,42 @@ class MainActivity : GetNavigationBarActivity() {
         setContentView(R.layout.home_page)
 
         //Funcionalidad para el buscador del artista
-        val searchView = findViewById<SearchView>(R.id.searchArtistHomeView)
+        val searchView = findViewById<androidx.appcompat.widget.SearchView>(R.id.searchArtistHomeView)
+        fragmentContainer = findViewById(R.id.frameLayoutSearch)
+        searchArtistFragment = SearchArtistFragment()
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                val intent = Intent(this@MainActivity, SearchArtistActivity::class.java)
-                startActivity(intent)
-                return true
+                return false
             }
 
             //TODO borrar esto si al final no metemos sugerencias
             override fun onQueryTextChange(newText: String): Boolean {
-                // Escribir aqui el código de las sugerencias para cuando el usuario este escribiendo
-                // Habría que poner algo como app:querySuggestionEnabled="true" en el xml
-                return false
+                val isQueryEmpty = newText.isNullOrEmpty()
+                if (isQueryEmpty) {
+                    supportFragmentManager.beginTransaction()
+                        .remove(searchArtistFragment)
+                        .commit()
+                } else {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayoutSearch, searchArtistFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                return true
             }
         })
+
+        val clearButton = findViewById<Button>(R.id.clear_button)
+        clearButton.setOnClickListener {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
+            searchView.setQuery("", false)
+            supportFragmentManager.beginTransaction()
+                .remove(searchArtistFragment)
+                .commit()
+        }
+
 
         val favourite_artist = findViewById<Button>(R.id.ArtistasFavoritosConcertIcon1)
         favourite_artist.setOnClickListener {
