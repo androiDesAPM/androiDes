@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/constraintLayoutGenerosFavoritos"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:layout_marginTop="270dp"
+    app:layout_constraintStart_toStartOf="@+id/constraintLayoutArtistasFavoritos"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="MissingConstraints">
+
+    <View
+        android:id="@+id/viewGenerosFavoritos"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textViewGenerosFavoritos"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:text="Mis Generos Favoritos"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/GenerosFavoritosConcertIcon1"
+        android:layout_width="155dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/material_dynamic_neutral80"
+        android:text="Rosalia 15-Agost-2023 Concert Music Festival"
+        android:textAllCaps="false"
+        android:textColor="#0E0D0D"
+        android:textSize="15sp"
+        app:icon="@drawable/usericon"
+        app:iconGravity="top"
+        app:iconPadding="0dp"
+        app:iconSize="60dp"
+        app:iconTint="#090909"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGenerosFavoritos"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <!--    <android.support.v7.widget.RecyclerView-->
+    <!--        android:id="@+id/my_recycler_view"-->
+    <!--        android:scrollbars="vertical"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
