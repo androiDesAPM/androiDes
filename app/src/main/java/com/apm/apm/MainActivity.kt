@@ -57,25 +57,6 @@ class MainActivity : GetNavigationBarActivity() {
                 .commit()
         }
 
-
-//        val favourite_artist = findViewById<Button>(R.id.ArtistasFavoritosConcertIcon1)
-//        favourite_artist.setOnClickListener {
-//            val intent = Intent(this, ConcertDetailsActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val favourite_genre = findViewById<Button>(R.id.GenerosFavoritosConcertIcon1)
-//        favourite_genre.setOnClickListener {
-//            val intent = Intent(this, ConcertDetailsActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val near_you = findViewById<Button>(R.id.GenerosCercaDeTi)
-//        near_you.setOnClickListener {
-//            val intent = Intent(this, ConcertDetailsActivity::class.java)
-//            startActivity(intent)
-//        }
-
         //Creamos la barra inferior
         this.getNavigationView()
     }

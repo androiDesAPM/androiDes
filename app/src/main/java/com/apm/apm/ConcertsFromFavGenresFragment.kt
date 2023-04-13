@@ -1,9 +1,11 @@
 package com.apm.apm
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 
 class ConcertsFromFavGenresFragment : Fragment() {
@@ -18,11 +20,12 @@ class ConcertsFromFavGenresFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val favourite_artist = findViewById<Button>(R.id.ArtistasFavoritosConcertIcon1)
-//        favourite_artist.setOnClickListener {
-//            val intent = Intent(this, ConcertDetailsActivity::class.java)
-//            startActivity(intent)
-//        }
+        super.onViewCreated(view, savedInstanceState)
+        val favouriteGenre = view.findViewById<Button>(R.id.GenerosFavoritosConcertIcon1)
+        favouriteGenre.setOnClickListener {
+            val intent = Intent(requireContext(), ConcertDetailsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
