@@ -11,15 +11,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MapActivity : GetNavigationBarActivity() {
 
-    private lateinit var mapFragment: MapFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.map)
 
         val searchView = findViewById<SearchView>(R.id.searchViewOnMap)
-
-        mapFragment = MapFragment()
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
