@@ -37,7 +37,7 @@
                 android:layout_weight="2000"
                 android:background="#00FFFFFF"
                 android:backgroundTint="#00FFFFFF"
-                app:icon="@drawable/baseline_more_vert_24"
+                app:icon="@drawable/baseline_clear_24"
                 app:iconTint="#474747" />
 
         </LinearLayout>
