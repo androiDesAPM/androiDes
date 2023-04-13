@@ -6,16 +6,13 @@
     android:layout_height="match_parent"
     android:backgroundTintMode="screen">
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="445dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/googlemaps" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/list"
+        android:name="com.apm.apm.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
