@@ -73,9 +73,9 @@
                     android:name="com.apm.apm.ConcertsFromFavGenresFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="270dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listConcertsFavArtists"
                     tools:layout="@layout/fragment_concerts_fav_genres"
                     tools:layout_editor_absoluteX="0dp" />
 
@@ -84,9 +84,9 @@
                     android:name="com.apm.apm.ConcertsFromNearUbicationFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="540dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listConcertsFavConcerts"
                     tools:layout="@layout/fragment_concerts_near_ubication"
                     tools:layout_editor_absoluteX="0dp" />
 
@@ -125,7 +125,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="76dp"
+            android:layout_height="wrap_content"
             app:itemIconTint="@color/black"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"

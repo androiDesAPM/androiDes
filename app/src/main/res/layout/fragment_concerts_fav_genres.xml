@@ -5,7 +5,7 @@
 
     android:id="@+id/constraintLayoutGenerosFavoritos"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="270dp"
     app:layout_constraintStart_toStartOf="@+id/constraintLayoutArtistasFavoritos"
     app:layout_constraintTop_toTopOf="parent"
