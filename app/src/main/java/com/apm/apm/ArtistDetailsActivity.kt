@@ -1,16 +1,12 @@
 package com.apm.apm
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.apm.apm.adapter.TabAdapter
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
+
 
 internal class ArtistDetailsActivity : GetNavigationBarActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {

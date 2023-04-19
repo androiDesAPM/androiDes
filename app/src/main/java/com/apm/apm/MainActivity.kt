@@ -1,13 +1,11 @@
 package com.apm.apm
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.SearchView
-import android.widget.Toast
 
 class MainActivity : GetNavigationBarActivity() {
 
