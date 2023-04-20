@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginHorizontal="100dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_gravity="center_horizontal"
+    android:rowCount="4"
+    android:columnCount="3"
+    android:background="#6A939393">
+
+    <TextView
+        android:id="@+id/concertNameFuture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del concierto"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/concertDateFuture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha del concierto"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/concertCountryFuture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="País"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/chatButtonFuture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:background="@android:drawable/stat_notify_chat"
+        android:backgroundTint="#5B1EC6"/>
+
+    <TextView
+        android:id="@+id/VerMasFuture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver más"
+        android:layout_row="3"
+        android:layout_column="2"
+        android:textAllCaps="false"
+        android:textColor="#172FD5" />
+
+</GridLayout>
