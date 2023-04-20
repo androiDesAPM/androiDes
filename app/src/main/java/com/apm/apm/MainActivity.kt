@@ -2,10 +2,16 @@ package com.apm.apm
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.SearchView
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.apm.apm.objects.Concert
+import kotlinx.coroutines.*
+import java.time.LocalDate
 
 class MainActivity : GetNavigationBarActivity() {
 
@@ -17,6 +23,8 @@ class MainActivity : GetNavigationBarActivity() {
 
         //Set de la vista
         setContentView(R.layout.home_page)
+
+//        getConcertsCorrutine2(findViewById(R.id.progressba2r))
 
         //Funcionalidad para el buscador del artista
         val searchView = findViewById<androidx.appcompat.widget.SearchView>(R.id.searchArtistHomeView)
@@ -58,4 +66,17 @@ class MainActivity : GetNavigationBarActivity() {
         //Creamos la barra inferior
         this.getNavigationView()
     }
+
+//    private fun getConcertsCorrutine2(progressBar: ProgressBar) {
+//        GlobalScope.launch { // créase unha nova corrutina en segundo plano
+//            delay(3000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
+//
+//            progressBar.visibility = View.INVISIBLE
+//        }
+//
+//        progressBar.visibility = View.VISIBLE
+//
+//        println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
+//        Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
+//    }
 }
