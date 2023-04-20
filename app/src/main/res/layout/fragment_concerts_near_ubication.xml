@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
+
     android:id="@+id/constraintLayoutCercaDeTi"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
     android:layout_marginBottom="180dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="@+id/constraintLayoutGenerosFavoritos"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.58000004"
-    tools:ignore="MissingConstraints">
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <View
         android:id="@+id/viewCercaDeTi"
@@ -28,7 +29,7 @@
         android:layout_height="25dp"
         android:layout_marginTop="7dp"
         android:gravity="center"
-        android:text="Cerca de ti"
+        android:text="Conciertos Cerca de ti"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,26 +37,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
-        android:id="@+id/GenerosCercaDeTi"
-        android:layout_width="155dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="48dp"
-        android:backgroundTint="@color/material_dynamic_neutral80"
-        android:text="Rosalia 15-Agost-2023 Concert Music Festival"
-        android:textAllCaps="false"
-        android:textColor="#0E0D0D"
-        android:textSize="15sp"
-        app:icon="@drawable/usericon"
-        app:iconGravity="top"
-        app:iconPadding="0dp"
-        app:iconSize="60dp"
-        app:iconTint="#090909"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ProgressBar
+        android:id="@+id/progressbar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/listConcertsNearUbicationRecycleView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCercaDeTi"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listConcertsNearUbicationRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,11 @@
 package com.apm.apm
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FavArtistAdapter
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import kotlinx.coroutines.delay
 
 class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
