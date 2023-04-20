@@ -8,4 +8,9 @@
     <string name="title_home">Home</string>
     <string name="title_map">Map</string>
     <string name="title_user">User</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
 </resources>
