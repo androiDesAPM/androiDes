@@ -23,13 +23,13 @@ class FavGenresAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
     }
     override fun getItemCount() = dataSet.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavGenresAdapter.ConcertFavGenresViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConcertFavGenresViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.concerts_fav_artist_row, parent, false)
-        return FavGenresAdapter.ConcertFavGenresViewHolder(view)
+        return ConcertFavGenresViewHolder(view)
     }
 
     override fun onBindViewHolder(
-        holder: FavGenresAdapter.ConcertFavGenresViewHolder,
+        holder: ConcertFavGenresViewHolder,
         position: Int
     ) {
         val context = holder.itemView.context

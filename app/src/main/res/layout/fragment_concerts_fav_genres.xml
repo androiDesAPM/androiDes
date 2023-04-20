@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/textViewGenerosFavoritos"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginTop="7dp"
         android:gravity="center"

@@ -23,7 +23,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     private lateinit var adapter: FavArtistAdapter
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
-    val concerts = mutableListOf<Concert>()
+    private val concerts = mutableListOf<Concert>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
