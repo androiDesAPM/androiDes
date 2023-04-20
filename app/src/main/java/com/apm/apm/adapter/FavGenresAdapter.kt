@@ -10,9 +10,9 @@ import com.apm.apm.ConcertDetailsActivity
 import com.apm.apm.R
 import com.apm.apm.objects.Concert
 
-class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapter<FavArtistAdapter.ConcertFavArtistViewHolder>() {
+class FavGenresAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapter<FavGenresAdapter.ConcertFavGenresViewHolder>() {
 
-    class ConcertFavArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ConcertFavGenresViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Concert) {
             val nameTextView: TextView = itemView.findViewById(R.id.nombreArtista)
             nameTextView.text = item.concertArtistName
@@ -23,12 +23,15 @@ class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
     }
     override fun getItemCount() = dataSet.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConcertFavArtistViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavGenresAdapter.ConcertFavGenresViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.concerts_fav_artist_row, parent, false)
-        return ConcertFavArtistViewHolder(view)
+        return FavGenresAdapter.ConcertFavGenresViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ConcertFavArtistViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: FavGenresAdapter.ConcertFavGenresViewHolder,
+        position: Int
+    ) {
         val context = holder.itemView.context
         holder.bind(dataSet[position])
         holder.itemView.setOnClickListener {
