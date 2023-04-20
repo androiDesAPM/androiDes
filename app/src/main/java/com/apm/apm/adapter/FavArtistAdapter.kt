@@ -6,19 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.R
+import com.apm.apm.objects.Concert
 
-class FavArtistAdapter : RecyclerView.Adapter<FavArtistAdapter.TuViewHolder>() {
-
-    private val items = listOf("Item 1", "Item 2", "Item 3")
+class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapter<FavArtistAdapter.TuViewHolder>() {
 
     class TuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: String) {
+        fun bind(item: Concert) {
             val nameTextView: TextView = itemView.findViewById(R.id.nombreArtista)
-            nameTextView.text = item
+            nameTextView.text = item.concertArtistName
+            val generoArtista: TextView = itemView.findViewById(R.id.generoArtista)
+            generoArtista.text = item.concertLocationName
+
         }
     }
-
-    override fun getItemCount() = items.size
+    override fun getItemCount() = dataSet.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.concerts_fav_artist_row, parent, false)
@@ -26,6 +27,6 @@ class FavArtistAdapter : RecyclerView.Adapter<FavArtistAdapter.TuViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TuViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(dataSet[position])
     }
 }

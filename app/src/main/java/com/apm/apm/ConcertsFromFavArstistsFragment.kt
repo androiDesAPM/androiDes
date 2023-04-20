@@ -8,17 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FavArtistAdapter
-import com.apm.apm.data.BuyTicketOption
+import com.apm.apm.objects.Concert
+import java.time.LocalDate
 
 class ConcertsFromFavArstistsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FavArtistAdapter
 
-    val options = listOf(
-        BuyTicketOption("Ticketmaster"),
-        BuyTicketOption("Página oficial del artista"),
-        BuyTicketOption("Entradas.com")
+    val concerts = listOf(
+        Concert("Lugar concierto", LocalDate.now(),"nombreArtista"),
+        Concert("Lugar concierto", LocalDate.now(),"nombreArtista"),
+        Concert("Lugar concierto", LocalDate.now(),"nombreArtista")
     )
 
     override fun onCreateView(
@@ -34,7 +35,11 @@ class ConcertsFromFavArstistsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.listConcertsFavArtistsRecycleView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = FavArtistAdapter()
+        val layoutManager = LinearLayoutManager(this.context)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView.layoutManager = layoutManager
+
+        adapter = FavArtistAdapter(concerts)
         recyclerView.adapter = adapter
 
         return view
