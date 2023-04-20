@@ -55,13 +55,6 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
         val progressBar: ProgressBar = view.findViewById(R.id.progressbar)
         progressBar.visibility = View.VISIBLE
-
-        concerts.add(Concert("Lugar concierto", LocalDate.now(), "Rosalía"))
-        concerts.add(Concert("Lugar concierto2", LocalDate.now(), "Bad Gyal"))
-        concerts.add(Concert("Lugar concierto3", LocalDate.now(), "nombreArtista3"))
-        concerts.add(Concert("Lugar concierto4", LocalDate.now(), "nombreArtista4"))
-        concerts.add(Concert("Lugar concierto5", LocalDate.now(), "nombreArtista5"))
-
         lifecycleScope.launch {
             getConcertsCorrutine(progressBar)
 
@@ -70,7 +63,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
+            delay(10000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
             //Petición a la API
 
@@ -81,13 +74,14 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
             concerts.add(Concert("Lugar concierto4", LocalDate.now(), "nombreArtista4"))
             concerts.add(Concert("Lugar concierto5", LocalDate.now(), "nombreArtista5"))
 
+            adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         }
 
         progressBar.visibility = View.VISIBLE
 
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
-        Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
+        //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
 
 
