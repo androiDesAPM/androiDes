@@ -40,11 +40,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         val view = inflater.inflate(R.layout.fragment_concerts_fav_artists, container, false)
 
         recyclerView = view.findViewById(R.id.listConcertsFavArtistsRecycleView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val layoutManager = LinearLayoutManager(this.context)
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         adapter = FavArtistAdapter(concerts)
         recyclerView.adapter = adapter
@@ -66,7 +62,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(10000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
+            delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
             //Petición a la API
             //val apiService = ApiClient().getRetrofit().create(APIService::class.java)
