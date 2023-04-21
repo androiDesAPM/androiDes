@@ -2,20 +2,16 @@ package com.apm.apm
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.apm.apm.objects.Concert
-import kotlinx.coroutines.*
-import java.time.LocalDate
+
+enum class ProviderType{
+    BASIC
+}
 
 class MainActivity : GetNavigationBarActivity() {
 
-    private lateinit var searchView: SearchView
     private lateinit var fragmentContainer: FrameLayout
     private lateinit var searchArtistFragment: SearchArtistFragment
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +34,7 @@ class MainActivity : GetNavigationBarActivity() {
 
             //TODO borrar esto si al final no metemos sugerencias
             override fun onQueryTextChange(newText: String): Boolean {
-                val isQueryEmpty = newText.isNullOrEmpty()
+                val isQueryEmpty = newText.isEmpty()
                 if (isQueryEmpty) {
                     supportFragmentManager.beginTransaction()
                         .remove(searchArtistFragment)
