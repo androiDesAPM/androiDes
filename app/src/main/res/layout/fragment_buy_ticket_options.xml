@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBarFutureConcerts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_buy_ticket"
         android:layout_marginTop="20dp"
