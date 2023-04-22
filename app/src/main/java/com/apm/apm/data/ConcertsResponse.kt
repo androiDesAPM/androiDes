@@ -1,15 +1,27 @@
 package com.apm.apm.data
 
+import com.google.gson.annotations.SerializedName
+
 data class ConcertsResponse(
-    val datetime: String,
+
+    @SerializedName("starts_at")
+    val starts_at: String,
+
+    @SerializedName("artist")
     val artist: Artist,
+
+    @SerializedName("venue")
     val venue: Venue
+
+
 ) {
     data class Artist(
-        val name: String
+        @SerializedName("name")
+        val nameArtist: String
     )
 
     data class Venue(
-        val name: String
+        @SerializedName("name")
+        val nameVenue: String
     )
 }

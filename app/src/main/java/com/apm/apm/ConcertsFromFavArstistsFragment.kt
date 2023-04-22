@@ -18,7 +18,6 @@ import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Call
 import java.time.LocalDate
 
 
@@ -65,14 +64,15 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
             //Petición a la API
-            //val apiService = ApiClient().getRetrofit().create(APIService::class.java)
-            //val call = apiService.getFavArtistsConcerts("artists/Bad%20gyal/events?app_id=2eafd9228a7ac50b936e915fbd48bc45&date=upcoming")
-            //val concertsApi = call.body()
-            //if(call.isSuccessful){
-              //  println("Llama bien a la api")
-            //}
-            //val call : Call<ConcertsResponse> = ApiClient().getRetrofit().create(APIService: :class.java).getFavArtistsConcerts("Bad gyal")
-            //Añadir los conciertos encontrados
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            val call = apiService.getFavArtistsConcerts("artists/Bad%20gyal/events?app_id=2eafd9228a7ac50b936e915fbd48bc45&date=upcoming")
+            val response = call.body()
+
+            if (call.isSuccessful) {
+                println("Call successful :)")
+            }
+
+          //Añadir los conciertos encontrados
             concerts.add(Concert("Lugar concierto", LocalDate.now(), "Rosalía"))
             concerts.add(Concert("Lugar concierto2", LocalDate.now(), "Bad Gyal"))
             concerts.add(Concert("Lugar concierto3", LocalDate.now(), "nombreArtista3"))
