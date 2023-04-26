@@ -10,11 +10,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FavGenresAdapter
+import com.apm.apm.api.APIService
+import com.apm.apm.api.ApiClient
+import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ConcertsFromFavGenresFragment : Fragment() {
 
@@ -23,6 +28,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
+    private val favGenres = mutableListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,23 +61,38 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(10000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-
-            //TODO Petición a la API
-
-            //Añadir los conciertos encontrados
-            concerts.add(Concert("Lugar concierto", LocalDate.now(), "Rosalía"))
-            concerts.add(Concert("Lugar concierto2", LocalDate.now(), "Bad Gyal"))
-            concerts.add(Concert("Lugar concierto3", LocalDate.now(), "nombreArtista3"))
-            concerts.add(Concert("Lugar concierto4", LocalDate.now(), "nombreArtista4"))
-            concerts.add(Concert("Lugar concierto5", LocalDate.now(), "nombreArtista5"))
-
+            delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
+            //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val formattedDateTime = currentDateTime.format(formatter)
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            //Esta lista mas adelante se sacara de la base de datos
+            // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
+            // id del genero pop KnvZfZ7vAev
+            // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego
+            favGenres.addAll(listOf("KZazBEonSMnZfZ7vkE1"))
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            //Petición a la API
+            for (genre in favGenres) {
+                val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&subGenreId=$genre"
+                val call = apiService.getFavArtistsConcerts(url)
+                val response = call.body()
+                println(response)
+                if (call.isSuccessful && response != null)  {
+                    val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                    concerts.addAll(concertsApi)
+                }
+            }
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         }
 
-        //TODO hay que poner esto en otro sitio
         progressBar.visibility = View.VISIBLE
+
+        println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
+        //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
 
 

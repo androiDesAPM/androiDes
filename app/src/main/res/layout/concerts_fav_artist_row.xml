@@ -31,6 +31,13 @@
         android:layout_marginTop="4dp"
         android:textSize="14sp"
         android:textColor="#666666" />
+    <TextView
+        android:id="@+id/fechaConcierto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:textColor="#666666" />
 
 </LinearLayout>
 

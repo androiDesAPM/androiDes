@@ -7,7 +7,7 @@ class ApiClient {
 
     public fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://rest.bandsintown.com/")
+            .baseUrl("https://app.ticketmaster.com/discovery/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

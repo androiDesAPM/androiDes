@@ -7,5 +7,5 @@ import retrofit2.http.Url
 
 interface APIService {
     @GET
-    suspend fun getFavArtistsConcerts(@Url url:String): Response<List<ConcertsResponse>>
+    suspend fun getFavArtistsConcerts(@Url url:String): Response<ConcertsResponse>
 }

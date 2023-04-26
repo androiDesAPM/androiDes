@@ -18,7 +18,8 @@ class ConcertsNearYouAdapter(private val dataSet: List<Concert>) : RecyclerView.
             nameTextView.text = item.concertArtistName
             val generoArtista: TextView = itemView.findViewById(R.id.generoArtista)
             generoArtista.text = item.concertLocationName
-
+            val fechaConcierto: TextView = itemView.findViewById(R.id.fechaConcierto)
+            fechaConcierto.text = item.concertDate.toString()
         }
     }
     override fun getItemCount() = dataSet.size

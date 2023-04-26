@@ -14,11 +14,13 @@ import com.apm.apm.adapter.FavArtistAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
@@ -28,8 +30,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
-    private val concertsByApi = mutableListOf<ConcertsResponse>()
-
+    private val favArtists = mutableListOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,23 +63,26 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-
-            //Petición a la API
+            //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val formattedDateTime = currentDateTime.format(formatter)
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            //Esta lista mas adelante se sacara de la base de datos
+            favArtists.addAll(listOf("Melendi", "Rosalia", "Estopa"))
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
-            val call = apiService.getFavArtistsConcerts("artists/Bad%20gyal/events?app_id=2eafd9228a7ac50b936e915fbd48bc45&date=upcoming")
+            //Petición a la API
+            for (artist in favArtists) {
+            val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&keywords=$artist"
+            val call = apiService.getFavArtistsConcerts(url)
             val response = call.body()
-
-            if (call.isSuccessful) {
-                println("Call successful :)")
+                println(response)
+            if (call.isSuccessful && response != null)  {
+                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                concerts.addAll(concertsApi)
             }
-
-          //Añadir los conciertos encontrados
-            concerts.add(Concert("Lugar concierto", LocalDate.now(), "Rosalía"))
-            concerts.add(Concert("Lugar concierto2", LocalDate.now(), "Bad Gyal"))
-            concerts.add(Concert("Lugar concierto3", LocalDate.now(), "nombreArtista3"))
-            concerts.add(Concert("Lugar concierto4", LocalDate.now(), "nombreArtista4"))
-            concerts.add(Concert("Lugar concierto5", LocalDate.now(), "nombreArtista5"))
-
+        }
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         }
