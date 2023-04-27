@@ -70,14 +70,13 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
             //Esta lista mas adelante se sacara de la base de datos
-            favArtists.addAll(listOf("Melendi", "Rosalia", "Estopa"))
+            favArtists.addAll(listOf("Bad gyal"))
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
             for (artist in favArtists) {
             val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&keywords=$artist"
             val call = apiService.getFavArtistsConcerts(url)
-            val response = call.body()
-                println(response)
+            val response: ConcertsResponse? = call.body()
             if (call.isSuccessful && response != null)  {
                 val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
                 concerts.addAll(concertsApi)

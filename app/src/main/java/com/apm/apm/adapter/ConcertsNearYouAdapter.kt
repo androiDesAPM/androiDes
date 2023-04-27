@@ -1,14 +1,17 @@
 package com.apm.apm.adapter
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.ConcertDetailsActivity
 import com.apm.apm.R
 import com.apm.apm.objects.Concert
+import com.squareup.picasso.Picasso
 
 class ConcertsNearYouAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapter<ConcertsNearYouAdapter.ConcertNearYouViewHolder>() {
 
@@ -20,6 +23,8 @@ class ConcertsNearYouAdapter(private val dataSet: List<Concert>) : RecyclerView.
             generoArtista.text = item.concertLocationName
             val fechaConcierto: TextView = itemView.findViewById(R.id.fechaConcierto)
             fechaConcierto.text = item.concertDate.toString()
+            val imagenConcierto: ImageView = itemView.findViewById(R.id.imagenArtista)
+            Picasso.get().load(item.imageUrl).into(imagenConcierto)
         }
     }
     override fun getItemCount() = dataSet.size
