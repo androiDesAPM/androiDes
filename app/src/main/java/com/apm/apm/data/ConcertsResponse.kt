@@ -1,7 +1,6 @@
 package com.apm.apm.data
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
 data class ConcertsResponse(
     @SerializedName("_embedded")
     val embedded: Embedded
