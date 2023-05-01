@@ -79,7 +79,6 @@ class ConcertsFromFavGenresFragment : Fragment() {
                 val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&subGenreId=$genre"
                 val call = apiService.getFavArtistsConcerts(url)
                 val response = call.body()
-                println(response)
                 if (call.isSuccessful && response != null)  {
                     val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
                     concerts.addAll(concertsApi)
