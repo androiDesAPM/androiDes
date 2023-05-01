@@ -14,6 +14,8 @@ class PastConcertsAdapter (private val dataSet: List<Concert>) : RecyclerView.Ad
         fun bind(item: Concert) {
             val concertName: TextView = itemView.findViewById(R.id.concertName1)
             concertName.text = item.concertArtistName
+            val pastConcertDate: TextView = itemView.findViewById(R.id.concertDate1)
+            pastConcertDate.text = item.concertDate.toString()
             val concertCountry1: TextView = itemView.findViewById(R.id.concertCountry1)
             concertCountry1.text = item.concertLocationName
         }

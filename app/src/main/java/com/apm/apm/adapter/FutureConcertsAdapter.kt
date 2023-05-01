@@ -16,6 +16,8 @@ class FutureConcertsAdapter (private val dataSet: List<Concert>) : RecyclerView.
         fun bind(item: Concert) {
             val concertName: TextView = itemView.findViewById(R.id.concertNameFuture)
             concertName.text = item.concertArtistName
+            val futureConcertDate: TextView = itemView.findViewById(R.id.concertDateFuture)
+            futureConcertDate.text = item.concertDate.toString()
             val concertCountry1: TextView = itemView.findViewById(R.id.concertCountryFuture)
             concertCountry1.text = item.concertLocationName
         }
