@@ -1,14 +1,17 @@
 package com.apm.apm.adapter
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.ConcertDetailsActivity
 import com.apm.apm.R
 import com.apm.apm.objects.Concert
+import com.squareup.picasso.Picasso
 
 class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapter<FavArtistAdapter.ConcertFavArtistViewHolder>() {
 
@@ -18,7 +21,10 @@ class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
             nameTextView.text = item.concertArtistName
             val generoArtista: TextView = itemView.findViewById(R.id.generoArtista)
             generoArtista.text = item.concertLocationName
-
+            val fechaConcierto: TextView = itemView.findViewById(R.id.fechaConcierto)
+            fechaConcierto.text = item.concertDate.toString()
+            val imagenConcierto: ImageView = itemView.findViewById(R.id.imagenArtista)
+            Picasso.get().load(item.imageUrl).into(imagenConcierto)
         }
     }
     override fun getItemCount() = dataSet.size
@@ -26,6 +32,7 @@ class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConcertFavArtistViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.concerts_fav_artist_row, parent, false)
         return ConcertFavArtistViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: ConcertFavArtistViewHolder, position: Int) {

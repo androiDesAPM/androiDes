@@ -6,20 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FutureConcertsAdapter
+import com.apm.apm.api.APIService
+import com.apm.apm.api.ApiClient
+import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-class FutureConcertsFragment : Fragment() {
+class FutureConcertsFragment : Fragment(), LifecycleOwner {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter : FutureConcertsAdapter
+    private lateinit var adapter: FutureConcertsAdapter
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
 
@@ -32,10 +39,12 @@ class FutureConcertsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewFragment = inflater.inflate(R.layout.fragment_future_concerts_list, container, false);
+        val viewFragment =
+            inflater.inflate(R.layout.fragment_future_concerts_list, container, false);
 
         recyclerView = viewFragment.findViewById(R.id.listFutureConcertsRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         adapter = FutureConcertsAdapter(concerts)
         recyclerView.adapter = adapter
@@ -58,12 +67,22 @@ class FutureConcertsFragment : Fragment() {
         job = lifecycleScope.launch {
             delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
-            //TODO: Petición a la API
-
-            //Añadir los conciertos encontrados
-            concerts.add(Concert("Lugar concierto", LocalDate.now(), "Rosalía"))
-            concerts.add(Concert("Lugar concierto2", LocalDate.now(), "Bad Gyal"))
-            concerts.add(Concert("Lugar concierto3", LocalDate.now(), "nombreArtista3"))
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val formattedDateTime = currentDateTime.format(formatter)
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            //Esto despues se mandará automaticamente, es el attractionId
+            val artistId = "K8vZ917GSz7"
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            //Petición a la API
+            val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
+            val call = apiService.getFavArtistsConcerts(url)
+            val response: ConcertsResponse? = call.body()
+            if (call.isSuccessful && response != null) {
+                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                concerts.addAll(concertsApi)
+            }
 
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
@@ -72,7 +91,7 @@ class FutureConcertsFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
 
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
-        //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
+
     }
 
     override fun onDestroy() {
