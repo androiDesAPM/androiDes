@@ -11,4 +11,10 @@ class ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    public fun getRetrofitBandsInTown(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://rest.bandsintown.com/artists/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 }

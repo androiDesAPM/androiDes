@@ -12,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.PastConcertsAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
-import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.data.BandsInTownResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 
 class PastConcertsFragment : Fragment() {
 
@@ -63,20 +61,17 @@ class PastConcertsFragment : Fragment() {
         job = lifecycleScope.launch {
             delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
-            val currentDateTime = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-            val formattedDateTime = currentDateTime.format(formatter)
-            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val apikey = "2eafd9228a7ac50b936e915fbd48bc45"
             val baseUrl = "events"
-            //Esto despues se mandará automaticamente, es el attractionId
-            val artistId = "K8vZ917GSz7"
-            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            //Esto despues se mandará desde el search
+            val artistName = "Imagine Dragons"
+            val apiService = ApiClient().getRetrofitBandsInTown().create(APIService::class.java)
             //Petición a la API
-            val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
-            val call = apiService.getFavArtistsConcerts(url)
-            val response: ConcertsResponse? = call.body()
+            val url = "$artistName/$baseUrl?app_id=$apikey&date=past"
+            val call = apiService.getArtistPastConcerts(url)
+            val response: List<BandsInTownResponse>? = call.body()
             if (call.isSuccessful && response != null) {
-                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                val concertsApi = ConcertMapper().BandsInTownListResponseToConcerts(response)
                 concerts.addAll(concertsApi)
             }
 

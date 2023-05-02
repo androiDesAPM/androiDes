@@ -1,13 +1,16 @@
 package com.apm.apm.mappers
 
+import com.apm.apm.data.BandsInTownResponse
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.objects.Concert
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ConcertMapper {
 
-//    fun ConcertResponseToConcert(response: ConcertsResponse): Concert {
+    //    fun ConcertResponseToConcert(response: ConcertsResponse): Concert {
 //        val venueName = response.embedded.events[0].venue.venue[0].venues
 //        val date = LocalDate.parse(response.embedded.events[0].dates.start.localDate)
 //        val artistName = response.embedded.events[0].name
@@ -35,5 +38,27 @@ class ConcertMapper {
         }
 
         return concerts
+    }
+
+    fun BandsInTownResponseToConcert(bandsInTownResponse: BandsInTownResponse): Concert {
+        val concertLocationName = bandsInTownResponse.venue.name
+        val concertDate =
+            LocalDateTime.parse(bandsInTownResponse.dateTime, DateTimeFormatter.ISO_DATE_TIME)
+                .toLocalDate()
+        val concertArtistName = bandsInTownResponse.title ?: ""
+        val imageUrl = bandsInTownResponse.artist?.imageUrl
+
+        return Concert(
+            concertLocationName = concertLocationName,
+            concertDate = concertDate,
+            concertArtistName = concertArtistName,
+            imageUrl = imageUrl
+        )
+    }
+
+    fun BandsInTownListResponseToConcerts(bandsInTownList: List<BandsInTownResponse>): List<Concert> {
+        return bandsInTownList.map { response ->
+            BandsInTownResponseToConcert(response)
+        }
     }
 }
