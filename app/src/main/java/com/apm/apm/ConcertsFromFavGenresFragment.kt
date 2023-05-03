@@ -13,6 +13,7 @@ import com.apm.apm.adapter.FavGenresAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.mappers.ConcertMapper
+import com.apm.apm.mappers.GenreMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -68,7 +69,15 @@ class ConcertsFromFavGenresFragment : Fragment() {
             val formattedDateTime = currentDateTime.format(formatter)
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
-            //Esta lista mas adelante se sacara de la base de datos
+            //Prueba para ver si saca bien los generos
+            /*val musicSegmentId = "KZFzniwnSyZfZ7v7nJ"
+            val apiServiceMusic = ApiClient().getRetrofitMusicGenres().create(APIService::class.java)
+            val urlMusic = "$musicSegmentId?apikey=$apikey"
+            val callMusic = apiServiceMusic.getMusicGenres(urlMusic)
+            val musicResponse = callMusic.body()
+            if (callMusic.isSuccessful && musicResponse != null)  {
+                val genres = GenreMapper().MusicResponseToGenre(musicResponse)
+            }*/
             // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
             // id del genero pop KnvZfZ7vAev
             // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego

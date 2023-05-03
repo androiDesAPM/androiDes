@@ -17,4 +17,10 @@ class ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    public fun getRetrofitMusicGenres(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://app.ticketmaster.com/discovery/v2/classifications/segments/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 }
