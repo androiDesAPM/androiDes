@@ -26,16 +26,8 @@ class AuthActivity : AppCompatActivity(){
 
 
         registerButton.setOnClickListener {
-            if (username.text.isNotEmpty() && password.text.isNotEmpty()){
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(username.text.toString(),
-                    password.text.toString()).addOnCompleteListener{
-                    if (it.isSuccessful){
-                        showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                    }else{
-                        showAlert()
-                    }
-                }
-            }
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
         signInButton.setOnClickListener {

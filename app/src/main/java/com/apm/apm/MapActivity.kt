@@ -3,6 +3,7 @@ package com.apm.apm
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.SearchView
@@ -68,23 +69,30 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         }
         val location = LocationServices.getFusedLocationProviderClient(this)
         location.lastLocation.addOnSuccessListener { location ->
+            var latitude: Double
+            var longitude: Double
             if (location != null) {
-                val latLng = LatLng(location.latitude, location.longitude)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-
-                //Llamamos a la API
-                val latitude = location.latitude
-                val longitude = location.longitude
-//                val geoPoint = GeoPoint(latitude, longitude)
-                val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 5)
-                try{
-                    lifecycleScope.launch {
-                        getConcertsByGeoPoint(map, geoHash)
-                    }
-                }catch (e : Exception){
-                    print(e)
-                }
+                latitude = location.latitude
+                longitude = location.longitude
+            } else {
+                latitude = 43.358934
+                longitude = -8.412103
+                 //TODO llamar a obtener ubicación por defecto
             }
+            val latLng = LatLng(latitude, longitude)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
+            //Llamamos a la API
+//                val geoPoint = GeoPoint(latitude, longitude)
+            val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 8)
+            try{
+                lifecycleScope.launch {
+                    getConcertsByGeoPoint(map, geoHash)
+                }
+            }catch (e : Exception){
+                Log.e("MapActivity" ,"Error en la corrutina")
+            }
+
         }
     }
 
@@ -93,30 +101,31 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         job = lifecycleScope.launch {
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
-            //Esta lista mas adelante se sacara de la base de datos
+            val classificationId ="KZFzniwnSyZfZ7v7nJ"//Este id pertenece a la clasificacion "Music"
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+
             //Petición a la API
             //events?apikey=uaPXPcRZ4b6cPaGJ0xQUvqw6XDdg9hpA&geoPoint=ezdn8
-            val url = "$baseUrl?apikey=$apikey&geoPoint=$geoHash"
+            val url = "$baseUrl?apikey=$apikey&classificationId=$classificationId&geoPoint=$geoHash"
             val call = apiService.getConcertsByGeoPoint(url)
             val response: ConcertsResponse? = call.body()
-            print(response)
             if (call.isSuccessful && response != null)  {
+
                 //Recorremos los eventos cerca de la ubicación encontrados por el API
                 for ( event in response.embedded.events){
                     var location = event.venue.venue.get(0).location
+                    Log.i("MapActivity" ,"Location: $location")
+                    val ubication = LatLng(
+                        location.latitude.toDouble(),
+                        location.longitude.toDouble())
                     //Añadimos el marcador
-                    val ubication = LatLng(location.latitude.toDouble(), location.longitude.toDouble())
                     map.addMarker(
                         MarkerOptions()
                             .position(ubication)
-                            .title("Concert found near ubication")
+                            .title(event.name+event.dates.toString())
                     )
                 }
-//                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-//                concerts.addAll(concertsApi)
             }
-//            adapter.notifyDataSetChanged()
         }
     }
 
