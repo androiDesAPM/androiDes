@@ -12,12 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FavGenresAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
+import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.mappers.GenreMapper
 import com.apm.apm.objects.Concert
+import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -26,10 +32,12 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FavGenresAdapter
+
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
     private val favGenres = mutableListOf<String>()
+    private lateinit var cacheFile: File
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +54,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
         adapter = FavGenresAdapter(concerts)
         recyclerView.adapter = adapter
+        cacheFile = File(requireContext().cacheDir, "fav_genres_concerts_cache")
         return view
     }
 
@@ -63,34 +72,47 @@ class ConcertsFromFavGenresFragment : Fragment() {
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-            //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
-            val currentDateTime = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-            val formattedDateTime = currentDateTime.format(formatter)
-            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
-            val baseUrl = "events"
-            //Prueba para ver si saca bien los generos
-            /*val musicSegmentId = "KZFzniwnSyZfZ7v7nJ"
-            val apiServiceMusic = ApiClient().getRetrofitMusicGenres().create(APIService::class.java)
-            val urlMusic = "$musicSegmentId?apikey=$apikey"
-            val callMusic = apiServiceMusic.getMusicGenres(urlMusic)
-            val musicResponse = callMusic.body()
-            if (callMusic.isSuccessful && musicResponse != null)  {
-                val genres = GenreMapper().MusicResponseToGenre(musicResponse)
-            }*/
-            // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
-            // id del genero pop KnvZfZ7vAev
-            // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego
-            favGenres.addAll(listOf("KZazBEonSMnZfZ7vkE1"))
-            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
-            //Petición a la API
-            for (genre in favGenres) {
-                val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&subGenreId=$genre"
-                val call = apiService.getFavArtistsConcerts(url)
-                val response = call.body()
-                if (call.isSuccessful && response != null)  {
-                    val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-                    concerts.addAll(concertsApi)
+            if (cacheFile.exists() && cacheFile.length() > 0) {
+                val inputStream = FileInputStream(cacheFile)
+                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val stringBuilder = StringBuilder()
+                bufferedReader.forEachLine { stringBuilder.append(it) }
+                // Convertir el contenido en un objeto ConcertsResponse
+                val cachedResponse =
+                    Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
+                concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
+                adapter.notifyDataSetChanged()
+            } else {
+                //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                val formattedDateTime = currentDateTime.format(formatter)
+                val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+                val baseUrl = "events"
+                //Prueba para ver si saca bien los generos
+                /*val musicSegmentId = "KZFzniwnSyZfZ7v7nJ"
+                val apiServiceMusic = ApiClient().getRetrofitMusicGenres().create(APIService::class.java)
+                val urlMusic = "$musicSegmentId?apikey=$apikey"
+                val callMusic = apiServiceMusic.getMusicGenres(urlMusic)
+                val musicResponse = callMusic.body()
+                if (callMusic.isSuccessful && musicResponse != null)  {
+                    val genres = GenreMapper().MusicResponseToGenre(musicResponse)
+                }*/
+                // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
+                // id del genero pop KnvZfZ7vAev
+                // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego
+                favGenres.addAll(listOf("KZazBEonSMnZfZ7vkE1"))
+                val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+                //Petición a la API
+                for (genre in favGenres) {
+                    val url =
+                        "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&subGenreId=$genre"
+                    val call = apiService.getFavArtistsConcerts(url)
+                    val response = call.body()
+                    if (call.isSuccessful && response != null) {
+                        concerts.addAll(ConcertMapper().ConcertsResponseToConcerts(response))
+                        cacheFile.writeText(Gson().toJson(response))
+                    }
                 }
             }
             adapter.notifyDataSetChanged()
