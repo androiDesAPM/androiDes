@@ -76,8 +76,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                 val latitude = location.latitude
                 val longitude = location.longitude
 //                val geoPoint = GeoPoint(latitude, longitude)
-                val geoHash = GeoHash.withCharacterPrecision(latitude, longitude, 12)
-
+                val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 5)
                 try{
                     lifecycleScope.launch {
                         getConcertsByGeoPoint(map, geoHash)
@@ -90,7 +89,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
     }
 
 
-    private fun getConcertsByGeoPoint(map: GoogleMap, geoHash: GeoHash) {
+    private fun getConcertsByGeoPoint(map: GoogleMap, geoHash: String) {
         job = lifecycleScope.launch {
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
