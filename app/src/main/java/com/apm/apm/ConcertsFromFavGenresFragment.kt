@@ -102,12 +102,12 @@ class ConcertsFromFavGenresFragment : Fragment() {
                 // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
                 // id del genero pop KnvZfZ7vAev
                 // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego
-                favGenres.addAll(listOf("KZazBEonSMnZfZ7vkE1"))
+                favGenres.addAll(listOf("KnvZfZ7vAev"))
                 val apiService = ApiClient().getRetrofit().create(APIService::class.java)
                 //Petición a la API
                 for (genre in favGenres) {
                     val url =
-                        "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&subGenreId=$genre"
+                        "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&genreId=$genre"
                     val call = apiService.getFavArtistsConcerts(url)
                     val response = call.body()
                     if (call.isSuccessful && response != null) {

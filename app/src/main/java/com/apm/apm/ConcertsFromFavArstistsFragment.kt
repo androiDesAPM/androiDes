@@ -90,13 +90,14 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                 val formattedDateTime = currentDateTime.format(formatter)
                 val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
                 val baseUrl = "events"
+                val classificationId ="KZFzniwnSyZfZ7v7nJ"
                 //Esta lista mas adelante se sacara de la base de datos
                 favArtists.addAll(listOf("Bad gyal"))
                 val apiService = ApiClient().getRetrofit().create(APIService::class.java)
                 //Petición a la API
                 for (artist in favArtists) {
                     val url =
-                        "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&keywords=$artist"
+                        "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&keywords=$artist"
                     val call = apiService.getFavArtistsConcerts(url)
                     val response: ConcertsResponse? = call.body()
                     if (call.isSuccessful && response != null) {
