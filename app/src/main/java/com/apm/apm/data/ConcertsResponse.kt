@@ -37,7 +37,16 @@ data class Venue(
 
 data class Venues(
     @SerializedName("name")
-    val venues: String
+    val venues: String,
+    @SerializedName("location")
+    val location: Location
+)
+
+data class Location(
+    @SerializedName("longitude")
+    val longitude: String,
+    @SerializedName("latitude")
+    val latitude: String
 )
 
 data class Image(

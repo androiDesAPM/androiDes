@@ -12,6 +12,8 @@ interface APIService {
     suspend fun getFavArtistsConcerts(@Url url:String): Response<ConcertsResponse>
     @GET
     suspend fun getArtistPastConcerts(@Url url:String): Response<List<BandsInTownResponse>>
+    @GET
+    suspend fun getConcertsByGeoPoint(@Url url:String): Response<ConcertsResponse>
 
     @GET
     suspend fun getMusicGenres(@Url url:String): Response<MusicResponse>
