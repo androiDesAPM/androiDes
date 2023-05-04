@@ -3,6 +3,7 @@ package com.apm.apm
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.SearchView
@@ -93,30 +94,31 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         job = lifecycleScope.launch {
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
-            //Esta lista mas adelante se sacara de la base de datos
+
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+
             //Petición a la API
             //events?apikey=uaPXPcRZ4b6cPaGJ0xQUvqw6XDdg9hpA&geoPoint=ezdn8
             val url = "$baseUrl?apikey=$apikey&geoPoint=$geoHash"
             val call = apiService.getConcertsByGeoPoint(url)
             val response: ConcertsResponse? = call.body()
-            print(response)
             if (call.isSuccessful && response != null)  {
+
                 //Recorremos los eventos cerca de la ubicación encontrados por el API
                 for ( event in response.embedded.events){
                     var location = event.venue.venue.get(0).location
+                    Log.e("MapActivity" ,"Location: $location")
+                    val ubication = LatLng(
+                        location.latitude.toDouble(),
+                        location.longitude.toDouble())
                     //Añadimos el marcador
-                    val ubication = LatLng(location.latitude.toDouble(), location.longitude.toDouble())
                     map.addMarker(
                         MarkerOptions()
                             .position(ubication)
-                            .title("Concert found near ubication")
+                            .title(event.name+event.dates.toString())
                     )
                 }
-//                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-//                concerts.addAll(concertsApi)
             }
-//            adapter.notifyDataSetChanged()
         }
     }
 
