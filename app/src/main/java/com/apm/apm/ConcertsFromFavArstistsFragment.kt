@@ -38,6 +38,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     private val concerts = mutableListOf<Concert>()
     private val favArtists = mutableListOf<String>()
     private lateinit var cacheFile: File
+    private lateinit var progressBar: ProgressBar
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +61,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
         super.onViewCreated(view, savedInstanceState)
 
-        val progressBar: ProgressBar = view.findViewById(R.id.progressbar)
+        progressBar = view.findViewById(R.id.progressbar)
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             getConcertsCorrutine(progressBar)
@@ -78,7 +79,8 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                 val stringBuilder = StringBuilder()
                 bufferedReader.forEachLine { stringBuilder.append(it) }
                 // Convertir el contenido en un objeto ConcertsResponse
-                val cachedResponse = Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
+                val cachedResponse =
+                    Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
                 concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
                 adapter.notifyDataSetChanged()
             } else {
@@ -112,6 +114,17 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
     }
 
+    fun refreshData() {
+        val cacheFile = File(requireContext().cacheDir, "fav_artists_concerts_cache")
+        if (cacheFile.exists()) {
+            cacheFile.writeText("")
+        }
+        progressBar.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            getConcertsCorrutine(progressBar)
+
+        }
+    }
 
     override fun onDestroy() {
         //cancela la corrutina

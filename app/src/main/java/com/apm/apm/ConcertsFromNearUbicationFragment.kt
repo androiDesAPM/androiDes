@@ -35,6 +35,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
     private val concerts = mutableListOf<Concert>()
     private val nearConcerts = mutableListOf<String>()
     private lateinit var cacheFile: File
+    private lateinit var progressBar: ProgressBar
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +61,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        val progressBar: ProgressBar = view.findViewById(R.id.progressbarNearUbication)
+        progressBar = view.findViewById(R.id.progressbarNearUbication)
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             getConcertsCorrutine(progressBar)
@@ -115,7 +116,17 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
         //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
+    fun refreshData() {
+        val cacheFile = File(requireContext().cacheDir, "near_concerts_cache")
+        if (cacheFile.exists()) {
+            cacheFile.writeText("")
+        }
+        progressBar.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            getConcertsCorrutine(progressBar)
 
+        }
+    }
 
     override fun onDestroy() {
         //cancela la corrutina

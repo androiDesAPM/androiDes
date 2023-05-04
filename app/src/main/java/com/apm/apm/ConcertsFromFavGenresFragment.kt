@@ -38,6 +38,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
     private val concerts = mutableListOf<Concert>()
     private val favGenres = mutableListOf<String>()
     private lateinit var cacheFile: File
+    private lateinit var progressBar: ProgressBar
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,7 +62,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val progressBar: ProgressBar = view.findViewById(R.id.progressbarGenres)
+        progressBar = view.findViewById(R.id.progressbarGenres)
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             getConcertsCorrutine(progressBar)
@@ -125,7 +126,17 @@ class ConcertsFromFavGenresFragment : Fragment() {
         //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
 
+    fun refreshData() {
+        val cacheFile = File(requireContext().cacheDir, "fav_artists_concerts_cache")
+        if (cacheFile.exists()) {
+            cacheFile.writeText("")
+        }
+        progressBar.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            getConcertsCorrutine(progressBar)
 
+        }
+    }
     override fun onDestroy() {
         //cancela la corrutina
         super.onDestroy()

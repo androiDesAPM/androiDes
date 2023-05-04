@@ -80,4 +80,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.8'
     //Dependencia para generar el geoHash y el geoPoint
     implementation 'ch.hsr:geohash:1.4.0'
+    //Para poder refrescar la home
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }

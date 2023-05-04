@@ -5,29 +5,51 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ProgressBar
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-enum class ProviderType{
+enum class ProviderType {
     BASIC
 }
 
-class MainActivity : GetNavigationBarActivity() {
+class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var fragmentContainer: FrameLayout
     private lateinit var searchArtistFragment: SearchArtistFragment
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var favArtistConcertsFragment: ConcertsFromFavArstistsFragment
+    private lateinit var favGenresConcertsFragment: ConcertsFromFavGenresFragment
+    private lateinit var nearConcertsFragment: ConcertsFromNearUbicationFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Set de la vista
         setContentView(R.layout.home_page)
 
-//        getConcertsCorrutine2(findViewById(R.id.progressba2r))
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener(this)
+        favArtistConcertsFragment = ConcertsFromFavArstistsFragment()
+        favGenresConcertsFragment = ConcertsFromFavGenresFragment()
+        nearConcertsFragment = ConcertsFromNearUbicationFragment()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.listConcertsFavArtists, favArtistConcertsFragment)
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.listConcertsFavConcerts, favGenresConcertsFragment)
+            .commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.listConcertsNearUbication, nearConcertsFragment)
+            .commit()
 
         //Funcionalidad para el buscador del artista
-        val searchView = findViewById<androidx.appcompat.widget.SearchView>(R.id.searchArtistHomeView)
+        val searchView =
+            findViewById<androidx.appcompat.widget.SearchView>(R.id.searchArtistHomeView)
         fragmentContainer = findViewById(R.id.frameLayoutSearch)
         searchArtistFragment = SearchArtistFragment()
 
-        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
@@ -51,7 +73,8 @@ class MainActivity : GetNavigationBarActivity() {
 
         val clearButton = findViewById<Button>(R.id.clear_button)
         clearButton.setOnClickListener {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
             searchView.setQuery("", false)
             supportFragmentManager.beginTransaction()
@@ -63,16 +86,10 @@ class MainActivity : GetNavigationBarActivity() {
         this.getNavigationView()
     }
 
-//    private fun getConcertsCorrutine2(progressBar: ProgressBar) {
-//        GlobalScope.launch { // créase unha nova corrutina en segundo plano
-//            delay(3000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-//
-//            progressBar.visibility = View.INVISIBLE
-//        }
-//
-//        progressBar.visibility = View.VISIBLE
-//
-//        println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
-//        Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
-//    }
+    override fun onRefresh() {
+        favArtistConcertsFragment.refreshData()
+        favGenresConcertsFragment.refreshData()
+        nearConcertsFragment.refreshData()
+        swipeRefreshLayout.isRefreshing = false
+    }
 }
