@@ -99,7 +99,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName"
+                    android:id="@+id/profileFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
@@ -121,7 +121,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
 
                 <EditText
                     android:id="@+id/editTextTextPersonName3"
@@ -132,7 +132,7 @@
                     android:padding="5dp"
                     android:text="29/12/1999"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
                     app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
                 <TextView
@@ -155,7 +155,7 @@
                     android:padding="5dp"
                     android:text="A Coruña, A Coruña"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
                     app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
                 <TextView
@@ -174,7 +174,7 @@
                     android:name="com.apm.apm.MyProfileFavArtistsFragment"
                     android:layout_width="300dp"
                     android:layout_height="90dp"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
                     app:layout_constraintTop_toBottomOf="@+id/textView22"/>
 
                 <!--                <androidx.recyclerview.widget.RecyclerView-->
@@ -227,7 +227,7 @@
                     android:padding="16dp"
                     android:rowCount="4"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
                     app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 </GridLayout>

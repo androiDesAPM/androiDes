@@ -9,9 +9,13 @@ import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class RegisterActivity : AppCompatActivity() {
+    val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -29,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             if (fullName.text.isNotEmpty() && email.text.isNotEmpty() && password.text.isNotEmpty() && passwordRep.text.isNotEmpty()){
                 if (password.text.toString() == passwordRep.text.toString()){
-                    registerUser(email.text.toString(), password.text.toString())
+                    registerUser(email.text.toString(), password.text.toString(), fullName.text.toString())
                 }
             }
         }
@@ -40,10 +44,11 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(email: String, password: String){
+    private fun registerUser(email: String, password: String, fullName: String){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful){
-                showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                uploadBD(email, fullName)
+                showSetup(it.result?.user?.email ?: "", ProviderType.BASIC)
             }else{
                 showAlert()
             }
@@ -59,8 +64,23 @@ class RegisterActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showHome(email: String, provider: ProviderType){
-        val intent = Intent(this, MainActivity::class.java).apply {
+    private fun uploadBD(email: String, fullName: String){
+        val user = hashMapOf(
+            "email" to email,
+            "fullName" to fullName
+        )
+        db.collection("users").add(user)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                println("Error adding document: $e")
+            }
+
+    }
+
+    private fun showSetup(email: String, provider: ProviderType){
+        val intent = Intent(this, RegisterPreferencesActivity::class.java).apply {
             putExtra("email", email)
             putExtra("provider", provider.name)
         }

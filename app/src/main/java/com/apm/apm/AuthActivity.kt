@@ -6,19 +6,21 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class AuthActivity : AppCompatActivity(){
 
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-
+        auth = Firebase.auth
         setup()
     }
 
 
     private fun setup(){
-//        title = "Autenticación"
         val registerButton = findViewById<Button>(R.id.register)
         val signInButton = findViewById<Button>(R.id.sign_in_button)
         val username = findViewById<EditText>(R.id.username)
@@ -32,7 +34,7 @@ class AuthActivity : AppCompatActivity(){
 
         signInButton.setOnClickListener {
             if (username.text.isNotEmpty() && password.text.isNotEmpty()){
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(username.text.toString(),
+                auth.signInWithEmailAndPassword(username.text.toString(),
                     password.text.toString()).addOnCompleteListener{
                     if (it.isSuccessful){
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
