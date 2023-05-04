@@ -94,12 +94,12 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         job = lifecycleScope.launch {
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
-
+            val classificationId ="KZFzniwnSyZfZ7v7nJ"//Este id pertenece a la clasificacion "Music"
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
 
             //Petición a la API
             //events?apikey=uaPXPcRZ4b6cPaGJ0xQUvqw6XDdg9hpA&geoPoint=ezdn8
-            val url = "$baseUrl?apikey=$apikey&geoPoint=$geoHash"
+            val url = "$baseUrl?apikey=$apikey&classificationId=$classificationId&geoPoint=$geoHash"
             val call = apiService.getConcertsByGeoPoint(url)
             val response: ConcertsResponse? = call.body()
             if (call.isSuccessful && response != null)  {
