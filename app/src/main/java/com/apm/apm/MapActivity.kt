@@ -69,23 +69,30 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         }
         val location = LocationServices.getFusedLocationProviderClient(this)
         location.lastLocation.addOnSuccessListener { location ->
+            var latitude: Double
+            var longitude: Double
             if (location != null) {
-                val latLng = LatLng(location.latitude, location.longitude)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-
-                //Llamamos a la API
-                val latitude = location.latitude
-                val longitude = location.longitude
-//                val geoPoint = GeoPoint(latitude, longitude)
-                val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 5)
-                try{
-                    lifecycleScope.launch {
-                        getConcertsByGeoPoint(map, geoHash)
-                    }
-                }catch (e : Exception){
-                    print(e)
-                }
+                latitude = location.latitude
+                longitude = location.longitude
+            } else {
+                latitude = 43.358934
+                longitude = -8.412103
+                 //TODO llamar a obtener ubicación por defecto
             }
+            val latLng = LatLng(latitude, longitude)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+
+            //Llamamos a la API
+//                val geoPoint = GeoPoint(latitude, longitude)
+            val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 8)
+            try{
+                lifecycleScope.launch {
+                    getConcertsByGeoPoint(map, geoHash)
+                }
+            }catch (e : Exception){
+                Log.e("MapActivity" ,"Error en la corrutina")
+            }
+
         }
     }
 
@@ -107,7 +114,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                 //Recorremos los eventos cerca de la ubicación encontrados por el API
                 for ( event in response.embedded.events){
                     var location = event.venue.venue.get(0).location
-                    Log.e("MapActivity" ,"Location: $location")
+                    Log.i("MapActivity" ,"Location: $location")
                     val ubication = LatLng(
                         location.latitude.toDouble(),
                         location.longitude.toDouble())
