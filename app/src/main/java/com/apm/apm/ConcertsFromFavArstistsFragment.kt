@@ -54,36 +54,35 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         adapter = FavArtistAdapter(concerts)
         recyclerView.adapter = adapter
         cacheFile = File(requireContext().cacheDir, "fav_artists_concerts_cache")
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
         progressBar = view.findViewById(R.id.progressbar)
+        if (cacheFile.exists() && cacheFile.length() > 0) {
+            val inputStream = FileInputStream(cacheFile)
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            bufferedReader.forEachLine { stringBuilder.append(it) }
+            // Convertir el contenido en un objeto ConcertsResponse
+            val cachedResponse =
+                Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
+            concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
+            adapter.notifyDataSetChanged()
+        } else {
         progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             getConcertsCorrutine(progressBar)
-
+        }
         }
     }
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-            //Memoria cache
-            if (cacheFile.exists() && cacheFile.length() > 0) {
-                val inputStream = FileInputStream(cacheFile)
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val stringBuilder = StringBuilder()
-                bufferedReader.forEachLine { stringBuilder.append(it) }
-                // Convertir el contenido en un objeto ConcertsResponse
-                val cachedResponse =
-                    Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
-                concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
-                adapter.notifyDataSetChanged()
-            } else {
                 //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
                 val currentDateTime = LocalDateTime.now()
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -106,7 +105,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                         cacheFile.writeText(Gson().toJson(response))
                     }
                 }
-            }
+
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         }
@@ -127,9 +126,9 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         }
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         //cancela la corrutina
         super.onDestroy()
         job.cancel()
-    }
+    }*/
 }

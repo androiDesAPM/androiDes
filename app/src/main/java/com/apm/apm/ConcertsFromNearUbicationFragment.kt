@@ -62,53 +62,55 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         progressBar = view.findViewById(R.id.progressbarNearUbication)
-        progressBar.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            getConcertsCorrutine(progressBar)
 
+        if (cacheFile.exists() && cacheFile.length() > 0) {
+            val inputStream = FileInputStream(cacheFile)
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val stringBuilder = StringBuilder()
+            bufferedReader.forEachLine { stringBuilder.append(it) }
+            // Convertir el contenido en un objeto ConcertsResponse
+            val cachedResponse =
+                Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
+            concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
+            adapter.notifyDataSetChanged()
+            println("esta en cache")
+        } else {
+            progressBar.visibility = View.VISIBLE
+            lifecycleScope.launch {
+                getConcertsCorrutine(progressBar)
+            }
         }
     }
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-            if (cacheFile.exists() && cacheFile.length() > 0) {
-                val inputStream = FileInputStream(cacheFile)
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val stringBuilder = StringBuilder()
-                bufferedReader.forEachLine { stringBuilder.append(it) }
-                // Convertir el contenido en un objeto ConcertsResponse
-                val cachedResponse =
-                    Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
-                concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
-                adapter.notifyDataSetChanged()
-                println("esta en cache")
-            } else {
-                println("NO esta en cache")
-                //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
-                val currentDateTime = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-                val formattedDateTime = currentDateTime.format(formatter)
-                val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
-                val baseUrl = "events"
-                val classificationId ="KZFzniwnSyZfZ7v7nJ"
-                //Esta lista mas adelante se sacara de la base de datos
-                nearConcerts.addAll(listOf("Bad gyal"))
-                val apiService = ApiClient().getRetrofit().create(APIService::class.java)
-                //Petición a la API
-                for (artist in nearConcerts) {
-                    val url =
-                        "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&keywords=$artist"
-                    val call = apiService.getFavArtistsConcerts(url)
-                    val response = call.body()
-                    if (call.isSuccessful && response != null) {
-                        val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-                        concerts.addAll(concertsApi)
-                        // se guarda la respuesta en cache
-                        cacheFile.writeText(Gson().toJson(response))
-                    }
+
+            println("NO esta en cache")
+            //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val formattedDateTime = currentDateTime.format(formatter)
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            val classificationId = "KZFzniwnSyZfZ7v7nJ"
+            //Esta lista mas adelante se sacara de la base de datos
+            nearConcerts.addAll(listOf("Bad gyal"))
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            //Petición a la API
+            for (artist in nearConcerts) {
+                val url =
+                    "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&keywords=$artist"
+                val call = apiService.getFavArtistsConcerts(url)
+                val response = call.body()
+                if (call.isSuccessful && response != null) {
+                    val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                    concerts.addAll(concertsApi)
+                    // se guarda la respuesta en cache
+                    cacheFile.writeText(Gson().toJson(response))
                 }
             }
+
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         }
@@ -117,6 +119,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
         //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
+
     fun refreshData() {
         val cacheFile = File(requireContext().cacheDir, "near_concerts_cache")
         if (cacheFile.exists()) {
@@ -129,10 +132,10 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         //cancela la corrutina
         super.onDestroy()
         job.cancel()
-    }
+    }*/
 
 }
