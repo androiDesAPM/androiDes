@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Full name"
+                android:hint="Full name"
                 android:textColor="#757575" />
         </LinearLayout>
 

@@ -29,9 +29,20 @@
         android:id="@+id/finishSetup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="112dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="@+id/genresDropDown"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/genresDropDown"
+        app:layout_constraintTop_toBottomOf="@+id/listgenres" />
+
+    <ListView
+        android:id="@+id/listgenres"
+        android:layout_width="202dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/genresDropDown"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="@+id/genresDropDown"
         app:layout_constraintTop_toBottomOf="@+id/genresDropDown" />
 
