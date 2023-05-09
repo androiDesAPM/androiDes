@@ -16,37 +16,43 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-internal class ArtistDetailsActivity : GetNavigationBarActivity(){
+internal class ArtistDetailsActivity : GetNavigationBarActivity() {
     private val artistService = Retrofit.Builder()
         .baseUrl("https://app.ticketmaster.com/discovery/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(ArtistService::class.java)
-    //Este artist despues se supone que vendra de la barra de búsqueda o sino el Id desde ver un concierto
-    val artist = "Imagine Dragons"
+
     val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
-    val url = "attractions?apikey=$apikey&keyword=$artist"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_details)
 
-        lifecycleScope.launch {
+        val query = intent.getStringExtra("query")
+        if (query != null) {
+            val url = "attractions?apikey=$apikey&keyword=$query"
+            lifecycleScope.launch {
                 //val artistResponse = artistService.getArtistDetails(url)
                 val call = artistService.getArtistDetails(url)
                 val response: ArtistResponse? = call.body()
                 println(response)
                 if (call.isSuccessful && response != null) {
-                    println("Call fue bien")
-                    val artist = ArtistMapper().ArtistResponseToArtist(response)
-                    showArtistDetails(artist)
-                    println("artist")
-                    val tabLayout = findViewById<TabLayout>(R.id.tabs)
-                    val viewPager = findViewById<ViewPager>(R.id.viewPager)
-                    viewPager.adapter = TabAdapter(supportFragmentManager)
-                    tabLayout.setupWithViewPager(viewPager)
+                    if (!response.embeddedArtists?.attractions.isNullOrEmpty()) {
+                        val artist = ArtistMapper().ArtistResponseToArtist(response)
+                        showArtistDetails(artist)
+                        val tabLayout = findViewById<TabLayout>(R.id.tabs)
+                        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+                        viewPager.adapter = TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
+                        tabLayout.setupWithViewPager(viewPager)
+                    } else {
+                        Toast.makeText(applicationContext,"No se ha encontrado ningún artista con ese nombre", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(applicationContext,"No se ha encontrado ningún artista con ese nombre", Toast.LENGTH_SHORT).show()
                 }
+            }
         }
-
         val favButton = findViewById<ImageButton>(R.id.favButton)
         favButton.setOnClickListener {
             Toast.makeText(this, "Artista añadido a favoritos", Toast.LENGTH_SHORT).show()

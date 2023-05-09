@@ -22,21 +22,20 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchArtistHomeView"
+
+            <EditText
+                android:id="@+id/searchEditText"
                 android:layout_width="319dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:iconifiedByDefault="false"
-                android:isScrollContainer="false"
-                app:closeIcon="@null"
-                android:theme="@style/Widget.AppCompat.SearchView" />
+                android:hint="Buscar artista"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/clear_button"
@@ -52,6 +51,7 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

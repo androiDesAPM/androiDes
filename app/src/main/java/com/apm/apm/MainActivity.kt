@@ -1,9 +1,12 @@
 package com.apm.apm
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -42,45 +45,26 @@ class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshLis
             .replace(R.id.listConcertsNearUbication, nearConcertsFragment)
             .commit()
 
-        //Funcionalidad para el buscador del artista
-        val searchView =
-            findViewById<androidx.appcompat.widget.SearchView>(R.id.searchArtistHomeView)
-        fragmentContainer = findViewById(R.id.frameLayoutSearch)
-        searchArtistFragment = SearchArtistFragment()
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+        searchEditText.requestFocus()
+        searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query = searchEditText.text.toString()
+                val intent = Intent(this, ArtistDetailsActivity::class.java)
+                intent.putExtra("query", query)
+                startActivity(intent)
+                true
+            } else {
+                false
 
-        searchView.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
             }
-
-            //TODO borrar esto si al final no metemos sugerencias
-            override fun onQueryTextChange(newText: String): Boolean {
-                val isQueryEmpty = newText.isEmpty()
-                if (isQueryEmpty) {
-                    supportFragmentManager.beginTransaction()
-                        .remove(searchArtistFragment)
-                        .commit()
-                } else {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.frameLayoutSearch, searchArtistFragment)
-                        .addToBackStack(null)
-                        .commit()
-                }
-                return true
-            }
-        })
+        }
 
         val clearButton = findViewById<Button>(R.id.clear_button)
         clearButton.setOnClickListener {
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
-            searchView.setQuery("", false)
-            supportFragmentManager.beginTransaction()
-                .remove(searchArtistFragment)
-                .commit()
+            searchEditText.setText("")
         }
+
 
         //Creamos la barra inferior
         this.getNavigationView()

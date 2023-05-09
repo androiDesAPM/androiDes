@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +30,17 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     private lateinit var adapter: FutureConcertsAdapter
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
+
+    companion object {
+        fun newInstance(artistId: String): FutureConcertsFragment {
+            val fragment = FutureConcertsFragment()
+            val args = Bundle().apply {
+                putString("artistId", artistId)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,22 +78,28 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     private fun getFutureConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-
+            val artistId = arguments?.getString("artistId")
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
             val formattedDateTime = currentDateTime.format(formatter)
             val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
             val baseUrl = "events"
-            //Esto despues se mandará automaticamente, es el attractionId
-            val artistId = "K8vZ917GSz7"
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
-            val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
+            val url =
+                "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
             val call = apiService.getFavArtistsConcerts(url)
             val response: ConcertsResponse? = call.body()
+            //comprobar si devuelve lista vacia
             if (call.isSuccessful && response != null) {
+                if (!response.embedded?.events.isNullOrEmpty()) {
                 val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
                 concerts.addAll(concertsApi)
+                } else {
+                    Toast.makeText(requireContext(),"No se encontraron conciertos", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(requireContext(),"No se encontraron conciertos", Toast.LENGTH_LONG).show()
             }
 
             adapter.notifyDataSetChanged()

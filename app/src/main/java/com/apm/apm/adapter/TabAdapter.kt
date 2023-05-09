@@ -6,12 +6,12 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.apm.apm.FutureConcertsFragment
 import com.apm.apm.PastConcertsFragment
 
-class TabAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class TabAdapter(fragmentManager: FragmentManager, private val artistId: String, private val artistName: String) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> FutureConcertsFragment()
-            1 -> PastConcertsFragment()
+            0 -> FutureConcertsFragment.newInstance(artistId)
+            1 -> PastConcertsFragment.newInstance(artistName)
             else -> throw IllegalArgumentException("Invalid tab position")
         }
     }
