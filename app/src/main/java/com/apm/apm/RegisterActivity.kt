@@ -14,7 +14,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class RegisterActivity : AppCompatActivity() {
-    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +64,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadBD(email: String, fullName: String){
+        val db = Firebase.firestore
         val user = hashMapOf(
             "email" to email,
             "fullName" to fullName
