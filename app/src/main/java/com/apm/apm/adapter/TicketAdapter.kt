@@ -29,7 +29,7 @@ class TicketAdapter (private val dataSet: List<BuyTicketOption>) : RecyclerView.
         val context = holder.itemView.context
         holder.bind(dataSet[position])
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, "Aún no se ha creado el chat del concierto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Entrada comprada con éxito", Toast.LENGTH_SHORT).show()
         }
     }
 }

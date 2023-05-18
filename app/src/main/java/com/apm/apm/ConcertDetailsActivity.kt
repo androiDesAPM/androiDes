@@ -1,28 +1,33 @@
 package com.apm.apm
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
-import com.apm.apm.objects.Artist
 import com.apm.apm.objects.Concert
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
 class ConcertDetailsActivity : GetNavigationBarActivity() {
+    lateinit var tickets: ArrayList<HashMap<String, String>>
+    private var concert: Concert? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_concert)
-
-        val concert: Concert? = intent.getParcelableExtra("concert")
+        tickets = ArrayList()
+        concert = intent.getParcelableExtra("concert")
         lifecycleScope.launch {
-            if (concert != null){
-                showConcertDetails(concert)
-            }
+            concert?.let { showConcertDetails(it) }
         }
         val concertButton = findViewById<Button>(R.id.buy_tickets)
         concertButton.setOnClickListener {
+            uploadDB(concert)
             val intent = Intent(this, BuyTicketsActivity::class.java)
             startActivity(intent)
         }
@@ -32,6 +37,28 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
 
     }
 
+    private fun uploadDB(concert: Concert?) {
+        val db = Firebase.firestore
+        println(concert?.concertArtistName.toString())
+        val concertTicket = hashMapOf(
+            "concertLocationName" to concert?.concertLocationName,
+            "concertDate" to concert?.concertDate?.toString(),
+            "concertArtistName" to concert?.concertArtistName
+        )
+
+        val user = Firebase.auth.currentUser
+        val email = user?.email
+
+        db.collection("users").get().addOnSuccessListener { result ->
+            for (document in result) {
+                if (document.data["email"] == email) {
+                    val id = document.id
+                    db.collection("users").document(id)
+                        .update("tickets", FieldValue.arrayUnion(concertTicket))
+                }
+            }
+        }
+    }
 
     private fun showConcertDetails(concert: Concert) {
         val artistImageView = findViewById<ImageView>(R.id.imageView3)

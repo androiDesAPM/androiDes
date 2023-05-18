@@ -40,7 +40,7 @@ class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
         holder.bind(dataSet[position])
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ConcertDetailsActivity::class.java)
-            intent.putExtra("artistName", dataSet[position].concertArtistName) // Si deseas pasar algún dato a la actividad, puedes hacerlo aquí
+            intent.putExtra("concert", dataSet[position]) // Si deseas pasar algún dato a la actividad, puedes hacerlo aquí
             context.startActivity(intent)
         }
     }
