@@ -41,7 +41,7 @@
             android:background="@drawable/usericon" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/usernameProfile"
             android:layout_width="196dp"
             android:layout_height="29dp"
             android:layout_marginStart="40dp"
@@ -55,14 +55,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/emailProfile"
             android:layout_width="144dp"
             android:layout_height="27dp"
             android:layout_marginTop="16dp"
             android:text="email@example.com"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+            app:layout_constraintStart_toStartOf="@+id/usernameProfile"
+            app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
 
         <View
             android:id="@+id/divider2"

@@ -37,8 +37,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView17"
+                <EditText
+                    android:id="@+id/usernameProfile"
                     android:layout_width="196dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="25dp"
@@ -46,20 +46,23 @@
                     android:text="Nombre de usuario"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:background="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="144dp"
-                    android:layout_height="27dp"
+                    android:id="@+id/emailProfile"
+                    android:layout_width="177dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="12dp"
+                    android:background="@null"
                     android:text="email@example.com"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView17"
-                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                    android:textAlignment="textStart"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/usernameProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
 
                 <View
                     android:id="@+id/divider"
@@ -107,7 +110,6 @@
                     android:background="#E1E4E6"
                     android:inputType="textPersonName"
                     android:padding="5dp"
-                    android:text="TRAER DE BASE DE DATOS"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -169,40 +171,43 @@
                     app:layout_constraintStart_toStartOf="@+id/textView21"
                     app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/myprofileFavArtistsRecyclerView"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:scrollbars="vertical"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>-->
+
+
+                <!--                <GridLayout-->
+                <!--                    android:id="@+id/layoutFavArtists"-->
+                <!--                    android:layout_width="298dp"-->
+                <!--                    android:layout_height="89dp"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:background="#6A939393"-->
+                <!--                    android:columnCount="4"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:padding="16dp"-->
+                <!--                    android:rowCount="4"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/textView22">-->
+                <!--                </GridLayout>-->
+
+
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/myProfileFavArtistsFragment"
                     android:name="com.apm.apm.MyProfileFavArtistsFragment"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="90dp"
-                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>
-
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/myprofileFavArtistsRecyclerView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:scrollbars="vertical"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>-->
-
-
-                                <!--                <GridLayout-->
-<!--                    android:id="@+id/layoutFavArtists"-->
-<!--                    android:layout_width="298dp"-->
-<!--                    android:layout_height="89dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:background="#6A939393"-->
-<!--                    android:columnCount="4"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:padding="16dp"-->
-<!--                    android:rowCount="4"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView22">-->
-<!--                </GridLayout>-->
-
-
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textView22"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
                 <TextView
                     android:id="@+id/textView23"
@@ -215,22 +220,24 @@
                     app:layout_constraintStart_toStartOf="@+id/textView19"
                     app:layout_constraintTop_toBottomOf="@+id/myProfileFavArtistsFragment" />
 
-                <GridLayout
-                    android:id="@+id/layoutFavGenres"
-                    android:layout_width="298dp"
-                    android:layout_height="89dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#6A939393"
-                    android:columnCount="4"
+                <LinearLayout
+                    android:layout_width="379dp"
+                    android:layout_height="187dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical"
-                    android:padding="16dp"
-                    android:rowCount="4"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
-                    app:layout_constraintTop_toBottomOf="@+id/textView23">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23"
+                    app:layout_constraintVertical_bias="0.0">
 
-                </GridLayout>
+                    <ListView
+                        android:id="@+id/myProfileFavGenresListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
