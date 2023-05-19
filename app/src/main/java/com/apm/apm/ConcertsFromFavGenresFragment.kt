@@ -1,9 +1,11 @@
 package com.apm.apm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +18,14 @@ import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.mappers.GenreMapper
 import com.apm.apm.objects.Concert
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -36,9 +42,10 @@ class ConcertsFromFavGenresFragment : Fragment() {
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
-    private val favGenres = mutableListOf<String>()
     private lateinit var cacheFile: File
     private lateinit var progressBar: ProgressBar
+    val db = Firebase.firestore
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -84,7 +91,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
+            delay(1000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
             //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -103,7 +110,27 @@ class ConcertsFromFavGenresFragment : Fragment() {
             // id del segmento Musica KZFzniwnSyZfZ7v7nJ, dentro del segmento hay generos y dentro de estos subgeneros
             // id del genero pop KnvZfZ7vAev
             // id del subgenero kpop dentro de pop KZazBEonSMnZfZ7vkE1, esto hay que cambiarlo luego
-            favGenres.addAll(listOf("KnvZfZ7vAev"))
+
+            val favGenres = ArrayList<String>()
+
+            val user = Firebase.auth.currentUser
+            val uid = user?.uid
+            Log.d("FavGenres", "uid: $uid")
+
+//            do a db query to get the fav genres as coroutines
+            val genres = db.collection("users").document(uid ?: "").get().await().data?.get("genres") as ArrayList<HashMap<String, String>>
+            for (genre in genres) {
+                favGenres.add(genre["value"].toString())
+            }
+
+////
+//            db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
+//                val genres = result?.data?.get("genres") as ArrayList<HashMap<String, String>>
+//                for (genre in genres) {
+//                    favGenres.add(genre["value"].toString())
+//                }
+//            }
+//            favGenres.addAll(listOf("KnvZfZ7vAev"))
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
             for (genre in favGenres) {
