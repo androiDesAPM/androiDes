@@ -115,7 +115,6 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
             val user = Firebase.auth.currentUser
             val uid = user?.uid
-            Log.d("FavGenres", "uid: $uid")
 
             val genres = db.collection("users").document(uid ?: "").get().await().data?.get("genres") as ArrayList<HashMap<String, String>>
             for (genre in genres) {

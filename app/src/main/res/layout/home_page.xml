@@ -9,20 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/progressba2r"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <ProgressBar-->
+        <!--            android:id="@+id/progressba2r"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <LinearLayout
             android:id="@+id/linearLayoutSearch"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:orientation="horizontal"
-            android:layout_marginBottom="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -51,59 +50,59 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
-            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearch"
-            tools:layout_editor_absoluteX="-5dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/listConcertsFavArtists"
-                    android:name="com.apm.apm.ConcertsFromFavArstistsFragment"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearch"
+                tools:layout_editor_absoluteX="-5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout="@layout/fragment_concerts_fav_artists"
-                    tools:layout_editor_absoluteX="0dp" />
+                    android:layout_height="wrap_content">
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/listConcertsFavConcerts"
-                    android:name="com.apm.apm.ConcertsFromFavGenresFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    app:layout_constraintTop_toBottomOf="@+id/listConcertsFavArtists"
-                    tools:layout="@layout/fragment_concerts_fav_genres"
-                    tools:layout_editor_absoluteX="0dp" />
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/listConcertsFavArtists"
+                        android:name="com.apm.apm.ConcertsFromFavArstistsFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_weight="1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout="@layout/fragment_concerts_fav_artists"
+                        tools:layout_editor_absoluteX="0dp" />
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/listConcertsNearUbication"
-                    android:name="com.apm.apm.ConcertsFromNearUbicationFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    app:layout_constraintTop_toBottomOf="@+id/listConcertsFavConcerts"
-                    tools:layout="@layout/fragment_concerts_near_ubication"
-                    tools:layout_editor_absoluteX="0dp" />
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/listConcertsFavConcerts"
+                        android:name="com.apm.apm.ConcertsFromFavGenresFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        app:layout_constraintTop_toBottomOf="@+id/listConcertsFavArtists"
+                        tools:layout="@layout/fragment_concerts_fav_genres"
+                        tools:layout_editor_absoluteX="0dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/listConcertsNearUbication"
+                        android:name="com.apm.apm.ConcertsFromNearUbicationFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        app:layout_constraintTop_toBottomOf="@+id/listConcertsFavConcerts"
+                        tools:layout="@layout/fragment_concerts_near_ubication"
+                        tools:layout_editor_absoluteX="0dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,23 +115,12 @@
             android:background="#00FFFFFF"
             android:backgroundTint="#00FFFFFF"
             android:translationZ="1dp"
-            android:textAppearance="@style/AppTheme"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="@+id/linearLayoutSearch"
             app:layout_constraintStart_toStartOf="@+id/linearLayoutSearch"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearch"
             app:layout_constraintVertical_bias="0.5">
 
-            <FrameLayout
-                android:id="@+id/frameLayoutSearch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#00FFFFFF"
-                android:backgroundTint="#00FFFFFF"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="8dp">
-
-            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

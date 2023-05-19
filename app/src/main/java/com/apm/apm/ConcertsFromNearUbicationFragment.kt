@@ -1,20 +1,27 @@
 package com.apm.apm
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ch.hsr.geohash.GeoHash
 import com.apm.apm.adapter.ConcertsNearYouAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
+import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -23,9 +30,9 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+
 
 class ConcertsFromNearUbicationFragment : Fragment() {
 
@@ -36,7 +43,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
     private val nearConcerts = mutableListOf<String>()
     private lateinit var cacheFile: File
     private lateinit var progressBar: ProgressBar
-    override fun onCreateView(
+        override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +61,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         adapter = ConcertsNearYouAdapter(concerts)
         recyclerView.adapter = adapter
         cacheFile = File(requireContext().cacheDir, "near_concerts_cache")
+
         return view
     }
 
@@ -95,20 +103,20 @@ class ConcertsFromNearUbicationFragment : Fragment() {
             val baseUrl = "events"
             val classificationId = "KZFzniwnSyZfZ7v7nJ"
             //Esta lista mas adelante se sacara de la base de datos
-            nearConcerts.addAll(listOf("Bad gyal"))
+
+            val geoHash = getGeoHashFromLocation()
+//            nearConcerts.addAll(listOf("Bad gyal"))
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
-            for (artist in nearConcerts) {
-                val url =
-                    "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&keywords=$artist"
-                val call = apiService.getFavArtistsConcerts(url)
-                val response = call.body()
-                if (call.isSuccessful && response != null) {
-                    val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-                    concerts.addAll(concertsApi)
-                    // se guarda la respuesta en cache
-                    cacheFile.writeText(Gson().toJson(response))
-                }
+            val url =
+                "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&geoPoint=$geoHash"
+            val call = apiService.getFavArtistsConcerts(url)
+            val response = call.body()
+            if (call.isSuccessful && response != null) {
+                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                concerts.addAll(concertsApi)
+                // se guarda la respuesta en cache
+                cacheFile.writeText(Gson().toJson(response))
             }
 
             adapter.notifyDataSetChanged()
@@ -118,6 +126,37 @@ class ConcertsFromNearUbicationFragment : Fragment() {
 
         println("Cargando conciertos ....") // o thread principal continúa durante o delay da corutina
         //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
+    }
+
+    private fun getGeoHashFromLocation(): String{
+        val client = LocationServices.getFusedLocationProviderClient(this.requireContext())
+//        get location inside fragment
+        var latitude = 43.358934
+        var longitude = -8.412103
+        if (checkLocationPermission()) {
+//            TODO: No funciona la localización
+            client.lastLocation.addOnSuccessListener { location: Location? ->
+                latitude = location?.latitude!!
+                longitude = location?.longitude!!
+            }
+        }
+        val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude!!, longitude!!, 7)
+        return geoHash
+    }
+
+    private fun checkLocationPermission(): Boolean  {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED) {
+            return true
+        } else {
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+            return false
+        }
     }
 
     fun refreshData() {

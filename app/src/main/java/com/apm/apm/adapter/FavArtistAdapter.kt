@@ -32,7 +32,6 @@ class FavArtistAdapter(private val dataSet: List<Concert>) : RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConcertFavArtistViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.concerts_fav_artist_row, parent, false)
         return ConcertFavArtistViewHolder(view)
-
     }
 
     override fun onBindViewHolder(holder: ConcertFavArtistViewHolder, position: Int) {
