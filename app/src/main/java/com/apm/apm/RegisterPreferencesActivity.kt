@@ -31,18 +31,9 @@ class RegisterPreferencesActivity : AppCompatActivity() {
             "key" to key,
             "value" to value
         )
-
         val user = Firebase.auth.currentUser
-        val email = user?.email
-
-        db.collection("users").get().addOnSuccessListener { result ->
-            for (document in result) {
-                if (document.data["email"] == email) {
-                    val id = document.id
-                    db.collection("users").document(id).update("genres", FieldValue.arrayUnion(genre))
-                }
-            }
-        }
+        val uid = user?.uid
+        db.collection("users").document(uid ?: "").update("genres", FieldValue.arrayUnion(genre))
     }
 
     private fun setup(){

@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -64,19 +65,22 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun uploadBD(email: String, fullName: String){
+        val user = Firebase.auth.currentUser
+        val uid = user?.uid
         val db = Firebase.firestore
-        val user = hashMapOf(
+        val username = "User" + uid?.substring(0, 3)
+        val userToUpload = hashMapOf(
+            "username" to username,
             "email" to email,
             "fullName" to fullName
         )
-        db.collection("users").add(user)
+        db.collection("users").document(uid ?: "").set(userToUpload)
             .addOnSuccessListener { documentReference ->
-                println("DocumentSnapshot added with ID: ${documentReference.id}")
+                println("Good")
             }
             .addOnFailureListener { e ->
                 println("Error adding document: $e")
             }
-
     }
 
     private fun showSetup(email: String, provider: ProviderType){
