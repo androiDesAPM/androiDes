@@ -117,20 +117,11 @@ class ConcertsFromFavGenresFragment : Fragment() {
             val uid = user?.uid
             Log.d("FavGenres", "uid: $uid")
 
-//            do a db query to get the fav genres as coroutines
             val genres = db.collection("users").document(uid ?: "").get().await().data?.get("genres") as ArrayList<HashMap<String, String>>
             for (genre in genres) {
                 favGenres.add(genre["value"].toString())
             }
 
-////
-//            db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
-//                val genres = result?.data?.get("genres") as ArrayList<HashMap<String, String>>
-//                for (genre in genres) {
-//                    favGenres.add(genre["value"].toString())
-//                }
-//            }
-//            favGenres.addAll(listOf("KnvZfZ7vAev"))
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
             for (genre in favGenres) {
