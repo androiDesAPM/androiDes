@@ -2,20 +2,20 @@ package com.apm.apm
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import ch.hsr.geohash.GeoHash
+import com.apm.apm.adapter.MarkerInfoWindowAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
-import com.apm.apm.mappers.ConcertMapper
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,8 +24,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+
 
 
 class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
@@ -62,6 +64,9 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap) {
+
+        map.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
         } else {
@@ -115,6 +120,37 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                 for ( event in response.embedded.events){
                     var location = event.venue.venue.get(0).location
                     Log.i("MapActivity" ,"Location: $location")
+
+
+//                    Picasso.get().load(event.images[0].url).
+
+//                    val iconGenerator = IconGenerator(context)
+//                    iconGenerator.setStyle(IconGenerator.STYLE_GREEN)
+
+//                    val textView = TextView(context).apply {
+//                        text = "$title\n$date" // Agrega el título y la fecha separados por un salto de línea
+//                        setTextColor(Color.BLACK)
+//                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+//                    }
+
+
+                    //var bitmapImagenArtista = cargarImagenArtistaIcono(event.images[0].url)
+//                    var bitmapImagenArtista = R.drawable.avatar_1
+//                    try {
+//                        bitmapImagenArtista = Picasso.get().load(event.images[0].url).get()
+//                    } catch (e: Exception) {
+//                        val bitmapImagenArtista = R.drawable.avatar_1
+//                        BitmapFactory.decodeResource(resources, bitmapImagenArtista)
+//                    }
+
+//                    val markerOptions = MarkerOptions()
+//                        .position(latLng)
+//                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
+//                        .anchor(iconGenerator.anchorU, iconGenerator.anchorV) // Ajusta el ancla para centrar el icono
+//                    map.addMarker(markerOptions)
+
+
+
                     val ubication = LatLng(
                         location.latitude.toDouble(),
                         location.longitude.toDouble())
@@ -122,10 +158,28 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                     map.addMarker(
                         MarkerOptions()
                             .position(ubication)
+                            //.icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
                             .title(event.name+event.dates.toString())
                     )
                 }
+
+//                response.embedded.events.forEach { concertMapInfo ->
+//                    val marker = map.addMarker(
+//                        MarkerOptions()
+//                            .title(concertMapInfo.name)
+//                            .position(concertMapInfo.latLng)
+//                            .icon(concertMapInfo)
+//                    )
             }
+        }
+    }
+
+    fun cargarImagenArtistaIcono(url: String): Bitmap {
+        return try {
+            Picasso.get().load(url).get()
+        } catch (e: Exception) {
+            val imagenIconoDefecto = R.drawable.avatar_1
+            BitmapFactory.decodeResource(resources, imagenIconoDefecto)
         }
     }
 
