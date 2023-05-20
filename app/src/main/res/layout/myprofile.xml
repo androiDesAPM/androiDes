@@ -126,7 +126,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName3"
+                    android:id="@+id/artistToDonate"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
@@ -146,10 +146,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+                    app:layout_constraintTop_toBottomOf="@+id/artistToDonate" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName2"
+                    android:id="@+id/coinsToDonate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -169,7 +169,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView21"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+                    app:layout_constraintTop_toBottomOf="@+id/coinsToDonate" />
 
                 <!--                <androidx.recyclerview.widget.RecyclerView-->
                 <!--                    android:id="@+id/myprofileFavArtistsRecyclerView"-->

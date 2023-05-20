@@ -56,11 +56,11 @@
 
         <TextView
             android:id="@+id/emailProfile"
-            android:layout_width="144dp"
-            android:layout_height="27dp"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:text="email@example.com"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/usernameProfile"
             app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
 
@@ -120,15 +120,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/coinsToDonate"
             android:layout_width="76dp"
             android:layout_height="27dp"
             android:layout_marginStart="142dp"
             android:layout_marginTop="68dp"
             android:background="#E1E4E6"
-            android:inputType="textPersonName"
+            android:digits="1234567890"
             android:gravity="center|right"
-            android:text="100   "
+            android:inputType="textFilter"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -158,15 +158,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/artistToDonate"
             android:layout_width="210dp"
             android:layout_height="33dp"
             android:layout_marginStart="142dp"
             android:layout_marginTop="120dp"
             android:background="#E1E4E6"
             android:ems="10"
+            android:gravity="center"
             android:inputType="textPersonName"
-            android:text="   Nombre del artista"
+            android:text="Nombre del artista"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -223,7 +224,7 @@
 
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/actualCoins"
             android:layout_width="92dp"
             android:layout_height="36dp"
             android:layout_marginStart="38dp"
@@ -243,7 +244,7 @@
             android:layout_marginTop="44dp"
             android:layout_marginEnd="73dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintStart_toEndOf="@+id/actualCoins"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/coins" />
 
