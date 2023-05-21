@@ -3,7 +3,6 @@ package com.apm.apm.mappers
 import com.apm.apm.data.BandsInTownResponse
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.objects.Concert
-import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -30,7 +29,7 @@ class ConcertMapper {
         // Si hay eventos, mapearlos a objetos de tipo Concert
         val concerts = mutableListOf<Concert>()
         for (event in events) {
-            val venueName = event.venue.venue.firstOrNull()?.venues ?: "Unknown Venue"
+            val venueName = event.embeddedEvent.venue.firstOrNull()?.venues ?: "Unknown Venue"
             val date = LocalDate.parse(event.dates.start.localDate)
             val artistName = event.name
             val imageUrl = event.images[0].url

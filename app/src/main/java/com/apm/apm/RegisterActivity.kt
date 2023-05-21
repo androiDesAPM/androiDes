@@ -69,10 +69,12 @@ class RegisterActivity : AppCompatActivity() {
         val uid = user?.uid
         val db = Firebase.firestore
         val username = "User" + uid?.substring(0, 3)
+        val coins = 1000
         val userToUpload = hashMapOf(
             "username" to username,
             "email" to email,
-            "fullName" to fullName
+            "fullName" to fullName,
+            "coins" to coins
         )
         db.collection("users").document(uid ?: "").set(userToUpload)
             .addOnSuccessListener { documentReference ->

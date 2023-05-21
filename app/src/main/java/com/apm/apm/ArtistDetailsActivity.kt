@@ -1,5 +1,6 @@
 package com.apm.apm
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
@@ -14,9 +15,19 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.async
+import kotlinx.coroutines.tasks.await
 
 
 internal class ArtistDetailsActivity : GetNavigationBarActivity() {
+    lateinit var favArtists: ArrayList<HashMap<String, String>>
+    private lateinit var favButton: ImageButton
+    private lateinit var artist: Artist
+
     private val artistService = Retrofit.Builder()
         .baseUrl("https://app.ticketmaster.com/discovery/v2/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -28,6 +39,8 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_details)
+        favArtists = ArrayList()
+        favButton = findViewById(R.id.favButton)
 
         val query = intent.getStringExtra("query")
         if (query != null) {
@@ -36,30 +49,55 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
                 //val artistResponse = artistService.getArtistDetails(url)
                 val call = artistService.getArtistDetails(url)
                 val response: ArtistResponse? = call.body()
-                println(response)
                 if (call.isSuccessful && response != null) {
                     if (!response.embeddedArtists?.attractions.isNullOrEmpty()) {
-                        val artist = ArtistMapper().ArtistResponseToArtist(response)
+                        artist = ArtistMapper().ArtistResponseToArtist(response)
                         showArtistDetails(artist)
                         val tabLayout = findViewById<TabLayout>(R.id.tabs)
                         val viewPager = findViewById<ViewPager>(R.id.viewPager)
-                        viewPager.adapter = TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
+                        viewPager.adapter =
+                            TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
                         tabLayout.setupWithViewPager(viewPager)
+                        setupFavoriteButton()
                     } else {
-                        Toast.makeText(applicationContext,"No se ha encontrado ningún artista con ese nombre", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "No se ha encontrado ningún artista con ese nombre",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
-                    Toast.makeText(applicationContext,"No se ha encontrado ningún artista con ese nombre", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "No se ha encontrado ningún artista con ese nombre",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
-        val favButton = findViewById<ImageButton>(R.id.favButton)
-        favButton.setOnClickListener {
-            Toast.makeText(this, "Artista añadido a favoritos", Toast.LENGTH_SHORT).show()
-        }
-
         //Creamos la barra inferior
         this.getNavigationView()
+    }
+
+    private suspend fun setupFavoriteButton() {
+        var isFavorite = lifecycleScope.async { isArtistFavorite(artist.artistId) }.await()
+        favButton.setOnClickListener {
+            if (isFavorite) {
+                lifecycleScope.async { deleteArtistFromFavorites(artist.artistId)}
+                isFavorite = false
+                updateFavoriteButtonState(isFavorite)
+            } else {
+                uploadDB(artist.artistId, artist.completeName)
+                Toast.makeText(
+                    applicationContext,
+                    "Artista añadido a favoritos",
+                    Toast.LENGTH_SHORT
+                ).show()
+                isFavorite = true
+                updateFavoriteButtonState(isFavorite)
+            }
+        }
+        updateFavoriteButtonState(isFavorite)
     }
 
     private fun showArtistDetails(artist: Artist) {
@@ -75,7 +113,69 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             .fit()
             .centerCrop()
             .into(artistImageView)
-
     }
 
+    private fun uploadDB(artistId: String, artistName: String) {
+        val db = Firebase.firestore
+        val favArtist = hashMapOf(
+            "artistId" to artistId,
+            "artistName" to artistName,
+        )
+
+        val user = Firebase.auth.currentUser
+        val uid = user?.uid
+
+        db.collection("users").document(uid ?: "")
+            .update("favArtists", FieldValue.arrayUnion(favArtist))
+    }
+
+    private fun deleteArtistFromFavorites(artistId: String) {
+        val db = Firebase.firestore
+        val user = Firebase.auth.currentUser
+        val uid = user?.uid
+
+        db.collection("users").document(uid ?: "").get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val favArtists = document.get("favArtists") as? ArrayList<HashMap<String, String>>
+                if (favArtists != null) {
+                    val iterator = favArtists.iterator()
+                    while (iterator.hasNext()) {
+                        val artist = iterator.next()
+                        if (artist["artistId"] == artistId) {
+                            iterator.remove()
+                        }
+                    }
+                    db.collection("users").document(uid ?: "")
+                        .update("favArtists", favArtists)
+                }
+            }
+        }
+    }
+
+    //funcion para comprobar si el artista esta en favoritos y pintar el favButton como corresponda
+    private suspend fun isArtistFavorite(artistId: String): Boolean {
+        val user = Firebase.auth.currentUser
+        val uid = user?.uid
+        val db = Firebase.firestore
+        var retval = false
+
+        db.collection("users").document(uid ?: "").get().await().let {
+            document ->
+            if (document != null && document.exists()) {
+                val favArtists = document.get("favArtists") as? ArrayList<HashMap<String, String>>
+                if (favArtists != null) {
+                    retval = favArtists.any { it["artistId"] == artistId }
+                }
+            }
+        }
+        return retval
+    }
+
+    private fun updateFavoriteButtonState(isFavorite: Boolean) {
+        if (isFavorite) {
+            favButton.setColorFilter(Color.YELLOW)
+        } else {
+            favButton.clearColorFilter()
+        }
+    }
 }
