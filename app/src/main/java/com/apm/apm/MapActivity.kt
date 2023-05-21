@@ -117,9 +117,9 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             if (call.isSuccessful && response != null)  {
 
                 //Recorremos los eventos cerca de la ubicación encontrados por el API
-                for ( event in response.embedded.events){
-                    var location = event.venue.venue.get(0).location
-                    Log.i("MapActivity" ,"Location: $location")
+//                for ( event in response.embedded.events){
+//                    var location = event.venue.venue.get(0).location
+//                    Log.i("MapActivity" ,"Location: $location")
 
 
 //                    Picasso.get().load(event.images[0].url).
@@ -151,25 +151,36 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 
 
 
+//                    val ubication = LatLng(
+//                        location.latitude.toDouble(),
+//                        location.longitude.toDouble())
+//                    //Añadimos el marcador
+//                    map.addMarker(
+//                        MarkerOptions()
+//                            .position(ubication)
+//                            //.icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
+//                            .title(event.name+event.dates.toString())
+//                    )
+//                }
+
+                response.embedded.events.forEach { event ->
+                    var location = event.venue.venue.get(0).location
+                    Log.i("MapActivity" ,"Location: $location")
+
                     val ubication = LatLng(
                         location.latitude.toDouble(),
                         location.longitude.toDouble())
-                    //Añadimos el marcador
-                    map.addMarker(
-                        MarkerOptions()
-                            .position(ubication)
-                            //.icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
-                            .title(event.name+event.dates.toString())
-                    )
-                }
 
-//                response.embedded.events.forEach { concertMapInfo ->
-//                    val marker = map.addMarker(
-//                        MarkerOptions()
-//                            .title(concertMapInfo.name)
-//                            .position(concertMapInfo.latLng)
+                    val marker = map.addMarker(
+                        MarkerOptions()
+                            .title(event.name)
+                            .position(ubication)
 //                            .icon(concertMapInfo)
-//                    )
+                    )
+                    if (marker != null) {
+                        marker.tag = event
+                    }
+                }
             }
         }
     }
