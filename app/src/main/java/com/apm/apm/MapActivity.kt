@@ -2,8 +2,6 @@ package com.apm.apm
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
@@ -16,6 +14,7 @@ import com.apm.apm.adapter.MarkerInfoWindowAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.mappers.EventMapper
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,7 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -116,55 +114,11 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             val response: ConcertsResponse? = call.body()
             if (call.isSuccessful && response != null)  {
 
-                //Recorremos los eventos cerca de la ubicación encontrados por el API
-//                for ( event in response.embedded.events){
-//                    var location = event.venue.venue.get(0).location
-//                    Log.i("MapActivity" ,"Location: $location")
-
-
-//                    Picasso.get().load(event.images[0].url).
-
-//                    val iconGenerator = IconGenerator(context)
-//                    iconGenerator.setStyle(IconGenerator.STYLE_GREEN)
-
-//                    val textView = TextView(context).apply {
-//                        text = "$title\n$date" // Agrega el título y la fecha separados por un salto de línea
-//                        setTextColor(Color.BLACK)
-//                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-//                    }
-
-
-                    //var bitmapImagenArtista = cargarImagenArtistaIcono(event.images[0].url)
-//                    var bitmapImagenArtista = R.drawable.avatar_1
-//                    try {
-//                        bitmapImagenArtista = Picasso.get().load(event.images[0].url).get()
-//                    } catch (e: Exception) {
-//                        val bitmapImagenArtista = R.drawable.avatar_1
-//                        BitmapFactory.decodeResource(resources, bitmapImagenArtista)
-//                    }
-
-//                    val markerOptions = MarkerOptions()
-//                        .position(latLng)
-//                        .icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
-//                        .anchor(iconGenerator.anchorU, iconGenerator.anchorV) // Ajusta el ancla para centrar el icono
-//                    map.addMarker(markerOptions)
-
-
-
-//                    val ubication = LatLng(
-//                        location.latitude.toDouble(),
-//                        location.longitude.toDouble())
-//                    //Añadimos el marcador
-//                    map.addMarker(
-//                        MarkerOptions()
-//                            .position(ubication)
-//                            //.icon(BitmapDescriptorFactory.fromBitmap(bitmapImagenArtista))
-//                            .title(event.name+event.dates.toString())
-//                    )
-//                }
-
                 response.embedded.events.forEach { event ->
-                    var location = event.venue.venue.get(0).location
+
+                    val concertMapInfo = EventMapper().EventToConcertMapInfo(event)
+
+                    var location = event.embeddedEvent.venue.get(0).location
                     Log.i("MapActivity" ,"Location: $location")
 
                     val ubication = LatLng(
@@ -178,20 +132,10 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 //                            .icon(concertMapInfo)
                     )
                     if (marker != null) {
-                        marker.tag = event
+                        marker.tag = concertMapInfo
                     }
                 }
             }
         }
     }
-
-    fun cargarImagenArtistaIcono(url: String): Bitmap {
-        return try {
-            Picasso.get().load(url).get()
-        } catch (e: Exception) {
-            val imagenIconoDefecto = R.drawable.avatar_1
-            BitmapFactory.decodeResource(resources, imagenIconoDefecto)
-        }
-    }
-
 }
