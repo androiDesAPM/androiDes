@@ -2,6 +2,7 @@ package com.apm.apm
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
@@ -25,12 +26,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-
+import java.io.IOException
 
 
 class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 
     private lateinit var job: Job
+    private lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(this@MapActivity, "Busqueda del artista $query", Toast.LENGTH_LONG).show()
+                moveMapToCity(query)
                 return true
             }
 
@@ -62,6 +65,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap) {
+        this.map=map
 
         map.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
 
@@ -95,7 +99,6 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             }catch (e : Exception){
                 Log.e("MapActivity" ,"Error en la corrutina")
             }
-
         }
     }
 
@@ -138,4 +141,35 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             }
         }
     }
+
+    private fun moveMapToCity(city: String) {
+        val geocoder = Geocoder(this@MapActivity)
+        try {
+            val addressList = geocoder.getFromLocationName(city, 1)
+            if (addressList != null) {
+                if (addressList.isNotEmpty()) {
+                    val address = addressList[0]
+                    val latLng = LatLng(address.latitude, address.longitude)
+                    // Mover el mapa a las coordenadas especificadas
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+                } else {
+                    Toast.makeText(this@MapActivity, "No se encontró la ciudad especificada", Toast.LENGTH_LONG).show()
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(this@MapActivity, "Error al buscar la ciudad", Toast.LENGTH_LONG).show()
+        }
+    }
+
+//    override fun onGeocode(addresses: MutableList<Address>) {
+//        if (addresses != null && addresses.isNotEmpty()) {
+//            val address = addresses[0]
+//            val latLng = LatLng(address.latitude, address.longitude)
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+//        } else {
+//            Toast.makeText(this@MapActivity, "No se encontró la ciudad especificada", Toast.LENGTH_LONG).show()
+//        }
+//    }
+
 }
