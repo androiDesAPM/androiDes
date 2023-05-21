@@ -39,7 +39,6 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
 
     private fun uploadDB(concert: Concert?) {
         val db = Firebase.firestore
-        println(concert?.concertArtistName.toString())
         val concertTicket = hashMapOf(
             "concertLocationName" to concert?.concertLocationName,
             "concertDate" to concert?.concertDate?.toString(),
