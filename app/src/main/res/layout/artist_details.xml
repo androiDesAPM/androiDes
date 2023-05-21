@@ -191,15 +191,14 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="280dp"
+                android:layout_marginBottom="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabs"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.204" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
