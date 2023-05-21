@@ -7,10 +7,10 @@ data class ConcertsResponse(
 )
 data class Embedded(
     @SerializedName("events")
-    val events: List<Events>
+    val events: List<Event>
 )
 
-data class Events(
+data class Event(
     @SerializedName("name")
     val name: String,
     @SerializedName("id")
@@ -20,7 +20,7 @@ data class Events(
     @SerializedName("dates")
     val dates: Dates,
     @SerializedName("_embedded")
-    val venue: Venue
+    val embeddedEvent: EmbeddedEvent
 )
 data class Dates(
     @SerializedName("start")
@@ -30,12 +30,14 @@ data class Start(
     @SerializedName("localDate")
     val localDate: String
 )
-data class Venue(
+data class EmbeddedEvent(
     @SerializedName("venues")
-    val venue: List<Venues>
+    val venue: List<Venue>,
+    @SerializedName("attractions")
+    val attractions: List<Attraction>
 )
 
-data class Venues(
+data class Venue(
     @SerializedName("name")
     val venues: String,
     @SerializedName("location")

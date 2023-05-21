@@ -3,11 +3,13 @@ package com.apm.apm.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.apm.apm.R
-import com.apm.apm.data.Events
+import com.apm.apm.objects.ConcertMapInfo
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
+import com.squareup.picasso.Picasso
 
 class MarkerInfoWindowAdapter(
     private val context: Context
@@ -21,21 +23,29 @@ class MarkerInfoWindowAdapter(
 
     override fun getInfoContents(marker: Marker): View? {
         // 1. Get tag
-        val place = marker?.tag as? Events ?: return null
+        val concertInfo = marker?.tag as? ConcertMapInfo ?: return null
 
         // 2. Inflate view and set title, address, and rating
         val view = LayoutInflater.from(context).inflate(
             R.layout.marker_concert_info, null
         )
+
         view.findViewById<TextView>(
             R.id.text_view_title
-        ).text = place.name
+        ).text = concertInfo.concertArtistName
+
         view.findViewById<TextView>(
             R.id.text_view_address
-        ).text = place.name
-//        view.findViewById<TextView>(
-//            R.id.text_view_rating
-//        ).text = "Rating: %.2f".format(place.rating)
+        ).text = concertInfo.concertLocationName
+
+        view.findViewById<TextView>(
+            R.id.text_view_date
+        ).text = concertInfo.concertDate.toString()
+
+        val imagenArtista: ImageView = view.findViewById(
+            R.id.image_view_artist
+        )
+        Picasso.get().load(concertInfo.imageUrl).into(imagenArtista)
 
         return view
     }
