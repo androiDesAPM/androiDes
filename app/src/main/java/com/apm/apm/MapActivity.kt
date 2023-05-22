@@ -150,8 +150,13 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                 if (addressList.isNotEmpty()) {
                     val address = addressList[0]
                     val latLng = LatLng(address.latitude, address.longitude)
+
                     // Mover el mapa a las coordenadas especificadas
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+
+                    // Volver a asignar los marcadores
+                    val geoHash = GeoHash.geoHashStringWithCharacterPrecision(address.latitude, address.longitude, 8)
+                    getConcertsByGeoPoint(map, geoHash)
                 } else {
                     Toast.makeText(this@MapActivity, "No se encontró la ciudad especificada", Toast.LENGTH_LONG).show()
                 }
