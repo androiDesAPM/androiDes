@@ -15,20 +15,32 @@ class EventMapper {
         var imageUrl = ""
 
         try {
-            artistName = event.embeddedEvent.attractions[0].name
+            if (event.embeddedEvent.attractions[0].name != null){
+                artistName = event.embeddedEvent.attractions[0].name
+            }
         }catch (e:Exception){
+            e.printStackTrace()
         }
         try{
-            date = LocalDate.parse(event.dates.start.localDate)
+            if (event.dates.start.localDate != null){
+                date = LocalDate.parse(event.dates.start.localDate)
+            }
         }catch (e:Exception){
+            e.printStackTrace()
         }
         try{
-            locationName = event.embeddedEvent.venue[0].venues
+            if (event.embeddedEvent.venue[0].venues != null){
+                locationName = event.embeddedEvent.venue[0].venues
+            }
         }catch (e:Exception){
+            e.printStackTrace()
         }
         try{
-            imageUrl = event.embeddedEvent.attractions[0].images[0].url
+            if (event.embeddedEvent.attractions[0].images[0].url != null){
+                imageUrl = event.embeddedEvent.attractions[0].images[0].url
+            }
         }catch (e:Exception){
+            e.printStackTrace()
         }
         return ConcertMapInfo(locationName, date, artistName, imageUrl)
     }
