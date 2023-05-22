@@ -10,13 +10,13 @@
         android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="170dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +37,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <TextView
                     android:id="@+id/usernameProfile"
                     android:layout_width="196dp"
                     android:layout_height="29dp"
@@ -101,7 +101,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <TextView
                     android:id="@+id/profileFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,30 +115,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:text="Fecha de nacimiento"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
-
-                <EditText
-                    android:id="@+id/artistToDonate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#E1E4E6"
-                    android:padding="5dp"
-                    android:text="29/12/1999"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
-                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-                <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/direccionPredeterminadaLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
@@ -146,10 +123,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/artistToDonate" />
+                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
 
                 <EditText
-                    android:id="@+id/coinsToDonate"
+                    android:id="@+id/direccionPredeterminada"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -158,55 +135,7 @@
                     android:text="A Coruña, A Coruña"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/profileFullName"
-                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:text="Tus artistas favoritos"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView21"
-                    app:layout_constraintTop_toBottomOf="@+id/coinsToDonate" />
-
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/myprofileFavArtistsRecyclerView"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="10dp"-->
-                <!--                    android:scrollbars="vertical"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>-->
-
-
-                <!--                <GridLayout-->
-                <!--                    android:id="@+id/layoutFavArtists"-->
-                <!--                    android:layout_width="298dp"-->
-                <!--                    android:layout_height="89dp"-->
-                <!--                    android:layout_marginTop="10dp"-->
-                <!--                    android:background="#6A939393"-->
-                <!--                    android:columnCount="4"-->
-                <!--                    android:orientation="vertical"-->
-                <!--                    android:padding="16dp"-->
-                <!--                    android:rowCount="4"-->
-                <!--                    app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/textView22">-->
-                <!--                </GridLayout>-->
-
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/myProfileFavArtistsFragment"
-                    android:name="com.apm.apm.MyProfileFavArtistsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="60dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>
+                    app:layout_constraintTop_toBottomOf="@+id/direccionPredeterminadaLabel" />
 
                 <TextView
                     android:id="@+id/textView23"
@@ -217,13 +146,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/myProfileFavArtistsFragment" />
+                    app:layout_constraintTop_toBottomOf="@+id/direccionPredeterminada" />
 
                 <LinearLayout
-                    android:layout_width="379dp"
-                    android:layout_height="187dp"
+                    android:id="@+id/favGenresLayout"
+                    android:layout_width="332dp"
+                    android:layout_height="189dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -234,332 +165,92 @@
 
                     <ListView
                         android:id="@+id/myProfileFavGenresListView"
-                        android:layout_width="match_parent"
+                        android:layout_width="319dp"
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="Tus artistas favoritos"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView19"
+                    app:layout_constraintTop_toBottomOf="@+id/favGenresLayout" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout7"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <Button
-                    android:id="@+id/ticketsButton"
-                    android:layout_width="151dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#4DDAEC"
-                    android:text="Mis entradas"
-                    android:textAllCaps="false"
-                    android:textColor="#0E0D0D"
-                    android:textSize="18sp"
-                    app:icon="@drawable/tickets"
-                    app:iconGravity="start"
-                    app:iconPadding="0dp"
-                    app:iconSize="25dp"
-                    app:iconTint="#090909"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/walletButton"
-                    android:layout_width="151dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#4DDAEC"
-                    android:text="Mis monedas"
-                    android:textAllCaps="false"
-                    android:textColor="#0E0D0D"
-                    android:textSize="18sp"
-                    app:icon="@drawable/coins"
-                    app:iconGravity="start"
-                    app:iconPadding="0dp"
-                    app:iconSize="28dp"
-                    app:iconTint="#000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/myProfileFavArtistsFragment"
+                    android:name="com.apm.apm.MyProfileFavArtistsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="35dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.722"
-                    app:layout_constraintStart_toEndOf="@+id/ticketsButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
     </ScrollView>
 
-    <!--    TODO mpombo: bloquear los botones, que no scrolleen con la vista-->
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/constraintLayout7"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:background="@color/white"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-<!--        <Button-->
-<!--            android:id="@+id/ticketsButton"-->
-<!--            android:layout_width="151dp"-->
-<!--            android:layout_height="64dp"-->
-<!--            android:layout_marginStart="24dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:backgroundTint="#4DDAEC"-->
-<!--            android:text="Mis entradas"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="#0E0D0D"-->
-<!--            android:textSize="18sp"-->
-<!--            app:icon="@drawable/tickets"-->
-<!--            app:iconGravity="start"-->
-<!--            app:iconPadding="0dp"-->
-<!--            app:iconSize="25dp"-->
-<!--            app:iconTint="#090909"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <Button
+            android:id="@+id/ticketsButton"
+            android:layout_width="151dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="24dp"
+            android:backgroundTint="#4DDAEC"
+            android:text="Mis entradas"
+            android:textAllCaps="false"
+            android:textColor="#0E0D0D"
+            android:textSize="18sp"
+            app:icon="@drawable/tickets"
+            app:iconGravity="start"
+            app:iconPadding="0dp"
+            app:iconSize="25dp"
+            app:iconTint="#090909"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <Button-->
-<!--            android:id="@+id/walletButton"-->
-<!--            android:layout_width="151dp"-->
-<!--            android:layout_height="64dp"-->
-<!--            android:layout_marginStart="24dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginEnd="33dp"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:backgroundTint="#4DDAEC"-->
-<!--            android:text="Mis monedas"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="#0E0D0D"-->
-<!--            android:textSize="18sp"-->
-<!--            app:icon="@drawable/coins"-->
-<!--            app:iconGravity="start"-->
-<!--            app:iconPadding="0dp"-->
-<!--            app:iconSize="28dp"-->
-<!--            app:iconTint="#000000"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.722"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/ticketsButton"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-
-
-
-    <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--                android:id="@+id/constraintLayout7"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="35dp"-->
-    <!--                android:layout_marginTop="8dp"-->
-    <!--                android:background="#E0E3E5"-->
-    <!--                android:backgroundTint="#E0E3E5"-->
-    <!--                app:layout_constraintStart_toStartOf="@+id/textView22"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/textView22">-->
-
-    <!--                <EditText-->
-    <!--                    android:id="@+id/editTextTextPersonName5"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="20dp"-->
-    <!--                    android:layout_marginStart="2dp"-->
-    <!--                    android:layout_marginTop="7dp"-->
-    <!--                    android:layout_marginEnd="4dp"-->
-    <!--                    android:background="#C1C7CC"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:inputType="textPersonName"-->
-    <!--                    android:text="Bad Gyal"-->
-    <!--                    android:textColorLink="#000000"-->
-    <!--                    android:textSize="16sp"-->
-    <!--                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName7"-->
-    <!--                    app:layout_constraintHorizontal_bias="0.5"-->
-    <!--                    app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName7"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                <EditText-->
-    <!--                    android:id="@+id/editTextTextPersonName7"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="20dp"-->
-    <!--                    android:layout_marginStart="4dp"-->
-    <!--                    android:layout_marginTop="7dp"-->
-    <!--                    android:layout_marginEnd="3dp"-->
-    <!--                    android:background="#C1C7CC"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:inputType="textPersonName"-->
-    <!--                    android:text="BTS"-->
-    <!--                    android:textColorLink="#000000"-->
-    <!--                    android:textSize="16sp"-->
-    <!--                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName5"-->
-    <!--                    app:layout_constraintHorizontal_bias="0.5"-->
-    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                <EditText-->
-    <!--                    android:id="@+id/editTextTextPersonName6"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="20dp"-->
-    <!--                    android:layout_marginStart="4dp"-->
-    <!--                    android:layout_marginTop="7dp"-->
-    <!--                    android:layout_marginEnd="8dp"-->
-    <!--                    android:background="#C1C7CC"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:inputType="textPersonName"-->
-    <!--                    android:text="Imagine Dragons"-->
-    <!--                    android:textSize="16sp"-->
-    <!--                    app:layout_constraintEnd_toStartOf="@+id/imageView7"-->
-    <!--                    app:layout_constraintHorizontal_bias="0.5"-->
-    <!--                    app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName5"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                <ImageView-->
-    <!--                    android:id="@+id/imageView7"-->
-    <!--                    android:layout_width="22dp"-->
-    <!--                    android:layout_height="22dp"-->
-    <!--                    android:layout_marginEnd="4dp"-->
-    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent"-->
-    <!--                    app:layout_constraintVertical_bias="0.461"-->
-    <!--                    app:srcCompat="@drawable/pencil" />-->
-    <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--                android:id="@+id/constraintLayout9"-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="35dp"-->
-    <!--                android:layout_marginTop="8dp"-->
-    <!--                android:background="#E0E3E5"-->
-    <!--                android:backgroundTint="#E0E3E5"-->
-    <!--                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">-->
-
-    <!--                <EditText-->
-    <!--                    android:id="@+id/editTextTextPersonName10"-->
-    <!--                    android:layout_width="40dp"-->
-    <!--                    android:layout_height="20dp"-->
-    <!--                    android:layout_marginStart="16dp"-->
-    <!--                    android:layout_marginTop="8dp"-->
-    <!--                    android:background="#C1C7CC"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:inputType="textPersonName"-->
-    <!--                    android:text="Pop"-->
-    <!--                    android:textSize="16sp"-->
-    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                <EditText-->
-    <!--                    android:id="@+id/editTextTextPersonName9"-->
-    <!--                    android:layout_width="60dp"-->
-    <!--                    android:layout_height="20dp"-->
-    <!--                    android:layout_marginStart="67dp"-->
-    <!--                    android:layout_marginTop="8dp"-->
-    <!--                    android:layout_marginEnd="32dp"-->
-    <!--                    android:background="#C1C7CC"-->
-    <!--                    android:gravity="center"-->
-    <!--                    android:inputType="textPersonName"-->
-    <!--                    android:text="Urbano"-->
-    <!--                    android:textSize="16sp"-->
-    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                <ImageView-->
-    <!--                    android:id="@+id/imageView8"-->
-    <!--                    android:layout_width="22dp"-->
-    <!--                    android:layout_height="22dp"-->
-    <!--                    android:layout_marginEnd="4dp"-->
-    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent"-->
-    <!--                    app:layout_constraintVertical_bias="0.461"-->
-    <!--                    app:srcCompat="@drawable/pencil" />-->
-    <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/imageView6"-->
-    <!--                android:layout_width="22dp"-->
-    <!--                android:layout_height="22dp"-->
-    <!--                android:layout_marginEnd="8dp"-->
-    <!--                app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"-->
-    <!--                app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"-->
-    <!--                app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName2"-->
-    <!--                app:srcCompat="@drawable/pencil" />-->
-
-    <!--            <View-->
-    <!--                android:id="@+id/divider2"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="4dp"-->
-    <!--                android:layout_marginTop="6dp"-->
-    <!--                android:background="?android:attr/listDivider"-->
-    <!--                android:backgroundTint="#252222"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />-->
-
-    <!--            <Button-->
-    <!--                android:id="@+id/ticketsButton"-->
-    <!--                android:layout_width="151dp"-->
-    <!--                android:layout_height="64dp"-->
-    <!--                android:layout_marginStart="21dp"-->
-    <!--                android:layout_marginTop="10dp"-->
-    <!--                android:layout_marginEnd="24dp"-->
-    <!--                android:backgroundTint="#4DDAEC"-->
-    <!--                android:text="Mis entradas"-->
-    <!--                android:textAllCaps="false"-->
-    <!--                android:textColor="#0E0D0D"-->
-    <!--                android:textSize="18sp"-->
-    <!--                app:icon="@drawable/tickets"-->
-    <!--                app:iconGravity="start"-->
-    <!--                app:iconPadding="0dp"-->
-    <!--                app:iconSize="25dp"-->
-    <!--                app:iconTint="#090909"-->
-    <!--                app:layout_constraintEnd_toStartOf="@+id/walletButton"-->
-    <!--                app:layout_constraintHorizontal_bias="1.0"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/divider2" />-->
-
-    <!--            <Button-->
-    <!--                android:id="@+id/walletButton"-->
-    <!--                android:layout_width="151dp"-->
-    <!--                android:layout_height="64dp"-->
-    <!--                android:layout_marginStart="24dp"-->
-    <!--                android:layout_marginTop="10dp"-->
-    <!--                android:layout_marginEnd="33dp"-->
-    <!--                android:backgroundTint="#4DDAEC"-->
-    <!--                android:text="Mis monedas"-->
-    <!--                android:textAllCaps="false"-->
-    <!--                android:textColor="#0E0D0D"-->
-    <!--                android:textSize="18sp"-->
-    <!--                app:icon="@drawable/coins"-->
-    <!--                app:iconGravity="start"-->
-    <!--                app:iconPadding="0dp"-->
-    <!--                app:iconSize="28dp"-->
-    <!--                app:iconTint="#000000"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toEndOf="@+id/ticketsButton"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/divider2" />-->
-
-    <!--            <View-->
-    <!--                android:id="@+id/divider3"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="4dp"-->
-    <!--                android:layout_marginTop="64dp"-->
-    <!--                android:backgroundTint="#00252222"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@+id/ticketsButton" />-->
-
-    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--    </androidx.core.widget.NestedScrollView>-->
+        <Button
+            android:id="@+id/walletButton"
+            android:layout_width="151dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#4DDAEC"
+            android:text="Mis monedas"
+            android:textAllCaps="false"
+            android:textColor="#0E0D0D"
+            android:textSize="18sp"
+            app:icon="@drawable/coins"
+            app:iconGravity="start"
+            app:iconPadding="0dp"
+            app:iconSize="28dp"
+            app:iconTint="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.722"
+            app:layout_constraintStart_toEndOf="@+id/ticketsButton"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

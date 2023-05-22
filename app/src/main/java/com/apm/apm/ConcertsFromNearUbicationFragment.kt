@@ -136,8 +136,14 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         if (checkLocationPermission()) {
 //            TODO: No funciona la localización
             client.lastLocation.addOnSuccessListener { location: Location? ->
-                latitude = location?.latitude!!
-                longitude = location?.longitude!!
+                if (location != null) {
+                    latitude = location?.latitude!!
+                    longitude = location?.longitude!!
+                }
+                else {
+                    latitude = 43.332688
+                    longitude = -8.410926
+                }
             }
         }
         val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude!!, longitude!!, 7)

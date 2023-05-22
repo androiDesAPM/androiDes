@@ -32,7 +32,7 @@ class MyProfile : GetNavigationBarActivity() {
 
         db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
             val name = result?.data?.get("fullName").toString()
-            val profileFullName = findViewById<EditText>(R.id.profileFullName)
+            val profileFullName = findViewById<TextView>(R.id.profileFullName)
             profileFullName.setText(name)
 
             val email = result?.data?.get("email").toString()
@@ -40,7 +40,7 @@ class MyProfile : GetNavigationBarActivity() {
             emailProfile.text = email
 
             val username = result?.data?.get("username").toString()
-            val usernameProfile = findViewById<EditText>(R.id.usernameProfile)
+            val usernameProfile = findViewById<TextView>(R.id.usernameProfile)
             usernameProfile.setText(username)
 
             val genres = result?.data?.get("genres") as ArrayList<HashMap<String, String>>
@@ -50,7 +50,7 @@ class MyProfile : GetNavigationBarActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        val usernameProfile = findViewById<EditText>(R.id.usernameProfile)
+        val usernameProfile = findViewById<TextView>(R.id.usernameProfile)
         usernameProfile.addTextChangedListener(textWatcher)
 
         val ticketsButton = findViewById<Button>(R.id.ticketsButton)
@@ -72,8 +72,8 @@ class MyProfile : GetNavigationBarActivity() {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun afterTextChanged(s: Editable?) {
-            if (s.hashCode() == findViewById<EditText>(R.id.usernameProfile).text.hashCode()) {
-                val username = findViewById<EditText>(R.id.usernameProfile).text.toString()
+            if (s.hashCode() == findViewById<TextView>(R.id.usernameProfile).text.hashCode()) {
+                val username = findViewById<TextView>(R.id.usernameProfile).text.toString()
                 val user = Firebase.auth.currentUser
                 val uid = user?.uid
                 db.collection("users").document(uid ?: "").update("username", username)
