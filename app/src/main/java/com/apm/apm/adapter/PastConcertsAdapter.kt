@@ -32,27 +32,5 @@ class PastConcertsAdapter (private val dataSet: List<Concert>) : RecyclerView.Ad
         val context = holder.itemView.context
         holder.bind(dataSet[position])
 
-        //TODO mpombo: añadir toast
-        /*
-        val cameraButton = viewFragment.findViewById<ImageButton>(R.id.cameraIcon1)
-        cameraButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Se ha añadido la foto al album del concierto", Toast.LENGTH_SHORT).show()
-        }
-        val photoButton = viewFragment.findViewById<ImageButton>(R.id.concertPhotos1)
-        photoButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Aún no hay fotos en el album", Toast.LENGTH_SHORT).show()
-        }
-        val cameraButton2 = viewFragment.findViewById<ImageButton>(R.id.cameraIcon2)
-        cameraButton2.setOnClickListener {
-            Toast.makeText(requireContext(), "Se ha añadido la foto al album del concierto", Toast.LENGTH_SHORT).show()
-        }
-        val photoButton2 = viewFragment.findViewById<ImageButton>(R.id.concertPhotos2)
-        photoButton2.setOnClickListener {
-            Toast.makeText(requireContext(), "Aún no hay fotos en el album", Toast.LENGTH_SHORT).show()
-        }
-        val cameraButton3 = viewFragment.findViewById<ImageButton>(R.id.cameraIcon3)
-        cameraButton3.setOnClickListener {
-            Toast.makeText(requireContext(), "Se ha añadido la foto al album del concierto", Toast.LENGTH_SHORT).show()
-        */
     }
 }

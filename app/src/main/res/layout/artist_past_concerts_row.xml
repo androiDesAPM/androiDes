@@ -44,21 +44,6 @@
         android:textColor="#000000"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/cameraIcon1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="2"
-        android:background="@android:drawable/ic_menu_camera"
-        android:backgroundTint="#000000" />
 
-    <ImageButton
-        android:id="@+id/concertPhotos1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="1"
-        android:layout_column="2"
-        android:background="@android:drawable/ic_menu_gallery"
-        android:backgroundTint="#000000" />
+
 </GridLayout>

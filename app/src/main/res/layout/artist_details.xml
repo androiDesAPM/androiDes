@@ -82,6 +82,23 @@
                 app:layout_constraintVertical_bias="0.05"
                 app:srcCompat="@android:drawable/btn_star" />
 
+            <ImageButton
+                android:id="@+id/artistPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_marginStart="58dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="54dp"
+                android:layout_marginBottom="91dp"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:backgroundTint="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/view4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/favButton" />
+
             <View
                 android:id="@+id/view4"
                 android:layout_width="match_parent"

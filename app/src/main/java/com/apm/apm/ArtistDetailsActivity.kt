@@ -1,5 +1,6 @@
 package com.apm.apm
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.*
@@ -41,7 +42,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         setContentView(R.layout.artist_details)
         favArtists = ArrayList()
         favButton = findViewById(R.id.favButton)
-
+        var artistPhotosButton = findViewById<ImageView>(R.id.artistPhotos)
         val query = intent.getStringExtra("query")
         if (query != null) {
             val url = "attractions?apikey=$apikey&keyword=$query"
@@ -59,6 +60,11 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
                             TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
                         tabLayout.setupWithViewPager(viewPager)
                         setupFavoriteButton()
+                        artistPhotosButton.setOnClickListener {
+                            val intent = Intent(applicationContext, ArtistPhotosActivity::class.java)
+                            intent.putExtra("artistId", artist.artistId)
+                            startActivity(intent)
+                        }
                     } else {
                         Toast.makeText(
                             applicationContext,
