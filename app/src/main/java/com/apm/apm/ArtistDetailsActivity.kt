@@ -55,6 +55,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         favButton = findViewById(R.id.favButton)
         spotifyButton = findViewById(R.id.spotifyButton)
 
+        var artistPhotosButton = findViewById<ImageView>(R.id.artistPhotos)
         val query = intent.getStringExtra("query")
         if (query != null) {
             val url = "attractions?apikey=$apikey&keyword=$query"
@@ -73,6 +74,11 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
                         tabLayout.setupWithViewPager(viewPager)
                         setupFavoriteButton()
                         setupSpotifyButton()
+                        artistPhotosButton.setOnClickListener {
+                            val intent = Intent(applicationContext, ArtistPhotosActivity::class.java)
+                            intent.putExtra("artistId", artist.artistId)
+                            startActivity(intent)
+                        }
                     } else {
                         Toast.makeText(
                             applicationContext,

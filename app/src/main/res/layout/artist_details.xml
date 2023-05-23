@@ -82,15 +82,34 @@
 
             <ImageButton
                 android:id="@+id/spotifyButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="51dp"
-                android:layout_marginEnd="56dp"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="54dp"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/favButton"
+                app:layout_constraintTop_toBottomOf="@+id/artistPhotos"
                 app:srcCompat="@drawable/spotify_icon" />
+
+            <ImageButton
+                android:id="@+id/artistPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_marginStart="58dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="54dp"
+                android:layout_marginBottom="91dp"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:backgroundTint="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/view4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/favButton"
+                app:layout_constraintVertical_bias="1.0" />
 
             <View
                 android:id="@+id/view4"
@@ -209,7 +228,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabs"
-                app:layout_constraintVertical_bias="0.204" />
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
