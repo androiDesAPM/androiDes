@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.ArtistPhotosAdapter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ArtistPhotosActivity: GetNavigationBarActivity() {
-
+    private lateinit var adapter: ArtistPhotosAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_photos)
@@ -20,6 +21,13 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
 
         val artistRef = artistId?.let { db.collection("artists").document(it) }
 
+        val recyclerView = findViewById<RecyclerView>(R.id.artist_photos_row)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
+        adapter = ArtistPhotosAdapter(this, emptyList())
+        recyclerView.adapter = adapter
+
         artistRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
                 val artistData = document.data
@@ -27,10 +35,11 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
 
                 if (imageUrls != null && imageUrls.isNotEmpty()) {
                     // La lista de imágenes no está vacía
+                    adapter.updateData(imageUrls)
                     // Configurar el RecyclerView con el ArtistPhotoAdapter y la lista de imágenes
-                    val recyclerView = findViewById<RecyclerView>(R.id.artist_photos_row)
-                    val adapter = ArtistPhotosAdapter(this, imageUrls)
-                    recyclerView.adapter = adapter
+                   // val recyclerView = findViewById<RecyclerView>(R.id.artist_photos_row)
+                    7//val adapter = ArtistPhotosAdapter(this, imageUrls)
+                    //recyclerView.adapter = adapter
                 } else {
                     // La lista de imágenes está vacía
                     Toast.makeText(applicationContext, "No se han añadido imágenes todavía", Toast.LENGTH_SHORT).show()

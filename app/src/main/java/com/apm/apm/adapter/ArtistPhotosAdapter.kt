@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.R
 import com.squareup.picasso.Picasso
 
-class ArtistPhotosAdapter(private val context: Context, private val photoList: List<String>) : RecyclerView.Adapter<ArtistPhotosAdapter.ViewHolder>() {
+class ArtistPhotosAdapter(private val context: Context, private var photoList: List<String>) : RecyclerView.Adapter<ArtistPhotosAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.artist_photos_row, parent, false)
@@ -32,4 +32,9 @@ class ArtistPhotosAdapter(private val context: Context, private val photoList: L
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photoImageView: ImageView = itemView.findViewById(R.id.artistPhoto)
     }
+    fun updateData(newImageUrls: List<String>) {
+        photoList = newImageUrls
+        notifyDataSetChanged()
+    }
+
 }
