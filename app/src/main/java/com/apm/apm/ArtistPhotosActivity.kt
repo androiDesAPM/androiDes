@@ -2,14 +2,13 @@ package com.apm.apm
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.provider.MediaStore
+import android.widget.ImageButton
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.ArtistPhotosAdapter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
 
 class ArtistPhotosActivity: GetNavigationBarActivity() {
 
@@ -54,9 +53,40 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
             Toast.makeText(applicationContext, "Error al obtener los datos del artista", Toast.LENGTH_SHORT).show()
         }
 
+        //Funcionalidad para subir una imagen
+        val uploadPhotoButton = findViewById<ImageButton>(R.id.uploadPhotoButton)
+        uploadPhotoButton.setOnClickListener {
+            // Crear un intent para seleccionar una imagen de la galería
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        }
+
         //Creamos la barra inferior
         this.getNavigationView()
 
     }
+
+
+
+    // Método para manejar el resultado de la selección de la imagen
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
+            val selectedImageUri = data?.data
+
+            if (selectedImageUri != null) {
+                // Aquí acciones con la imagen seleccionada, como subirla a Firebase Storage
+                // Obtener la ruta de la imagen usando selectedImageUri.path
+
+                Toast.makeText(applicationContext, "Ruta de la imagen: ${selectedImageUri.path}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    companion object {
+        private const val REQUEST_IMAGE_PICK = 1
+    }
+
 
 }

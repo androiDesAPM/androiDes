@@ -19,7 +19,7 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/uploadPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="310dp"
