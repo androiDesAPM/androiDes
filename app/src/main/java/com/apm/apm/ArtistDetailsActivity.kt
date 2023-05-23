@@ -1,13 +1,21 @@
 package com.apm.apm
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.apm.apm.adapter.TabAdapter
+import com.apm.apm.api.APIService
+import com.apm.apm.api.ApiClient
 import com.apm.apm.api.ArtistService
 import com.apm.apm.data.ArtistResponse
+import com.apm.apm.data.ArtistSpotifyResponse
+import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.data.SpotifyTokenResponse
 import com.apm.apm.mappers.ArtistMapper
 import com.apm.apm.objects.Artist
 import com.google.android.material.tabs.TabLayout
@@ -19,13 +27,17 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import kotlinx.coroutines.async
 import kotlinx.coroutines.tasks.await
+import okhttp3.FormBody
+import okhttp3.ResponseBody
 
 
 internal class ArtistDetailsActivity : GetNavigationBarActivity() {
     lateinit var favArtists: ArrayList<HashMap<String, String>>
     private lateinit var favButton: ImageButton
+    private lateinit var spotifyButton: ImageButton
     private lateinit var artist: Artist
 
     private val artistService = Retrofit.Builder()
@@ -41,6 +53,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         setContentView(R.layout.artist_details)
         favArtists = ArrayList()
         favButton = findViewById(R.id.favButton)
+        spotifyButton = findViewById(R.id.spotifyButton)
 
         val query = intent.getStringExtra("query")
         if (query != null) {
@@ -59,6 +72,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
                             TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
                         tabLayout.setupWithViewPager(viewPager)
                         setupFavoriteButton()
+                        setupSpotifyButton()
                     } else {
                         Toast.makeText(
                             applicationContext,
@@ -98,6 +112,58 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             }
         }
         updateFavoriteButtonState(isFavorite)
+    }
+
+    private fun setupSpotifyButton() {
+        spotifyButton.setOnClickListener {
+
+            //Check if Spotify is installed
+            val pm: PackageManager = packageManager
+            var isSpotifyInstalled: Boolean
+            try {
+                pm.getPackageInfo("com.spotify.music", 0)
+                isSpotifyInstalled = true
+            } catch (e: PackageManager.NameNotFoundException) {
+                isSpotifyInstalled = false
+            }
+
+            if (!isSpotifyInstalled) {
+                Toast.makeText(this,"Spotify no está instalado en tu dispositivo", Toast.LENGTH_LONG).show()
+            }
+
+            //Authorize
+            lifecycleScope.launch {
+                val token = authorizeSpotify()
+
+                if (!token.isEmpty()) {
+                    val apiService = ApiClient().getSpotifyData().create(APIService::class.java)
+
+                    val call = apiService.getSpotifyArtistByName("search?q="+artist.completeName+"&type=artist&limit=1", "Bearer "+token)
+                    val spotifyArtist: ArtistSpotifyResponse? = call.body()
+
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(spotifyArtist?.artists?.items?.get(0)?.artistUri ?: "spotify:app")
+                    intent.putExtra(Intent.EXTRA_REFERRER, Uri.parse("android-app://" + applicationContext))
+                    startActivity(intent)
+                }
+                else{
+                    //TODO mpombo: mensaje de error
+                }
+            }
+        }
+    }
+    private suspend fun authorizeSpotify(): String {
+        val apiService = ApiClient().getAuthorizeSpotifyAPI().create(APIService::class.java)
+
+        val call = apiService.authorizeSpotify("token","client_credentials",
+            "b9a35122785346ab8edb7fa0e41dfcb6", "d19a3035c853425c937a61d91bd2dde9")
+
+        val token: SpotifyTokenResponse? = call.body()
+
+        if (token != null) {
+            return token.token_value
+        }
+        return ""
     }
 
     private fun showArtistDetails(artist: Artist) {
