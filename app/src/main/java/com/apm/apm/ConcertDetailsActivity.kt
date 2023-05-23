@@ -25,6 +25,11 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
         lifecycleScope.launch {
             concert?.let { showConcertDetails(it) }
         }
+
+
+//        val mapButton = findViewById
+
+
         val concertButton = findViewById<Button>(R.id.buy_tickets)
         concertButton.setOnClickListener {
             uploadDB(concert)

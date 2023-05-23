@@ -207,7 +207,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            style="@style/ButtonRounded"
             android:id="@+id/ticketsButton"
             android:layout_width="151dp"
             android:layout_height="64dp"
