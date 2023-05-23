@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:backgroundTintMode="screen">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <SearchView
+        android:id="@+id/searchViewOnMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:iconifiedByDefault="false"
+        android:queryHint="Busca una ciudad aquí..."
+        />
+
+    <fragment
         android:id="@+id/fragmentMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:context=".MainActivity"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -21,41 +31,6 @@
         app:itemIconTint="@color/black"
         app:labelVisibilityMode="unlabeled"
         app:layout_anchorGravity="bottom|center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <SearchView
-        android:id="@+id/searchViewOnMap"
-        android:layout_width="356dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="16dp"
-        android:background="#E6E4E4"
-        android:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Busca tu concierto aquí..." />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#C0EDBB"
-        android:text="A Coruña"
-        app:layout_constraintStart_toStartOf="@+id/searchViewOnMap"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewOnMap" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="#C0EDBB"
-        android:text="Urbano"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toTopOf="@+id/textView22"
-        app:layout_constraintVertical_bias="0.0" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
