@@ -23,4 +23,18 @@ class ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    public fun getAuthorizeSpotifyAPI(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://accounts.spotify.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    public fun getSpotifyData(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://api.spotify.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 }

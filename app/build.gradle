@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [redirectSchemeName: "spotify-sdk", redirectHostName: "auth"]
     }
 
     buildTypes {
@@ -83,4 +84,9 @@ dependencies {
     implementation 'ch.hsr:geohash:1.4.0'
     //Para poder refrescar la home
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Spotify dependencies
+    implementation 'com.spotify.android:auth:2.0.0'
+    implementation 'androidx.browser:browser:1.5.0'
+    implementation "androidx.appcompat:appcompat:1.6.1"
 }
