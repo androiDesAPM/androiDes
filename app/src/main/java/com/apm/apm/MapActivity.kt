@@ -74,11 +74,21 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
         }
+
         val location = LocationServices.getFusedLocationProviderClient(this)
         location.lastLocation.addOnSuccessListener { location ->
             var latitude: Double
             var longitude: Double
-            if (location != null) {
+            if (intent.getBooleanExtra("detallesConcierto", false)){//Comprobamos si la localización se pasó desde los detalles del concierto
+                latitude = intent.getDoubleExtra("latitude", 0.0)
+                longitude = intent.getDoubleExtra("longitude", 0.0)
+                if(latitude==0.0 || longitude==0.0){
+                    Toast.makeText(this@MapActivity, "El concierto no contiene una ubicación válida", Toast.LENGTH_LONG).show()
+                    latitude = 43.358934
+                    longitude = -8.412103
+                    //TODO llamar a obtener ubicación por defecto
+                }
+            }else if (location != null) {
                 latitude = location.latitude
                 longitude = location.longitude
             } else {

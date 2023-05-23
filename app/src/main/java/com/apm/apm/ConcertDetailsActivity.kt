@@ -28,7 +28,18 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
 
 
 //        val mapButton = findViewById
-
+        val mapButton = findViewById<Button>(R.id.concertMapButton)
+        mapButton.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            //TODO asignar aquí las variables de donde esta el concierto
+            val latitude = 37.7749
+            val longitude = -122.4194
+            val detallesConcierto = true
+            intent.putExtra("latitude", latitude)
+            intent.putExtra("longitude", longitude)
+            intent.putExtra("detallesConcierto", detallesConcierto)
+            startActivity(intent)
+        }
 
         val concertButton = findViewById<Button>(R.id.buy_tickets)
         concertButton.setOnClickListener {

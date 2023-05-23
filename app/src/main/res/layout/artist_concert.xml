@@ -204,7 +204,7 @@
 <!--    </LinearLayout>-->
 
     <Button
-        android:id="@+id/concertMapaButton"
+        android:id="@+id/concertMapButton"
         style="@style/TransparentButton"
         android:layout_width="229dp"
         android:layout_height="59dp"
