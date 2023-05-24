@@ -21,7 +21,6 @@ import com.apm.apm.mappers.ArtistTicketMasterMapper
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,7 +35,7 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
 
-    private val tickerMasterArtistService = Retrofit.Builder()
+    private val ricketMasterArtistService = Retrofit.Builder()
         .baseUrl("https://app.ticketmaster.com/discovery/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -45,10 +44,10 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
 
     companion object {
-        fun newInstance(artistName: String): FutureConcertsFragment {
+        fun newInstance(ticketMasterId: String): FutureConcertsFragment {
             val fragment = FutureConcertsFragment()
             val args = Bundle().apply {
-                putString("artistName", artistName)
+                putString("ticketMasterId", ticketMasterId)
             }
             fragment.arguments = args
             return fragment
@@ -92,30 +91,9 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
         job = lifecycleScope.launch {
 
             //Get artist id in TicketMaster
-            var artistId = ""
-            val artistName = arguments?.getString("artistName")
-            val urlGetId = "attractions?apikey=$apikey&keyword=$artistName"
-            val callGetId = tickerMasterArtistService.getArtistDetails(urlGetId)
-            val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
-            if (callGetId.isSuccessful && responseGetId != null) {
-                if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
-                    artistId = ArtistTicketMasterMapper().artistResponseToArtist(responseGetId)
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "No se han podido recuperar los conciertos del artista",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "No se han podido recuperar los conciertos del artista",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            var ticketMasterId = arguments?.getString("ticketMasterId")
 
-            if (artistId != "") {
+            if (ticketMasterId != null && ticketMasterId != "") {
                 val currentDateTime = LocalDateTime.now()
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
                 val formattedDateTime = currentDateTime.format(formatter)
@@ -124,7 +102,7 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
                 val apiService = ApiClient().getRetrofit().create(APIService::class.java)
                 //Petición a la API
                 val url =
-                    "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
+                    "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$ticketMasterId"
                 val call = apiService.getFavArtistsConcerts(url)
                 val response: ConcertsResponse? = call.body()
                 //comprobar si devuelve lista vacia

@@ -19,12 +19,9 @@ import com.apm.apm.objects.Artist
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.util.HashMap
 
 class MyProfileFavArtistsFragment : Fragment(), LifecycleOwner {
 
@@ -71,8 +68,11 @@ class MyProfileFavArtistsFragment : Fragment(), LifecycleOwner {
             db.collection("users").document(uid ?: "")
                 .get().addOnSuccessListener { document ->
                 if (document != null && document?.data?.get("favArtists") != null) {
-                    val artistsFromDB = (document?.data?.get("favArtists") as ArrayList<String>).toList()
-                    artists.addAll(artistsFromDB)
+                    val artistsFromDB = (document?.data?.get("favArtists") as ArrayList<HashMap<String, String>>).toList()
+
+                    for (artist in artistsFromDB) {
+                        artist["artistName"]?.let { artists.add(it) }
+                    }
 
                     adapter.notifyDataSetChanged()
                 }

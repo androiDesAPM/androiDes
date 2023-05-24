@@ -24,7 +24,6 @@ import com.apm.apm.objects.Concert
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.File
@@ -92,7 +91,6 @@ class ConcertsFromNearUbicationFragment : Fragment() {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
 
             println("NO esta en cache")
             //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home

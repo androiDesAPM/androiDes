@@ -23,14 +23,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -91,7 +89,6 @@ class ConcertsFromFavGenresFragment : Fragment() {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(1000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
             //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")

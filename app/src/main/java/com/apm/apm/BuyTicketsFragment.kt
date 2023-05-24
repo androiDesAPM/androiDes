@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.TicketAdapter
 import com.apm.apm.data.BuyTicketOption
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BuyTicketsFragment : Fragment() {
@@ -50,9 +49,6 @@ class BuyTicketsFragment : Fragment() {
 
     private fun getTicketOptionsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(2000L)
-
-            //TODO: Petición a la API
 
             //Añadir los conciertos encontrados
             options.add(BuyTicketOption("Ticketmaster"))

@@ -9,10 +9,10 @@ class ArtistSpotifyMapper {
         val artist = artistResponse.artists.items[0]
         val id = artist.artistId
         val name = artist.artistName
-        val genreName = artist.genres
+        val genres = artist.genres
         val images = artist.images
         val imageUrl = images[0].url
         val uriSpotify = artist.artistUri
-        return Artist(id, name, imageUrl, genreName, uriSpotify)
+        return Artist(id, name, imageUrl, genres, uriSpotify)
     }
 }
