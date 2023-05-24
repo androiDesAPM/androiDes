@@ -22,9 +22,13 @@ import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -42,7 +46,9 @@ class ConcertsFromNearUbicationFragment : Fragment() {
     private val nearConcerts = mutableListOf<String>()
     private lateinit var cacheFile: File
     private lateinit var progressBar: ProgressBar
-        override fun onCreateView(
+    val db = Firebase.firestore
+
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -102,12 +108,21 @@ class ConcertsFromNearUbicationFragment : Fragment() {
             val classificationId = "KZFzniwnSyZfZ7v7nJ"
             //Esta lista mas adelante se sacara de la base de datos
 
-            val geoHash = getGeoHashFromLocation()
-//            nearConcerts.addAll(listOf("Bad gyal"))
+            val user = Firebase.auth.currentUser
+            val uid = user?.uid
+            var lat = 0.0
+            var lon = 0.0
+            db.collection("users").document(uid ?: "").get().await().let {
+                lat = it.getDouble("location.lat")!!
+                lon = it.getDouble("location.lon")!!
+            }
+            val geoHash = GeoHash.geoHashStringWithCharacterPrecision(lat, lon, 9)
+
             val apiService = ApiClient().getRetrofit().create(APIService::class.java)
             //Petición a la API
             val url =
                 "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&geoPoint=$geoHash"
+            Log.d("URL", url)
             val call = apiService.getFavArtistsConcerts(url)
             val response = call.body()
             if (call.isSuccessful && response != null) {
@@ -126,42 +141,39 @@ class ConcertsFromNearUbicationFragment : Fragment() {
         //Thread.sleep(5000L) // bloquéase o thread actual durante dous segundos
     }
 
-    private fun getGeoHashFromLocation(): String{
-        val client = LocationServices.getFusedLocationProviderClient(this.requireContext())
-//        get location inside fragment
-        var latitude = 43.358934
-        var longitude = -8.412103
-        if (checkLocationPermission()) {
-//            TODO: No funciona la localización
-            client.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    latitude = location?.latitude!!
-                    longitude = location?.longitude!!
-                }
-                else {
-                    latitude = 43.332688
-                    longitude = -8.410926
-                }
-            }
-        }
-        val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude!!, longitude!!, 7)
-        return geoHash
-    }
-
-    private fun checkLocationPermission(): Boolean  {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED) {
-            return true
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1
-            )
-            return false
-        }
-    }
+//    private fun getGeoHashFromLocation(): String{
+////        val client = LocationServices.getFusedLocationProviderClient(this.requireContext())
+//////        get location inside fragment
+////        var latitude = 43.358934
+////        var longitude = -8.412103
+////        if (checkLocationPermission()) {
+//////            TODO: No funciona la localización
+////            client.lastLocation.addOnSuccessListener { location: Location? ->
+////                if (location != null) {
+////                    latitude = location?.latitude!!
+////                    longitude = location?.longitude!!
+////                }
+////                else {
+////                    latitude = 43.332688
+////                    longitude = -8.410926
+////                }
+////            }
+////        }
+//        val user = Firebase.auth.currentUser
+//        val uid = user?.uid
+//        var lat = 0.0
+//        var lon = 0.0
+//        var geoHash = ""
+//        db.collection("users").document(uid.toString()).get().addOnSuccessListener { document ->
+//            if (document != null) {
+//                lat = document.getDouble("location.lat")!!
+//                lon = document.getDouble("location.lon")!!
+//                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+//                Log.d("latLon", "lat: $lat, lon: $lon")
+//                geoHash = GeoHash.geoHashStringWithCharacterPrecision(lat, lon, 7)
+//            }
+//        }
+//    }
 
     fun refreshData() {
         if (cacheFile.exists()) {

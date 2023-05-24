@@ -40,13 +40,19 @@ class MyProfile : GetNavigationBarActivity() {
             emailProfile.text = email
 
             val username = result?.data?.get("username").toString()
-            val usernameProfile = findViewById<TextView>(R.id.usernameProfile)
+            val usernameProfile = findViewById<EditText>(R.id.usernameProfile)
             usernameProfile.setText(username)
 
             val genres = result?.data?.get("genres") as ArrayList<HashMap<String, String>>
             for (genre in genres) {
                 myProfileFavGenres.add(genre["key"].toString())
             }
+
+            val location = result?.data?.get("location") as HashMap<String, String>
+            val city = location["city"].toString()
+            val cityProfile = findViewById<TextView>(R.id.city)
+            cityProfile.text = city
+
             adapter.notifyDataSetChanged()
         }
 
