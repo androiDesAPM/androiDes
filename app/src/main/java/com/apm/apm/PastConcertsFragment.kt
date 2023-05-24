@@ -17,7 +17,6 @@ import com.apm.apm.data.BandsInTownResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -72,7 +71,6 @@ class PastConcertsFragment : Fragment() {
 
     private fun getPastConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
             val artistName = arguments?.getString("artistName")
             val apikey = "2eafd9228a7ac50b936e915fbd48bc45"
             val baseUrl = "events"

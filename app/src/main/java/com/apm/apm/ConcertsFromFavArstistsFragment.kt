@@ -22,7 +22,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.io.BufferedReader
@@ -90,7 +89,6 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
             //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -104,8 +102,8 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                 progressBar.visibility = View.INVISIBLE
                 Toast.makeText(
                     requireContext(),
-                    "No tienes artistas favoritos",
-                    Toast.LENGTH_SHORT
+                    "Aún no tienes artistas favoritos",
+                    Toast.LENGTH_LONG
                 ).show()
             } else {
                 //Petición a la API
@@ -152,7 +150,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         if (document.exists()) {
             val favArtists = document.get("favArtists") as? ArrayList<HashMap<String, String>>
             if (favArtists != null) {
-                return favArtists.mapNotNull { it["artistId"] }.toMutableList()
+                return favArtists.mapNotNull { it["ticketMasterId"] }.toMutableList()
             }
         }
 
