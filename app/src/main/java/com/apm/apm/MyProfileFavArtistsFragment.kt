@@ -51,16 +51,6 @@ class MyProfileFavArtistsFragment : Fragment(), LifecycleOwner {
         recyclerView.adapter = adapter
 
         return viewFragment
-
-//        artists.add(0, Artist("a1", "BTS", null, "a"));
-
-//        val storage = Firebase.storage
-//        storage.toString()
-//
-//        val database = FirebaseFirestore.getInstance()
-//        val documentRef = database.collection("collection").document("user")
-//
-//        documentRef.toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,8 +70,8 @@ class MyProfileFavArtistsFragment : Fragment(), LifecycleOwner {
 
             db.collection("users").document(uid ?: "")
                 .get().addOnSuccessListener { document ->
-                if (document != null && document?.data?.get("artists") != null) {
-                    val artistsFromDB = (document?.data?.get("artists") as ArrayList<String>).toList()
+                if (document != null && document?.data?.get("favArtists") != null) {
+                    val artistsFromDB = (document?.data?.get("favArtists") as ArrayList<String>).toList()
                     artists.addAll(artistsFromDB)
 
                     adapter.notifyDataSetChanged()

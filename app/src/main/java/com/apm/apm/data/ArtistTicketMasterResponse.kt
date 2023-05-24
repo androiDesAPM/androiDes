@@ -2,7 +2,7 @@ package com.apm.apm.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ArtistResponse(
+data class ArtistTicketMasterResponse(
     @SerializedName("_embedded") val embeddedArtists: EmbeddedArtists
 )
 

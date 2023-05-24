@@ -14,12 +14,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.FutureConcertsAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
+import com.apm.apm.api.ArtistService
+import com.apm.apm.data.ArtistTicketMasterResponse
 import com.apm.apm.data.ConcertsResponse
+import com.apm.apm.mappers.ArtistTicketMasterMapper
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,11 +36,19 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
 
+    private val tickerMasterArtistService = Retrofit.Builder()
+        .baseUrl("https://app.ticketmaster.com/discovery/v2/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(ArtistService::class.java)
+
+    val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+
     companion object {
-        fun newInstance(artistId: String): FutureConcertsFragment {
+        fun newInstance(artistName: String): FutureConcertsFragment {
             val fragment = FutureConcertsFragment()
             val args = Bundle().apply {
-                putString("artistId", artistId)
+                putString("artistName", artistName)
             }
             fragment.arguments = args
             return fragment
@@ -77,33 +90,70 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
 
     private fun getFutureConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
-            delay(2000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-            val artistId = arguments?.getString("artistId")
-            val currentDateTime = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-            val formattedDateTime = currentDateTime.format(formatter)
-            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
-            val baseUrl = "events"
-            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
-            //Petición a la API
-            val url =
-                "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
-            val call = apiService.getFavArtistsConcerts(url)
-            val response: ConcertsResponse? = call.body()
-            //comprobar si devuelve lista vacia
-            if (call.isSuccessful && response != null) {
-                if (!response.embedded?.events.isNullOrEmpty()) {
-                val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
-                concerts.addAll(concertsApi)
+
+            //Get artist id in TicketMaster
+            var artistId = ""
+            val artistName = arguments?.getString("artistName")
+            val urlGetId = "attractions?apikey=$apikey&keyword=$artistName"
+            val callGetId = tickerMasterArtistService.getArtistDetails(urlGetId)
+            val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
+            if (callGetId.isSuccessful && responseGetId != null) {
+                if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
+                    artistId = ArtistTicketMasterMapper().artistResponseToArtist(responseGetId)
                 } else {
-                    Toast.makeText(requireContext(),"No se encontraron conciertos", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "No se han podido recuperar los conciertos del artista",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
-                Toast.makeText(requireContext(),"No se encontraron conciertos", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "No se han podido recuperar los conciertos del artista",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            adapter.notifyDataSetChanged()
-            progressBar.visibility = View.INVISIBLE
+            if (artistId != "") {
+                val currentDateTime = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                val formattedDateTime = currentDateTime.format(formatter)
+                val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+                val baseUrl = "events"
+                val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+                //Petición a la API
+                val url =
+                    "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$artistId"
+                val call = apiService.getFavArtistsConcerts(url)
+                val response: ConcertsResponse? = call.body()
+                //comprobar si devuelve lista vacia
+                if (call.isSuccessful && response != null) {
+                    if (!response.embedded?.events.isNullOrEmpty()) {
+                        val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
+                        concerts.addAll(concertsApi)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se encontraron conciertos",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "No se encontraron conciertos", Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                adapter.notifyDataSetChanged()
+                progressBar.visibility = View.INVISIBLE
+            }
+            else {
+                Toast.makeText(
+                    requireContext(),
+                    "No se han podido recuperar los conciertos del artista",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         progressBar.visibility = View.VISIBLE

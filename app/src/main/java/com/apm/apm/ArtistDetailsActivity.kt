@@ -12,11 +12,11 @@ import com.apm.apm.adapter.TabAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.api.ArtistService
-import com.apm.apm.data.ArtistResponse
+import com.apm.apm.data.ArtistTicketMasterResponse
 import com.apm.apm.data.ArtistSpotifyResponse
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.data.SpotifyTokenResponse
-import com.apm.apm.mappers.ArtistMapper
+import com.apm.apm.mappers.ArtistSpotifyMapper
 import com.apm.apm.objects.Artist
 import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
@@ -40,13 +40,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
     private lateinit var spotifyButton: ImageButton
     private lateinit var artist: Artist
 
-    private val artistService = Retrofit.Builder()
-        .baseUrl("https://app.ticketmaster.com/discovery/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(ArtistService::class.java)
-
-    val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+    private val artistService = ApiClient().getSpotifyData().create(APIService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,19 +52,21 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         var artistPhotosButton = findViewById<ImageView>(R.id.artistPhotos)
         val query = intent.getStringExtra("query")
         if (query != null) {
-            val url = "attractions?apikey=$apikey&keyword=$query"
             lifecycleScope.launch {
-                //val artistResponse = artistService.getArtistDetails(url)
-                val call = artistService.getArtistDetails(url)
-                val response: ArtistResponse? = call.body()
+                val token = authorizeSpotify()
+
+                //Obtenemos 5 artistas de spotify
+                val call = artistService.getSpotifyArtistByName("search?q=$query&type=artist&limit=5", "Bearer "+token)
+                val response: ArtistSpotifyResponse? = call.body()
+
                 if (call.isSuccessful && response != null) {
-                    if (!response.embeddedArtists?.attractions.isNullOrEmpty()) {
-                        artist = ArtistMapper().ArtistResponseToArtist(response)
+                    if ((response.artists.items).isNotEmpty()) {
+                        artist = ArtistSpotifyMapper().artistResponseToArtist(response)
                         showArtistDetails(artist)
                         val tabLayout = findViewById<TabLayout>(R.id.tabs)
                         val viewPager = findViewById<ViewPager>(R.id.viewPager)
                         viewPager.adapter =
-                            TabAdapter(supportFragmentManager, artist.artistId, artist.completeName)
+                            TabAdapter(supportFragmentManager, artist.completeName)
                         tabLayout.setupWithViewPager(viewPager)
                         setupFavoriteButton()
                         setupSpotifyButton()
@@ -136,24 +132,32 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             if (!isSpotifyInstalled) {
                 Toast.makeText(this,"Spotify no está instalado en tu dispositivo", Toast.LENGTH_LONG).show()
             }
+            else {
+                //Authorize
+                lifecycleScope.launch {
+                    val token = authorizeSpotify()
 
-            //Authorize
-            lifecycleScope.launch {
-                val token = authorizeSpotify()
+                    if (!token.isEmpty()) {
+                        val apiService = ApiClient().getSpotifyData().create(APIService::class.java)
 
-                if (!token.isEmpty()) {
-                    val apiService = ApiClient().getSpotifyData().create(APIService::class.java)
+                        val call = apiService.getSpotifyArtistByName(
+                            "search?q=" + artist.completeName + "&type=artist&limit=1",
+                            "Bearer " + token
+                        )
+                        val spotifyArtist: ArtistSpotifyResponse? = call.body()
 
-                    val call = apiService.getSpotifyArtistByName("search?q="+artist.completeName+"&type=artist&limit=1", "Bearer "+token)
-                    val spotifyArtist: ArtistSpotifyResponse? = call.body()
-
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(spotifyArtist?.artists?.items?.get(0)?.artistUri ?: "spotify:app")
-                    intent.putExtra(Intent.EXTRA_REFERRER, Uri.parse("android-app://" + applicationContext))
-                    startActivity(intent)
-                }
-                else{
-                    //TODO mpombo: mensaje de error
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(
+                            spotifyArtist?.artists?.items?.get(0)?.artistUri ?: "spotify:app"
+                        )
+                        intent.putExtra(
+                            Intent.EXTRA_REFERRER,
+                            Uri.parse("android-app://" + applicationContext)
+                        )
+                        startActivity(intent)
+                    } else {
+                        //TODO mpombo: mensaje de error
+                    }
                 }
             }
         }
@@ -178,7 +182,8 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         val artistGenreTextView = findViewById<TextView>(R.id.textView4)
 
         artistNameTextView.text = artist.completeName
-        artistGenreTextView.text = artist.genreName
+        //PONER TODOS
+        artistGenreTextView.text = artist.genres[0]
 
         Picasso.get()
             .load(artist.imageUrl)

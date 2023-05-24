@@ -13,12 +13,12 @@ data class Artists(
 )
 
 data class Items(
+    @SerializedName("id")
+    val artistId: String,
     @SerializedName("uri")
     val artistUri: String,
     @SerializedName("name")
     val artistName: String,
-    @SerializedName("id")
-    val spotifyId: String,
     @SerializedName("images")
     val images: List<ImageSpotify>,
     @SerializedName("genres")
