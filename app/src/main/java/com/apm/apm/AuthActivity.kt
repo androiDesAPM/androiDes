@@ -5,9 +5,11 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.io.File
 
 class AuthActivity : AppCompatActivity(){
 
@@ -17,6 +19,18 @@ class AuthActivity : AppCompatActivity(){
         setContentView(R.layout.activity_auth)
         auth = Firebase.auth
         setup()
+        val cacheFileFavArtists = File(this.cacheDir, "fav_artists_concerts_cache")
+        if (cacheFileFavArtists.exists()) {
+            cacheFileFavArtists.writeText("")
+        }
+        val cacheFileNear = File(this.cacheDir, "near_concerts_cache")
+        if (cacheFileNear.exists()) {
+            cacheFileNear.writeText("")
+        }
+        val cacheFileFavGenres = File(this.cacheDir, "fav_genres_concerts_cache")
+        if (cacheFileFavGenres.exists()) {
+            cacheFileFavGenres.writeText("")
+        }
     }
 
 

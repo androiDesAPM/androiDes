@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +17,14 @@ import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -36,9 +41,12 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     //Almacena una referencia al job de la corrutina
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
-    private val favArtists = mutableListOf<String>()
+
+    // private val favArtists = mutableListOf<String>()
     private lateinit var cacheFile: File
     private lateinit var progressBar: ProgressBar
+    private var artistsIds = mutableListOf<String>()
+    val db = Firebase.firestore
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,32 +81,41 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
             concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
             adapter.notifyDataSetChanged()
         } else {
-        progressBar.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            getConcertsCorrutine(progressBar)
-        }
+            progressBar.visibility = View.VISIBLE
+            lifecycleScope.launch {
+                getConcertsCorrutine(progressBar)
+            }
         }
     }
 
     private fun getConcertsCorrutine(progressBar: ProgressBar) {
         job = lifecycleScope.launch {
             delay(5000L) // delay non bloqueante (do thread actual) de 1000 milisegundos
-                //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
-                val currentDateTime = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-                val formattedDateTime = currentDateTime.format(formatter)
-                val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
-                val baseUrl = "events"
-                val classificationId ="KZFzniwnSyZfZ7v7nJ"
-                //Esta lista mas adelante se sacara de la base de datos
-                favArtists.addAll(listOf("Bad gyal"))
-                val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            //Cojo el dia de hoy y lo formateo para que no aparezcan conciertos pasados en la home
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val formattedDateTime = currentDateTime.format(formatter)
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            val classificationId = "KZFzniwnSyZfZ7v7nJ"
+            val favArtists = getFavArtists()
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+            if (favArtists.isEmpty()) {
+                progressBar.visibility = View.INVISIBLE
+                Toast.makeText(
+                    requireContext(),
+                    "No tienes artistas favoritos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 //Petición a la API
                 for (artist in favArtists) {
+                    println(artist)
                     val url =
-                        "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&keywords=$artist"
+                        "$baseUrl?apikey=$apikey&classificationId=$classificationId&startDateTime=$formattedDateTime&attractionId=$artist"
                     val call = apiService.getFavArtistsConcerts(url)
                     val response: ConcertsResponse? = call.body()
+                    println(response)
                     if (call.isSuccessful && response != null) {
                         concerts.addAll(ConcertMapper().ConcertsResponseToConcerts(response))
                         // se guarda la respuesta en cache
@@ -106,8 +123,9 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                     }
                 }
 
-            adapter.notifyDataSetChanged()
-            progressBar.visibility = View.INVISIBLE
+                adapter.notifyDataSetChanged()
+                progressBar.visibility = View.INVISIBLE
+            }
         }
 
         progressBar.visibility = View.VISIBLE
@@ -115,7 +133,6 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
     }
 
     fun refreshData() {
-        val cacheFile = File(requireContext().cacheDir, "fav_artists_concerts_cache")
         if (cacheFile.exists()) {
             cacheFile.writeText("")
         }
@@ -126,9 +143,21 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
         }
     }
 
-    /*override fun onDestroy() {
-        //cancela la corrutina
-        super.onDestroy()
-        job.cancel()
-    }*/
+    private suspend fun getFavArtists(): MutableList<String> {
+        val user = Firebase.auth.currentUser
+        val uid = user?.uid
+
+        val document = db.collection("users").document(uid ?: "").get().await()
+
+        if (document.exists()) {
+            val favArtists = document.get("favArtists") as? ArrayList<HashMap<String, String>>
+            if (favArtists != null) {
+                return favArtists.mapNotNull { it["artistId"] }.toMutableList()
+            }
+        }
+
+        return mutableListOf()
+    }
+
+
 }

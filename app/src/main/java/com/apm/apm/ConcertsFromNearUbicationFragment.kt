@@ -166,7 +166,6 @@ class ConcertsFromNearUbicationFragment : Fragment() {
     }
 
     fun refreshData() {
-        val cacheFile = File(requireContext().cacheDir, "near_concerts_cache")
         if (cacheFile.exists()) {
             cacheFile.writeText("")
         }

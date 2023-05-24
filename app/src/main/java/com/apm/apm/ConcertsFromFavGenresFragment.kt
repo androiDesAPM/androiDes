@@ -145,7 +145,6 @@ class ConcertsFromFavGenresFragment : Fragment() {
     }
 
     fun refreshData() {
-        val cacheFile = File(requireContext().cacheDir, "fav_artists_concerts_cache")
         if (cacheFile.exists()) {
             cacheFile.writeText("")
         }
