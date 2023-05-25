@@ -26,14 +26,12 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
             concert?.let { showConcertDetails(it) }
         }
 
-
-//        val mapButton = findViewById
         val mapButton = findViewById<Button>(R.id.concertMapButton)
         mapButton.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             //TODO asignar aquí las variables de donde esta el concierto
-            val latitude = 37.7749
-            val longitude = -122.4194
+            val latitude = concert?.concertLatitude
+            val longitude = concert?.concertLongitude
             val detallesConcierto = true
             intent.putExtra("latitude", latitude)
             intent.putExtra("longitude", longitude)
@@ -78,16 +76,22 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
     private fun showConcertDetails(concert: Concert) {
         val artistImageView = findViewById<ImageView>(R.id.imageView3)
         val artistNameTextView = findViewById<TextView>(R.id.textView10)
-        val concertLocation = findViewById<TextView>(R.id.textView11)
+        val concertLocation = findViewById<TextView>(R.id.textView15)
         val concertDate = findViewById<TextView>(R.id.textView12)
-        //estos faltan
-        val concertStreet = findViewById<TextView>(R.id.textView13)
-        val concertVenue = findViewById<TextView>(R.id.textView14)
-        //precio iria aqui tambien?
+        val concertState = findViewById<TextView>(R.id.textView11)
+        val concertCity = findViewById<TextView>(R.id.textView13)
+        val concertAddress = findViewById<TextView>(R.id.textView14)
+        val concertPrice = findViewById<TextView>(R.id.textView16)
+        val price = concert.price.toString()
+        val currency = concert.currency.toString()
 
         artistNameTextView.text = concert.concertArtistName
         concertLocation.text = concert.concertLocationName
         concertDate.text = concert.concertDate.toString()
+        concertState.text = concert.concertState.toString()
+        concertCity.text = concert.concertCity.toString()
+        concertAddress.text = concert.concertAddress.toString()
+        concertPrice.text = price.plus(currency)
 
         Picasso.get()
             .load(concert.imageUrl)
