@@ -20,8 +20,20 @@ data class Event(
     @SerializedName("dates")
     val dates: Dates,
     @SerializedName("_embedded")
-    val embeddedEvent: EmbeddedEvent
+    val embeddedEvent: EmbeddedEvent,
+    @SerializedName("priceRanges")
+    val priceRanges: List<PriceRanges>
 )
+
+data class PriceRanges(
+    @SerializedName("min")
+    val min: String,
+    @SerializedName("max")
+    val max: String,
+    @SerializedName("currency")
+    val currency: String
+)
+
 data class Dates(
     @SerializedName("start")
     val start: Start
@@ -40,6 +52,12 @@ data class EmbeddedEvent(
 data class Venue(
     @SerializedName("name")
     val venues: String,
+    @SerializedName("city")
+    val city: String,
+    @SerializedName("state")
+    val state: String,
+    @SerializedName("address")
+    val address: String,
     @SerializedName("location")
     val location: Location
 )

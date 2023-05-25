@@ -33,7 +33,16 @@ class ConcertMapper {
             val date = LocalDate.parse(event.dates.start.localDate)
             val artistName = event.name
             val imageUrl = event.images[0].url
-            concerts.add(Concert(venueName, date, artistName, imageUrl))
+            val venue = event.embeddedEvent.venue.firstOrNull()
+            val city = venue?.city ?: "Unknown City"
+            val state = venue?.state ?: "Unknown State"
+            val address = venue?.address ?: "Unknown Address"
+            val location = venue?.location
+            val longitude = location?.longitude
+            val latitude = location?.latitude
+            val price = event.priceRanges[0].min
+            val currency = event.priceRanges[0].currency
+            concerts.add(Concert(venueName, date, artistName, imageUrl, city, state, address, longitude, latitude, price, currency))
         }
 
         return concerts
