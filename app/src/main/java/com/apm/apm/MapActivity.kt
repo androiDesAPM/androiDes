@@ -46,7 +46,7 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@MapActivity, "Busqueda del artista $query", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MapActivity, "Busqueda en la ciudad $query", Toast.LENGTH_LONG).show()
                 moveMapToCity(query)
                 return true
             }
@@ -144,7 +144,15 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             val geoHash = GeoHash.geoHashStringWithCharacterPrecision(latitude, longitude, 8)
             try{
                 lifecycleScope.launch {
+                    //Añadimos los conciertos cerca del geoHash
                     getConcertsByGeoPoint(map, geoHash)
+                    //Añadimos el concierto unico de detalles de concierto
+                    if (intent.getBooleanExtra("detallesConcierto", false)){
+                        val idTicketMaster = intent.getStringExtra("idEventoTicketMaster")
+                        if (idTicketMaster != null){
+                            getConcertByTicketMasterId(map,idTicketMaster)
+                        }
+                    }
                 }
             }catch (e : Exception){
                 Log.e("MapActivity" ,"Error en la corrutina")
@@ -163,6 +171,44 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             //Petición a la API
             //events?apikey=uaPXPcRZ4b6cPaGJ0xQUvqw6XDdg9hpA&geoPoint=ezdn8
             val url = "$baseUrl?apikey=$apikey&classificationId=$classificationId&geoPoint=$geoHash"
+            val call = apiService.getConcertsByGeoPoint(url)
+            val response: ConcertsResponse? = call.body()
+            if (call.isSuccessful && response != null)  {
+
+                response.embedded.events.forEach { event ->
+
+                    val concertMapInfo = EventMapper().EventToConcertMapInfo(event)
+
+                    var location = event.embeddedEvent.venue.get(0).location
+                    Log.i("MapActivity" ,"Location: $location")
+
+                    val ubication = LatLng(
+                        location.latitude.toDouble(),
+                        location.longitude.toDouble())
+
+                    val marker = map.addMarker(
+                        MarkerOptions()
+                            .title(event.name)
+                            .position(ubication)
+//                            .icon(concertMapInfo)
+                    )
+                    if (marker != null) {
+                        marker.tag = concertMapInfo
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getConcertByTicketMasterId(map: GoogleMap, idEventoTicketMaster: String) {
+        job = lifecycleScope.launch {
+            val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
+            val baseUrl = "events"
+            val apiService = ApiClient().getRetrofit().create(APIService::class.java)
+
+            //Petición a la API
+            //events?apikey=uaPXPcRZ4b6cPaGJ0xQUvqw6XDdg9hpA&geoPoint=ezdn8
+            val url = "$baseUrl?apikey=$apikey&id=$idEventoTicketMaster"
             val call = apiService.getConcertsByGeoPoint(url)
             val response: ConcertsResponse? = call.body()
             if (call.isSuccessful && response != null)  {

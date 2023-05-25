@@ -30,12 +30,13 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
         mapButton.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             //TODO asignar aquí las variables de donde esta el concierto
-            val latitude = concert?.concertLatitude
-            val longitude = concert?.concertLongitude
+            val latitude = concert?.concertLatitude?.toDouble()
+            val longitude = concert?.concertLongitude?.toDouble()
             val detallesConcierto = true
             intent.putExtra("latitude", latitude)
             intent.putExtra("longitude", longitude)
             intent.putExtra("detallesConcierto", detallesConcierto)
+            intent.putExtra("idEventoTicketMaster", concert?.ticketMasterEventId)
             startActivity(intent)
         }
 

@@ -21,6 +21,7 @@ class ConcertMapper {
         // Si hay eventos, mapearlos a objetos de tipo Concert
         val concerts = mutableListOf<Concert>()
         for (event in events) {
+            val idEvent = event.id
             val venueName = event.embeddedEvent.venue.firstOrNull()?.venues ?: "Unknown Venue"
             val date = LocalDate.parse(event.dates.start.localDate)
             val artistName = event.name
@@ -35,7 +36,7 @@ class ConcertMapper {
             val priceRange = event.priceRanges?.getOrNull(0)
             val price = priceRange?.min
             val currency = priceRange?.currency
-            concerts.add(Concert(venueName, date, artistName, imageUrl, city, state, address, longitude, latitude, price, currency))
+            concerts.add(Concert(idEvent, venueName, date, artistName, imageUrl, city, state, address, longitude, latitude, price, currency))
         }
 
         return concerts
@@ -48,8 +49,10 @@ class ConcertMapper {
                 .toLocalDate()
         val concertArtistName = bandsInTownResponse.title ?: ""
         val imageUrl = bandsInTownResponse.artist?.imageUrl
+        val eventId = "0"
 
         return Concert(
+            ticketMasterEventId = eventId,
             concertLocationName = concertLocationName,
             concertDate = concertDate,
             concertArtistName = concertArtistName,
