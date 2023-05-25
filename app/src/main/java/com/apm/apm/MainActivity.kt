@@ -6,7 +6,22 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager.widget.ViewPager
+import com.apm.apm.adapter.TabAdapter
+import com.apm.apm.api.APIService
+import com.apm.apm.api.ApiClient
+import com.apm.apm.data.ArtistSpotifyResponse
+import com.apm.apm.data.ArtistTicketMasterResponse
+import com.apm.apm.data.SpotifyTokenResponse
+import com.apm.apm.mappers.ArtistSpotifyMapper
+import com.apm.apm.mappers.ArtistTicketMasterMapper
+import com.apm.apm.objects.Artist
+import com.apm.apm.util.SpotifyUtil
+import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.launch
 
 enum class ProviderType {
     BASIC
@@ -43,17 +58,38 @@ class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshLis
             .commit()
 
         val searchEditText = findViewById<EditText>(R.id.searchEditText)
-        searchEditText.requestFocus()
+//        searchEditText.requestFocus()
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = searchEditText.text.toString()
-                val intent = Intent(this, ArtistDetailsActivity::class.java)
-                intent.putExtra("query", query)
-                startActivity(intent)
-                true
+                var result: Boolean = false
+                //Check if the artist exists
+                val artistService = ApiClient().getSpotifyData().create(APIService::class.java)
+
+                lifecycleScope.launch {
+                    val token = SpotifyUtil().authorizeSpotify()
+
+                    //Obtenemos el artista de spotify
+                    val call = artistService.getSpotifyArtistByName("search?q=$query&type=artist&limit=1", "Bearer "+token)
+                    val response: ArtistSpotifyResponse? = call.body()
+
+                    if (call.isSuccessful && response != null && (response.artists.items).isNotEmpty()) {
+                        val intent = Intent(applicationContext, ArtistDetailsActivity::class.java)
+                        intent.putExtra("query", query)
+                        startActivity(intent)
+                        result = true
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "No se ha encontrado ningún artista con ese nombre, inténtalo de nuevo",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        result = false
+                    }
+                }
+                result
             } else {
                 false
-
             }
         }
 

@@ -20,6 +20,7 @@ import com.apm.apm.data.SpotifyTokenResponse
 import com.apm.apm.mappers.ArtistSpotifyMapper
 import com.apm.apm.mappers.ArtistTicketMasterMapper
 import com.apm.apm.objects.Artist
+import com.apm.apm.util.SpotifyUtil
 import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -48,7 +49,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
 
     private val artistService = ApiClient().getSpotifyData().create(APIService::class.java)
 
-    private val ricketMasterArtistService = Retrofit.Builder()
+    private val ticketMasterArtistService = Retrofit.Builder()
         .baseUrl("https://app.ticketmaster.com/discovery/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -67,7 +68,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         val query = intent.getStringExtra("query")
         if (query != null) {
             lifecycleScope.launch {
-                val token = authorizeSpotify()
+                val token = SpotifyUtil().authorizeSpotify()
 
                 //Obtenemos 5 artistas de spotify
                 val call = artistService.getSpotifyArtistByName("search?q=$query&type=artist&limit=5", "Bearer "+token)
@@ -83,7 +84,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
 
                         val urlGetId = "attractions?apikey=$apikey&keyword=${artist.completeName}"
                         //Get artist id in TicketMaster
-                        val callGetId = ricketMasterArtistService.getArtistDetails(urlGetId)
+                        val callGetId = ticketMasterArtistService.getArtistDetails(urlGetId)
                         val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
                         if (callGetId.isSuccessful && responseGetId != null) {
                             if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
@@ -170,7 +171,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
         job = lifecycleScope.launch {
             val urlGetId = "attractions?apikey=$apikey&keyword=${artist.completeName}"
             //Get artist id in TicketMaster
-            val callGetId = ricketMasterArtistService.getArtistDetails(urlGetId)
+            val callGetId = ticketMasterArtistService.getArtistDetails(urlGetId)
             val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
             if (callGetId.isSuccessful && responseGetId != null) {
                 if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
@@ -270,7 +271,7 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             else {
                 //Authorize
                 lifecycleScope.launch {
-                    val token = authorizeSpotify()
+                    val token = SpotifyUtil().authorizeSpotify()
 
                     if (!token.isEmpty()) {
                         val apiService = ApiClient().getSpotifyData().create(APIService::class.java)
@@ -297,19 +298,4 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             }
         }
     }
-
-    private suspend fun authorizeSpotify(): String {
-        val apiService = ApiClient().getAuthorizeSpotifyAPI().create(APIService::class.java)
-
-        val call = apiService.authorizeSpotify("token","client_credentials",
-            "b9a35122785346ab8edb7fa0e41dfcb6", "d19a3035c853425c937a61d91bd2dde9")
-
-        val token: SpotifyTokenResponse? = call.body()
-
-        if (token != null) {
-            return token.token_value
-        }
-        return ""
-    }
-
 }
