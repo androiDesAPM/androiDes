@@ -58,18 +58,18 @@ class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshLis
             .commit()
 
         val searchEditText = findViewById<EditText>(R.id.searchEditText)
-//        searchEditText.requestFocus()
+        searchEditText.requestFocus()
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = searchEditText.text.toString()
-                var result: Boolean = false
+                var result = false
                 //Check if the artist exists
                 val artistService = ApiClient().getSpotifyData().create(APIService::class.java)
 
                 lifecycleScope.launch {
                     val token = SpotifyUtil().authorizeSpotify()
 
-                    //Obtenemos el artista de spotify
+                    //Comprobamos si el artista existe
                     val call = artistService.getSpotifyArtistByName("search?q=$query&type=artist&limit=1", "Bearer "+token)
                     val response: ArtistSpotifyResponse? = call.body()
 
@@ -108,5 +108,9 @@ class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshLis
         favGenresConcertsFragment.refreshData()
         nearConcertsFragment.refreshData()
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 }
