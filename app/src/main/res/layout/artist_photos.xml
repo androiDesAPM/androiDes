@@ -2,61 +2,65 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/uploadPhotoButton"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/photosTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="336dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
-
-    <TextView
-        android:id="@+id/artistPhotosTitle"
-        android:layout_width="205dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="103dp"
-        android:layout_marginBottom="599dp"
-        android:text="Fotos del artista"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="288dp"
-        android:layout_height="338dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/artistPhotosTitle"
-        app:srcCompat="@mipmap/ic_launcher" />
+        <TextView
+            android:id="@+id/artistPhotosTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Fotos del artista"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/uploadPhotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="336dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_upload" />
+
+        <View
+            android:id="@+id/barra"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintTop_toBottomOf="@+id/artistPhotosTitle"
-        android:layout_marginTop="60dp"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/photosTitle">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/artist_photos_row"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp" />
+            android:layout_marginTop="10dp" />
 
     </androidx.core.widget.NestedScrollView>
 
