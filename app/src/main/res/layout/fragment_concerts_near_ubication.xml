@@ -25,11 +25,11 @@
 
     <TextView
         android:id="@+id/textViewCercaDeTi"
-        android:layout_width="160dp"
-        android:layout_height="25dp"
+        android:layout_width="300dp"
+        android:layout_height="26dp"
         android:layout_marginTop="7dp"
         android:gravity="center"
-        android:text="Conciertos Cerca de ti"
+        android:text="Conciertos cerca de tu ciudad"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

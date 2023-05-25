@@ -41,6 +41,7 @@ class RegisterPreferencesActivity : AppCompatActivity() {
         val genresList = arrayListOf<String>()
 
         val finishSetup = findViewById<Button>(R.id.finishSetup)
+        finishSetup.isEnabled = false
         val dropDown = findViewById<Spinner>(R.id.genresDropDown)
 
         val email = intent.getStringExtra("email")
@@ -76,6 +77,8 @@ class RegisterPreferencesActivity : AppCompatActivity() {
 
                         val value = genres[genre]
                         uploadDB(genre, value ?: "")
+
+                        finishSetup.isEnabled = true
 
                     }
                 }
