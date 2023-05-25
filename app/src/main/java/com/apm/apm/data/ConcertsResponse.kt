@@ -53,13 +53,26 @@ data class Venue(
     @SerializedName("name")
     val venues: String,
     @SerializedName("city")
-    val city: String,
+    val city: City,
     @SerializedName("state")
-    val state: String,
+    val state: State,
     @SerializedName("address")
-    val address: String,
+    val address: Address,
     @SerializedName("location")
     val location: Location
+)
+
+data class City(
+    @SerializedName("name")
+    val cityName: String,
+)
+data class Address(
+    @SerializedName("line1")
+    val addressName: String,
+)
+data class State(
+    @SerializedName("name")
+    val stateName: String,
 )
 
 data class Location(

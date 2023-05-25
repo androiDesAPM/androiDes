@@ -26,7 +26,6 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
             concert?.let { showConcertDetails(it) }
         }
 
-
         val mapButton = findViewById<Button>(R.id.concertMapButton)
         mapButton.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
