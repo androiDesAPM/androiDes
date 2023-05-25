@@ -71,12 +71,14 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
 //                        val downloadUrl = item.downloadUrl.toString()
                         val artistImageView = findViewById<ImageView>(R.id.imageView)
                         var download1 = item.downloadUrl.addOnSuccessListener{
-                            Glide.with(this@ArtistPhotosActivity)
-                                .load(it)
-                                .into(artistImageView)
-
+//                            Glide.with(this@ArtistPhotosActivity)
+//                                .load(it)
+//                                .into(artistImageView)
+                            stringList.add(it.toString())
+                            adapter.updateData(stringList)
                             Log.e("Firebase", "download passed")
                         }
+
                         /**************************************Con este cacho funciona********************************************/
 //                        val artistImageView = findViewById<ImageView>(R.id.imageView)
 //                        var download1 = storage.reference.child("artists/123/a-brain-riding-a-rocketship.jpg").downloadUrl.addOnSuccessListener{
@@ -103,6 +105,7 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
 //                        val imageRef = storageRef1.child(item.name)
 //                        imageRef.getBytes(ONE_MEGABYTE.toLong()).asDeferred()
                     }
+
 //                    CoroutineScope(Dispatchers.IO).launch {
 ////                        val bitmaps = imagePromises.awaitAll().mapNotNull { bytes ->
 ////                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)

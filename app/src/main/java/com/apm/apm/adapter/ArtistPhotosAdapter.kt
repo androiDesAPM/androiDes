@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.R
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 
 class ArtistPhotosAdapter(private val context: Context, private var photoList: List<String>) : RecyclerView.Adapter<ArtistPhotosAdapter.ViewHolder>() {
 
@@ -18,10 +18,13 @@ class ArtistPhotosAdapter(private val context: Context, private var photoList: L
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val photoUrl = photoList[position]
-        Picasso.get()
+//        Picasso.get()
+//            .load(photoUrl)
+//            .fit()
+//            .centerCrop()
+//            .into(holder.photoImageView)
+        Glide.with(holder.itemView)
             .load(photoUrl)
-            .fit()
-            .centerCrop()
             .into(holder.photoImageView)
     }
 
