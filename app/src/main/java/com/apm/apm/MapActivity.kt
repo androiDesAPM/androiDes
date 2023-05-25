@@ -33,6 +33,10 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 
     private lateinit var job: Job
     private lateinit var map: GoogleMap
+    private var mapState: Bundle? = null
+    private lateinit var mapFragment: SupportMapFragment
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +59,50 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             }
         })
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.fragmentMap) as SupportMapFragment
+        mapFragment = supportFragmentManager.findFragmentById(R.id.fragmentMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
         MapsInitializer.initialize(applicationContext)
+
+        if (savedInstanceState != null) {
+            mapState = savedInstanceState.getBundle("MapViewBundleKey")
+        }
+        mapFragment.onCreate(savedInstanceState)
 
         //Creamos la barra inferior
         this.getNavigationView()
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        mapFragment.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapFragment.onResume()
+    }
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        mapFragment.onSaveInstanceState(outState)
+//    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        var mapViewBundle: Bundle? = outState?.getBundle(MAPVIEW_BUNDLE_KEY)
+        if (mapViewBundle == null) {
+            mapViewBundle = Bundle()
+            outState?.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle)
+        }
+
+        mapFragment.onSaveInstanceState(mapViewBundle)
+    }
+    companion object {
+        private const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
+    }
+
 
     override fun onMapReady(map: GoogleMap) {
         this.map=map
@@ -176,15 +216,4 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             Toast.makeText(this@MapActivity, "Error al buscar la ciudad", Toast.LENGTH_LONG).show()
         }
     }
-
-//    override fun onGeocode(addresses: MutableList<Address>) {
-//        if (addresses != null && addresses.isNotEmpty()) {
-//            val address = addresses[0]
-//            val latLng = LatLng(address.latitude, address.longitude)
-//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
-//        } else {
-//            Toast.makeText(this@MapActivity, "No se encontró la ciudad especificada", Toast.LENGTH_LONG).show()
-//        }
-//    }
-
 }
