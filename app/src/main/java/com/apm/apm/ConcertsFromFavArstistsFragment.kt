@@ -17,6 +17,7 @@ import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
+import com.apm.apm.objects.ConcertList
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -75,9 +76,13 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
             val stringBuilder = StringBuilder()
             bufferedReader.forEachLine { stringBuilder.append(it) }
             // Convertir el contenido en un objeto ConcertsResponse
+//            val cachedResponse =
+//                Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
+//            val concertsResponseToConcerts =
+//                ConcertMapper().ConcertsResponseToConcerts(cachedResponse)
             val cachedResponse =
-                Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
-            concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
+                Gson().fromJson(stringBuilder.toString(), ConcertList::class.java)
+            concerts.addAll(cachedResponse.concertList)
             adapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
         } else {
@@ -108,6 +113,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                 ).show()
             } else {
                 //Petición a la API
+                val listaConciertos: ArrayList<Concert> = ArrayList()
                 for (artist in favArtists) {
                     println(artist)
                     val url =
@@ -116,12 +122,18 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                     val response: ConcertsResponse? = call.body()
                     println(response)
                     if (call.isSuccessful && response != null) {
-                        concerts.addAll(ConcertMapper().ConcertsResponseToConcerts(response))
+                        val concertsResponseToConcerts =
+                            ConcertMapper().ConcertsResponseToConcerts(response)
+                        concertsResponseToConcerts.forEach { concert ->
+                            listaConciertos.add(concert)
+                        }
+                        concerts.addAll(concertsResponseToConcerts)
                         // se guarda la respuesta en cache
                         //TODO BUG CACHE
-                        cacheFile.appendText(Gson().toJson(response))
                     }
                 }
+                val listaConciertosObj = ConcertList(listaConciertos)
+                cacheFile.appendText(Gson().toJson(listaConciertosObj))
 
                 adapter.notifyDataSetChanged()
                 progressBar.visibility = View.INVISIBLE
