@@ -29,10 +29,10 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="115dp"
-                    android:layout_height="107dp"
+                    android:layout_width="124dp"
+                    android:layout_height="111dp"
                     android:layout_marginStart="25dp"
-                    android:background="@drawable/usericon"
+                    android:background="@drawable/instrumentos"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
