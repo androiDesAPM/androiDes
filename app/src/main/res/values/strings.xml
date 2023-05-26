@@ -21,4 +21,7 @@
     <string name="precio">Precio</string>
     <string name="ciudad">Ciudad</string>
     <string name="fecha_del_concierto">Fecha del concierto</string>
+    <string name="ver_en_el_mapa">Ver en el mapa</string>
+    <string name="comprar_entradas">Comprar entradas</string>
+    <string name="precio_de_las_entradas">Precio de las entradas:</string>
 </resources>
