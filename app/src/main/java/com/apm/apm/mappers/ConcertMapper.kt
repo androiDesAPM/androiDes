@@ -23,11 +23,11 @@ class ConcertMapper {
         val concerts = mutableListOf<Concert>()
         for (event in events) {
             val idEvent = event.id
-            val venueName = event.embeddedEvent.venue.firstOrNull()?.venues ?: "Unknown Venue"
+            val venueName = event.embeddedEvent.venue?.firstOrNull()?.venues ?: "Unknown Venue"
             val date = LocalDate.parse(event.dates.start.localDate)
             val artistName = event.name
             val imageUrl = event.images[0].url
-            val venue = event.embeddedEvent.venue.firstOrNull()
+            val venue = event.embeddedEvent.venue?.firstOrNull()
             val city = venue?.city?.cityName ?: "Unknown City"
             val state = venue?.state?.stateName ?: "Unknown State"
             val address = venue?.address?.addressName ?: "Unknown Address"
