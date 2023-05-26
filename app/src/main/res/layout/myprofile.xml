@@ -27,57 +27,49 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="6dp">
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="124dp"
-                    android:layout_height="111dp"
-                    android:layout_marginStart="25dp"
-                    android:background="@drawable/instrumentos"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <TextView
+                    android:id="@+id/profileFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:text="Nombre Apellido"
+                    android:textColor="#070707"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/usernameProfile"
-                    android:layout_width="196dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Nombre de usuario"
-                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="-5dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/nombre_de_usuario"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:background="@null"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/emailProfile"
-                    android:layout_width="177dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@null"
-                    android:text="email@example.com"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/usernameProfile"
-                    app:layout_constraintTop_toBottomOf="@+id/usernameProfile" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
 
                 <View
                     android:id="@+id/divider"
                     android:layout_width="match_parent"
-                    android:layout_height="4dp"
+                    android:layout_height="2dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="1dp"
-                    android:background="?android:attr/listDivider"
-                    android:backgroundTint="#252222"
+                    android:background="#2D8E47"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,52 +81,98 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="6dp">
 
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView19"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="25dp"-->
+                <!--                    android:layout_marginTop="16dp"-->
+                <!--                    android:text="@string/nombre_y_apellidos"-->
+                <!--                    android:fontFamily="sans-serif-thin"-->
+                <!--                    android:textColor="#070707"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/profileFullName"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="35dp"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:background="#B7E6B9"-->
+                <!--                    android:inputType="textPersonName"-->
+                <!--                    android:fontFamily="sans-serif-thin"-->
+                <!--                    android:textColor="#070707"-->
+                <!--                    android:paddingEnd="15dp"-->
+                <!--                    android:paddingStart="15dp"-->
+                <!--                    android:padding="5dp"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/textView19" />-->
+
+                <!--                -->
+
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/emailLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="16dp"
-                    android:text="Nombre y apellidos"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="Correo electrónico"
+                    android:textColor="#070707"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/profileFullName"
+                    android:id="@+id/emailProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="10dp"
-                    android:background="#E1E4E6"
-                    android:inputType="textPersonName"
+                    android:text="@string/email_example_com"
                     android:padding="5dp"
-                    android:textSize="20sp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:background="#B7E6B9"
+                    android:textAlignment="textStart"
+                    android:textColor="#070707"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                    app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
 
                 <TextView
                     android:id="@+id/direccionPredeterminadaLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
-                    android:text="Ciudad predeterminada"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/ciudad_predeterminada"
+                    android:textColor="#070707"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView19"
-                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
+                    app:layout_constraintStart_toStartOf="@+id/emailLabel"
+                    app:layout_constraintTop_toBottomOf="@+id/emailProfile" />
 
                 <TextView
                     android:id="@+id/city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="#E1E4E6"
+                    android:background="#B7E6B9"
+                    android:fontFamily="sans-serif-thin"
                     android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:text="A Coruña"
+                    android:textColor="#070707"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/emailProfile"
                     app:layout_constraintTop_toBottomOf="@+id/direccionPredeterminadaLabel" />
 
                 <TextView
@@ -142,10 +180,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Tus géneros favoritos"
+                    android:textColor="#070707"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView19"
+                    app:layout_constraintStart_toStartOf="@+id/direccionPredeterminadaLabel"
                     app:layout_constraintTop_toBottomOf="@+id/city" />
 
                 <LinearLayout
@@ -165,7 +205,7 @@
 
                     <ListView
                         android:id="@+id/myProfileFavGenresListView"
-                        android:layout_width="319dp"
+                        android:layout_width="310dp"
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
@@ -174,10 +214,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Tus artistas favoritos"
+                    android:textColor="#070707"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView19"
+                    app:layout_constraintStart_toStartOf="@+id/textView23"
                     app:layout_constraintTop_toBottomOf="@+id/favGenresLayout" />
 
                 <androidx.fragment.app.FragmentContainerView
@@ -213,21 +255,17 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="18dp"
             android:layout_marginStart="24dp"
-            android:backgroundTint="#4DDAEC"
-            android:text="Mis entradas"
+            android:text="@string/misentradas"
             android:textAllCaps="false"
-            android:textColor="#0E0D0D"
             android:textSize="18sp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded"
             app:icon="@drawable/tickets"
             app:iconGravity="start"
             app:iconPadding="0dp"
             app:iconSize="25dp"
-            app:iconTint="#090909"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <Button
             android:id="@+id/walletButton"
@@ -237,18 +275,14 @@
             android:layout_marginEnd="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="18dp"
-            android:backgroundTint="#4DDAEC"
-            android:text="Mis monedas"
-            android:textAllCaps="false"
-            android:textColor="#0E0D0D"
+            android:text="@string/mis_monedas"
             android:textSize="18sp"
+            android:textAllCaps="false"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded"
-
             app:icon="@drawable/coins"
             app:iconGravity="start"
             app:iconPadding="0dp"
             app:iconSize="28dp"
-            app:iconTint="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.722"

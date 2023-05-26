@@ -24,4 +24,10 @@
     <string name="ver_en_el_mapa">Ver en el mapa</string>
     <string name="comprar_entradas">Comprar entradas</string>
     <string name="precio_de_las_entradas">Precio de las entradas:</string>
+    <string name="misentradas">Mis entradas</string>
+    <string name="mis_monedas">Mis monedas</string>
+    <string name="nombre_y_apellidos">Nombre y apellidos</string>
+    <string name="ciudad_predeterminada">Ciudad predeterminada</string>
+    <string name="email_example_com">email@example.com</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
 </resources>
