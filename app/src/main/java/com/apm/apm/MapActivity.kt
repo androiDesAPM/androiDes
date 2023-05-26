@@ -39,6 +39,8 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
     private var mapState: Bundle? = null
     private lateinit var mapFragment: SupportMapFragment
     val db = Firebase.firestore
+    private var latitudeDefecto = 0.0
+    private var longitudeDefecto = 0.0
 
 
 
@@ -84,6 +86,9 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
+        val(latitude, longitude)= getUbicacionPorDefecto()
+//        latitudeDefecto = latitude
+//        longitudeDefecto = longitude
         mapFragment.onResume()
     }
 
@@ -129,23 +134,22 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
                 if(latitude==0.0 || longitude==0.0){
                     Toast.makeText(this@MapActivity, "El concierto no contiene una ubicación válida", Toast.LENGTH_LONG).show()
                     //llama a obtener ubicación por defecto
-                    val ubicacionLatitudeLongitude= getUbicacionPorDefecto()
-                    latitude = ubicacionLatitudeLongitude.first
-                    longitude= ubicacionLatitudeLongitude.second
+//                val ubicacionLatitudeLongitude= getUbicacionPorDefecto()
+//                latitude = ubicacionLatitudeLongitude.first
+//                longitude= ubicacionLatitudeLongitude.second
+                    latitude = latitudeDefecto
+                    longitude= longitudeDefecto
                 }
             }else if (location != null) {
-                //TODO DEJAR ESTO
-//                latitude = location.latitude
-//                longitude = location.longitude
-                //TODO PRUEBA
-                val ubicacionLatitudeLongitude= getUbicacionPorDefecto()
-                latitude = ubicacionLatitudeLongitude.first
-                longitude= ubicacionLatitudeLongitude.second
+                latitude = location.latitude
+                longitude = location.longitude
             } else {
                 //llama a obtener ubicación por defecto
-                val ubicacionLatitudeLongitude= getUbicacionPorDefecto()
-                latitude = ubicacionLatitudeLongitude.first
-                longitude= ubicacionLatitudeLongitude.second
+//                val ubicacionLatitudeLongitude= getUbicacionPorDefecto()
+//                latitude = ubicacionLatitudeLongitude.first
+//                longitude= ubicacionLatitudeLongitude.second
+                latitude = latitudeDefecto
+                longitude= longitudeDefecto
             }
             val latLng = LatLng(latitude, longitude)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
@@ -261,24 +265,30 @@ class MapActivity : GetNavigationBarActivity(), OnMapReadyCallback {
             val locationFirebase = result?.data?.get("location") as HashMap<String, String>
             val city = locationFirebase["city"].toString()
             location = city
+
+            val geocoder = Geocoder(this@MapActivity)
+            try {
+                val addressList = geocoder.getFromLocationName(location, 1)
+                if (addressList != null) {
+                    if (addressList.isNotEmpty()) {
+                        val address = addressList[0]
+                        latitude = address.latitude
+                        longitude = address.longitude
+                        latitudeDefecto = address.latitude
+                        longitudeDefecto = address.longitude
+                    } else {
+                        Toast.makeText(this@MapActivity, "No se encontró la ciudad por defecto", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this@MapActivity, "Error al buscar la ciudad por defecto", Toast.LENGTH_LONG).show()
+            }
+
+//            val latLng = LatLng(latitude, longitude)
+//            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
         }
 
-        val geocoder = Geocoder(this@MapActivity)
-        try {
-            val addressList = geocoder.getFromLocationName(location, 1)
-            if (addressList != null) {
-                if (addressList.isNotEmpty()) {
-                    val address = addressList[0]
-                    latitude = address.latitude
-                    longitude = address.longitude
-                } else {
-                    Toast.makeText(this@MapActivity, "No se encontró la ciudad por defecto", Toast.LENGTH_LONG).show()
-                }
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.makeText(this@MapActivity, "Error al buscar la ciudad por defecto", Toast.LENGTH_LONG).show()
-        }
         return Pair(latitude,longitude)
     }
 
