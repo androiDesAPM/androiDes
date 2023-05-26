@@ -79,7 +79,6 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
         val artistNameTextView = findViewById<TextView>(R.id.textView10)
         val concertLocation = findViewById<TextView>(R.id.textView15)
         val concertDate = findViewById<TextView>(R.id.textView12)
-        val concertState = findViewById<TextView>(R.id.textView11)
         val concertCity = findViewById<TextView>(R.id.textView13)
         val concertAddress = findViewById<TextView>(R.id.textView14)
         val concertPrice = findViewById<TextView>(R.id.textView16)
@@ -89,8 +88,7 @@ class ConcertDetailsActivity : GetNavigationBarActivity() {
         artistNameTextView.text = concert.concertArtistName
         concertLocation.text = concert.concertLocationName
         concertDate.text = concert.concertDate.toString()
-        concertState.text = concert.concertState.toString()
-        concertCity.text = concert.concertCity.toString()
+        concertCity.text = concert.concertCity.toString() + ", " + concert.concertState.toString()
         concertAddress.text = concert.concertAddress.toString()
         concertPrice.text = price.plus(currency)
 
