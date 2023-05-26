@@ -28,9 +28,9 @@ class MyCoinsActivity : AppCompatActivity() {
             val profileFullName = findViewById<TextView>(R.id.usernameProfile)
             profileFullName.setText(name)
 
-            val email = result?.data?.get("email").toString()
-            val emailProfile = findViewById<TextView>(R.id.emailProfile)
-            emailProfile.text = email
+//            val email = result?.data?.get("email").toString()
+//            val emailProfile = findViewById<TextView>(R.id.emailProfile)
+//            emailProfile.text = email
 
             val coins = result?.data?.get("coins").toString()
             val actualCoins = findViewById<TextView>(R.id.actualCoins)
