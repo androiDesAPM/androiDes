@@ -108,6 +108,9 @@ class MainActivity : GetNavigationBarActivity(), SwipeRefreshLayout.OnRefreshLis
         favGenresConcertsFragment.refreshData()
         nearConcertsFragment.refreshData()
         swipeRefreshLayout.isRefreshing = false
+
+        // Recargar la página de inicio
+        recreate()
     }
 
     override fun onBackPressed() {
