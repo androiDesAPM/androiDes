@@ -76,6 +76,13 @@ class RegisterActivity : AppCompatActivity() {
                 if (password.text.toString() == passwordRep.text.toString()){
                     registerUser(email.text.toString(), password.text.toString(), fullName.text.toString())
                 }
+                else{
+                    Toast.makeText(
+                        this,
+                        "Passwords do not match",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 Toast.makeText(
                     this,
