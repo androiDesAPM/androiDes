@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.apm.adapter.ArtistPhotosAdapter
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -24,15 +23,17 @@ import com.google.firebase.storage.ktx.storage
 class ArtistPhotosActivity: GetNavigationBarActivity() {
     private lateinit var adapter: ArtistPhotosAdapter
     private val storage = Firebase.storage
-    private var artistId = 0
+    private var artistId = "0"
     val imagesList: MutableList<Bitmap> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.artist_photos)
-        //val artistId = intent.getStringExtra("artistId")
-        this.artistId = 123
+        val artistId = intent.getStringExtra("artistId")
+        if (artistId != null) {
+            this.artistId = artistId
+        }
         val db = Firebase.firestore
         val recyclerView = findViewById<RecyclerView>(R.id.artist_photos_row)
         val layoutManager = LinearLayoutManager(this)
@@ -50,17 +51,17 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
                 imagePickerActivityResult.launch(galleryIntent)
             }
         })
-        val artistsRef2 = artistId?.let { storage.reference.child("artists/$artistId")}
-        if (artistsRef2 != null) {
-            val listAll = artistsRef2.listAll()
-
-        }
+//        val artistsRef2 = artistId?.let { storage.reference.child("artists/$artistId")}
+//        if (artistsRef2 != null) {
+//            val listAll = artistsRef2.listAll()
+//
+//        }
 
 
         /****************************La edición buena*************************************/
 
         val storageRef1 = storage.reference
-        val artistsRef1 = storageRef1.child("artists/123")
+        val artistsRef1 = storageRef1.child("artists/$artistId")
 
         artistsRef1.list(12 * 1)
             .addOnSuccessListener { listResult ->
@@ -81,7 +82,7 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
 
                         /**************************************Con este cacho funciona********************************************/
 //                        val artistImageView = findViewById<ImageView>(R.id.imageView)
-//                        var download1 = storage.reference.child("artists/123/a-brain-riding-a-rocketship.jpg").downloadUrl.addOnSuccessListener{
+//                        var download1 = storage.reference.child("artists/$artistId/a-brain-riding-a-rocketship.jpg").downloadUrl.addOnSuccessListener{
 //                            Glide.with(this@ArtistPhotosActivity)
 //                                .load(it)
 //                                .into(artistImageView)
@@ -121,7 +122,7 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
         /****************************La manera que parece que funciona*************************************/
 
 //        val storageRef = storage.reference
-//        val artistsRef = storageRef.child("artists/123")
+//        val artistsRef = storageRef.child("artists/$artistId")
 //
 //        artistsRef.list(12 * 1)
 //            .addOnSuccessListener { listResult ->
@@ -230,10 +231,12 @@ class ArtistPhotosActivity: GetNavigationBarActivity() {
                 uploadTask.addOnSuccessListener {
                     // using glide library to display the image
                     storage.reference.child("artists/$artistId/$sd").downloadUrl.addOnSuccessListener {
-                        Glide.with(this@ArtistPhotosActivity)
-                            .load(it)
-                            .into(artistImageView)
-
+//                        Glide.with(this@ArtistPhotosActivity)
+//                            .load(it)
+//                            .into(artistImageView)
+                        var stringList: ArrayList<String> = ArrayList()
+                        stringList.add(it.toString())
+                        adapter.addData(stringList)
                         Log.e("Firebase", "download passed")
                     }.addOnFailureListener {
                         Log.e("Firebase", "Failed in downloading")

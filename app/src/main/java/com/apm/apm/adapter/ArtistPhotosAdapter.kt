@@ -18,11 +18,6 @@ class ArtistPhotosAdapter(private val context: Context, private var photoList: L
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val photoUrl = photoList[position]
-//        Picasso.get()
-//            .load(photoUrl)
-//            .fit()
-//            .centerCrop()
-//            .into(holder.photoImageView)
         Glide.with(holder.itemView)
             .load(photoUrl)
             .into(holder.photoImageView)
@@ -38,6 +33,14 @@ class ArtistPhotosAdapter(private val context: Context, private var photoList: L
     fun updateData(newImageUrls: List<String>) {
         photoList = newImageUrls
         notifyDataSetChanged()
+    }
+
+    fun addData(newImageUrls: List<String>) {
+        val currentSize = photoList.size
+        photoList = photoList.toMutableList().apply {
+            addAll(newImageUrls)
+        }
+        notifyItemRangeInserted(currentSize, newImageUrls.size)
     }
 
 }
