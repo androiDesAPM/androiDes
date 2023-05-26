@@ -10,13 +10,14 @@ import java.time.format.DateTimeFormatter
 class ConcertMapper {
 
     fun ConcertsResponseToConcerts(concertsResponse: ConcertsResponse): List<Concert> {
-        val events = concertsResponse.embedded.events
 
         // Verificar si la lista de eventos está vacía
-        if (events.isNullOrEmpty()) {
+        if (concertsResponse.embedded == null || concertsResponse.embedded.events.isNullOrEmpty()) {
             // Si está vacía, devolver una lista vacía
             return emptyList()
         }
+
+        val events = concertsResponse.embedded.events
 
         // Si hay eventos, mapearlos a objetos de tipo Concert
         val concerts = mutableListOf<Concert>()

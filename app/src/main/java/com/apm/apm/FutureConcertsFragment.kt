@@ -15,16 +15,13 @@ import com.apm.apm.adapter.FutureConcertsAdapter
 import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.api.ArtistService
-import com.apm.apm.data.ArtistTicketMasterResponse
 import com.apm.apm.data.ConcertsResponse
-import com.apm.apm.mappers.ArtistTicketMasterMapper
 import com.apm.apm.mappers.ConcertMapper
 import com.apm.apm.objects.Concert
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -34,14 +31,6 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
     private lateinit var adapter: FutureConcertsAdapter
     private lateinit var job: Job
     private val concerts = mutableListOf<Concert>()
-
-    private val ricketMasterArtistService = Retrofit.Builder()
-        .baseUrl("https://app.ticketmaster.com/discovery/v2/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(ArtistService::class.java)
-
-    val apikey = "Uq1UGcBMZRAzE7ydjGBoAfhk8oSMX6lT"
 
     companion object {
         fun newInstance(ticketMasterId: String): FutureConcertsFragment {
@@ -101,8 +90,7 @@ class FutureConcertsFragment : Fragment(), LifecycleOwner {
                 val baseUrl = "events"
                 val apiService = ApiClient().getRetrofit().create(APIService::class.java)
                 //Petición a la API
-                val url =
-                    "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$ticketMasterId"
+                val url = "$baseUrl?apikey=$apikey&startDateTime=$formattedDateTime&attractionId=$ticketMasterId"
                 val call = apiService.getFavArtistsConcerts(url)
                 val response: ConcertsResponse? = call.body()
                 //comprobar si devuelve lista vacia

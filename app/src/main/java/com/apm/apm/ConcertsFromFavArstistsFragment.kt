@@ -79,6 +79,7 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                 Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
             concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
             adapter.notifyDataSetChanged()
+            progressBar.visibility = View.INVISIBLE
         } else {
             progressBar.visibility = View.VISIBLE
             lifecycleScope.launch {

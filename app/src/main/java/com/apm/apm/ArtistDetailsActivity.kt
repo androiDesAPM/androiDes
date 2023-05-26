@@ -77,18 +77,18 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
                 if (call.isSuccessful && response != null) {
                     if ((response.artists.items).isNotEmpty()) {
                         artist = ArtistSpotifyMapper().artistResponseToArtist(response)
-//                        artistTicketMasterId = getArtistsTicketMasterId()
+
                         showArtistDetails(artist)
                         val tabLayout = findViewById<TabLayout>(R.id.tabs)
                         val viewPager = findViewById<ViewPager>(R.id.viewPager)
 
-                        val urlGetId = "attractions?apikey=$apikey&keyword=${artist.completeName}"
                         //Get artist id in TicketMaster
+                        val urlGetId = "attractions?apikey=$apikey&keyword=${artist.completeName}"
                         val callGetId = ticketMasterArtistService.getArtistDetails(urlGetId)
                         val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
                         if (callGetId.isSuccessful && responseGetId != null) {
                             if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
-                                artistTicketMasterId = ArtistTicketMasterMapper().artistResponseToArtist(responseGetId)
+                                artistTicketMasterId = ArtistTicketMasterMapper().artistResponseToArtistOptimized(responseGetId, artist.completeName)
                             } else {
                                 Toast.makeText(
                                     applicationContext,
@@ -163,29 +163,6 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
             .fit()
             .centerCrop()
             .into(artistImageView)
-    }
-
-    private fun getArtistsTicketMasterId(): String {
-        var artistId = ""
-
-        job = lifecycleScope.launch {
-            val urlGetId = "attractions?apikey=$apikey&keyword=${artist.completeName}"
-            //Get artist id in TicketMaster
-            val callGetId = ticketMasterArtistService.getArtistDetails(urlGetId)
-            val responseGetId: ArtistTicketMasterResponse? = callGetId.body()
-            if (callGetId.isSuccessful && responseGetId != null) {
-                if (!responseGetId.embeddedArtists?.attractions.isNullOrEmpty()) {
-                    artistId = ArtistTicketMasterMapper().artistResponseToArtist(responseGetId)
-                } else {
-                    Toast.makeText(
-                        applicationContext,
-                        "No se ha encontrado el artista en TicketMaster",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-        return artistId
     }
 
     private fun uploadDB(ticketMasterId: String, artistName: String) {
