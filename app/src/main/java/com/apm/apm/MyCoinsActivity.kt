@@ -24,9 +24,13 @@ class MyCoinsActivity : AppCompatActivity() {
         val uid = user?.uid
 
         db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
-            val name = result?.data?.get("username").toString()
-            val profileFullName = findViewById<TextView>(R.id.usernameProfile)
-            profileFullName.setText(name)
+            val username = result?.data?.get("username").toString()
+            val usernameProfile = findViewById<TextView>(R.id.usernameProfile)
+            usernameProfile.setText(username)
+
+            val fullName = result?.data?.get("fullName").toString()
+            val fullNameProfile = findViewById<TextView>(R.id.profileFullName)
+            fullNameProfile.setText(fullName)
 
 //            val email = result?.data?.get("email").toString()
 //            val emailProfile = findViewById<TextView>(R.id.emailProfile)

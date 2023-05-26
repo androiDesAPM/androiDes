@@ -3,6 +3,8 @@ package com.apm.apm.mappers
 import com.apm.apm.data.BandsInTownResponse
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.objects.Concert
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ConcertMapper {
 
@@ -42,7 +44,7 @@ class ConcertMapper {
 
     fun BandsInTownResponseToConcert(bandsInTownResponse: BandsInTownResponse): Concert {
         val concertLocationName = bandsInTownResponse.venue.name
-        val concertDate = "0001-01-01"
+        val concertDate = bandsInTownResponse.dateTime
         val concertArtistName = bandsInTownResponse.title ?: ""
         val imageUrl = bandsInTownResponse.artist?.imageUrl
         val eventId = "0"

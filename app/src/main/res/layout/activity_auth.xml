@@ -43,8 +43,8 @@
 
     <Button
         android:id="@+id/sign_in_button"
-        android:layout_width="166dp"
-        android:layout_height="38dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
         android:layout_gravity="start"
         android:enabled="true"
         android:text="@string/action_sign_in_short"
@@ -55,8 +55,8 @@
 
     <Button
         android:id="@+id/register"
-        android:layout_width="164dp"
-        android:layout_height="39dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
         android:enabled="true"
