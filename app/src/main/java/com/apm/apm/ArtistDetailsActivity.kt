@@ -156,7 +156,16 @@ internal class ArtistDetailsActivity : GetNavigationBarActivity() {
 
         artistNameTextView.text = artist.completeName
         //PONER TODOS
-        artistGenreTextView.text = artist.genres[0]
+
+        if (artist.genres.isEmpty()) {
+            artistGenreTextView.text = "Undefined"
+        } else {
+            var genres = ""
+            for (genre in artist.genres) {
+                genres += genre + ", "
+            }
+            artistGenreTextView.text = genres.substring(0, genres.length - 2)
+        }
 
         Picasso.get()
             .load(artist.imageUrl)

@@ -2,12 +2,11 @@ package com.apm.apm.objects
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.time.LocalDate
 
 class Concert(
     val ticketMasterEventId: String,
     val concertLocationName: String,
-    val concertDate: LocalDate,
+    val concertDate: String,
     val concertArtistName: String,
     val imageUrl: String? = null,
     val concertCity: String? = "Unknown",
@@ -23,7 +22,7 @@ class Concert(
     constructor(parcel: Parcel) : this(
         parcel.readString()?: "Unknown",
         parcel.readString() ?: "",
-        LocalDate.ofEpochDay(parcel.readLong()),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: null,
         parcel.readString() ?: "Unknown",
@@ -38,7 +37,7 @@ class Concert(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(ticketMasterEventId)
         parcel.writeString(concertLocationName)
-        parcel.writeLong(concertDate.toEpochDay())
+        parcel.writeString(concertDate)
         parcel.writeString(concertArtistName)
         parcel.writeString(imageUrl)
         parcel.writeString(concertCity)
