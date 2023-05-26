@@ -1,9 +1,6 @@
-//package com.apm.apm.objects
-//
-//import com.apm.apm.data.Event
-//
-//class ConcertList {
-//
-//    val events: List<Concert>
-//
-//}
+package com.apm.apm.objects
+
+class ConcertList(
+    val concertList: List<Concert>
+) {
+}
