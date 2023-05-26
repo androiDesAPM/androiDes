@@ -118,7 +118,8 @@ class ConcertsFromFavArstistsFragment : Fragment(), LifecycleOwner {
                     if (call.isSuccessful && response != null) {
                         concerts.addAll(ConcertMapper().ConcertsResponseToConcerts(response))
                         // se guarda la respuesta en cache
-                        cacheFile.writeText(Gson().toJson(response))
+                        //TODO BUG CACHE
+                        cacheFile.appendText(Gson().toJson(response))
                     }
                 }
 

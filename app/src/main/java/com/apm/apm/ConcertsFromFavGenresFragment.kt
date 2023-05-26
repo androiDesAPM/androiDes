@@ -1,11 +1,9 @@
 package com.apm.apm
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +14,6 @@ import com.apm.apm.api.APIService
 import com.apm.apm.api.ApiClient
 import com.apm.apm.data.ConcertsResponse
 import com.apm.apm.mappers.ConcertMapper
-import com.apm.apm.mappers.GenreMapper
 import com.apm.apm.objects.Concert
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -78,6 +75,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
                 Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
             concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
             adapter.notifyDataSetChanged()
+            progressBar.visibility = View.INVISIBLE
         } else {
             progressBar.visibility = View.VISIBLE
             lifecycleScope.launch {
@@ -127,6 +125,7 @@ class ConcertsFromFavGenresFragment : Fragment() {
                 val response = call.body()
                 if (call.isSuccessful && response != null) {
                     concerts.addAll(ConcertMapper().ConcertsResponseToConcerts(response))
+                    //TODO BUG CACHE
                     cacheFile.writeText(Gson().toJson(response))
                 }
             }

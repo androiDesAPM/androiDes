@@ -86,6 +86,7 @@ class ConcertsFromNearUbicationFragment : Fragment() {
                 Gson().fromJson(stringBuilder.toString(), ConcertsResponse::class.java)
             concerts.addAll((ConcertMapper().ConcertsResponseToConcerts(cachedResponse)))
             adapter.notifyDataSetChanged()
+            progressBar.visibility = View.INVISIBLE
             println("esta en cache")
         } else {
             progressBar.visibility = View.VISIBLE
@@ -129,7 +130,8 @@ class ConcertsFromNearUbicationFragment : Fragment() {
                 val concertsApi = ConcertMapper().ConcertsResponseToConcerts(response)
                 concerts.addAll(concertsApi)
                 // se guarda la respuesta en cache
-                cacheFile.writeText(Gson().toJson(response))
+                //TODO BUG CACHE
+                cacheFile.appendText(Gson().toJson(response))
             }
 
             adapter.notifyDataSetChanged()
