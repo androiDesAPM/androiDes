@@ -41,11 +41,6 @@ class MyCoinsActivity : AppCompatActivity() {
             actualCoins.text = coins
         }
 
-        val ticketBox1 = findViewById<Button>(R.id.donarButton)
-        ticketBox1.setOnClickListener {
-            Toast.makeText(this, "Donación realizada con éxito", Toast.LENGTH_LONG).show()
-        }
-
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -66,6 +61,7 @@ class MyCoinsActivity : AppCompatActivity() {
         }
 
         val donateButton = findViewById<Button>(R.id.donarButton)
+
         donateButton.setOnClickListener {
             donateCoins()
         }
@@ -77,25 +73,35 @@ class MyCoinsActivity : AppCompatActivity() {
         val uid = user?.uid
 
         val coinsToDonate = findViewById<EditText>(R.id.coinsToDonate)
-        val coinsToDonateValue = coinsToDonate.text.toString().toInt()
 
+        val coinsToDonateValue = coinsToDonate.text.toString().toIntOrNull()
+
+        if (coinsToDonateValue == null) {
+            Toast.makeText(this, "No puedes donar 0 monedas", Toast.LENGTH_LONG).show()
+            return
+        }else if (coinsToDonateValue <= 0) {
+            Toast.makeText(this, "No puedes donar 0 monedas", Toast.LENGTH_LONG).show()
+            return
+        }else {
 //        get actual coins and substract coins to donate. If actual coins results in negative show toast error
-        db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
-            val coins = result?.data?.get("coins").toString().toInt()
-            val actualCoins = coins - coinsToDonateValue
-            if (actualCoins < 0) {
-                Toast.makeText(this, "No tienes suficientes monedas", Toast.LENGTH_LONG).show()
-            } else {
-                db.collection("users").document(uid ?: "").update("coins", actualCoins)
-                val artistToDonate = findViewById<EditText>(R.id.artistToDonate)
-                val donation = hashMapOf(
-                    "artist" to artistToDonate.text.toString(),
-                    "donation" to coinsToDonateValue
-                )
-                db.collection("users").document(uid ?: "").update("donations", FieldValue.arrayUnion(donation))
-                Toast.makeText(this, "Donación realizada con éxito", Toast.LENGTH_LONG).show()
-                val actualCoinsTextView = findViewById<TextView>(R.id.actualCoins)
-                actualCoinsTextView.text = actualCoins.toString()
+            db.collection("users").document(uid ?: "").get().addOnSuccessListener { result ->
+                val coins = result?.data?.get("coins").toString().toInt()
+                val actualCoins = coins - coinsToDonateValue
+                if (actualCoins < 0) {
+                    Toast.makeText(this, "No tienes suficientes monedas", Toast.LENGTH_LONG).show()
+                } else {
+                    db.collection("users").document(uid ?: "").update("coins", actualCoins)
+                    val artistToDonate = findViewById<EditText>(R.id.artistToDonate)
+                    val donation = hashMapOf(
+                        "artist" to artistToDonate.text.toString(),
+                        "donation" to coinsToDonateValue
+                    )
+                    db.collection("users").document(uid ?: "")
+                        .update("donations", FieldValue.arrayUnion(donation))
+                    Toast.makeText(this, "Donación realizada con éxito", Toast.LENGTH_LONG).show()
+                    val actualCoinsTextView = findViewById<TextView>(R.id.actualCoins)
+                    actualCoinsTextView.text = actualCoins.toString()
+                }
             }
         }
     }
